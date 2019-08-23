@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		 <property name="dataSource" ref="dataSource" />
+	<!--	<property name="mapperLocations">
+			<list>
+				<value>classpath:part02_mybatis/memMapper.xml</value> 맵퍼등록하는곳
+				
+			</list>
+		</property> -->
+		
+		<property name="configLocation" value="classpath:part02_mybatis/configuration.xml"/>
+	</bean>
+
+	<!-- [3] SqlSessionTemplate 빈 선언 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- [4] MemDaoImp 빈 선언 -->
+	<bean id="dao" class="part02_mybatis.MemDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+	<!-- [5] Controller 빈 선언 -->
+	<bean class="part02_mybatis.MemController">
+		<property name="dao" ref="dao" />
+	</bean>
+
+	<!-- [6] view -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+</beans>

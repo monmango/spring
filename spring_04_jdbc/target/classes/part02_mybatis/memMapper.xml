@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mem">
+
+	<select id="all" resultType="part02_mybatis.MemDTO">
+		select * from mem order by num
+	</select>
+
+	<insert id="ins" parameterType="part02_mybatis.MemDTO">
+		insert into mem values(mem_num_seq.nextval, #{name, jdbcType=VARCHAR}, #{age}, #{loc, jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="one" parameterType="int" resultType="part02_mybatis.MemDTO">
+		select * from mem where num = #{num}
+	</select>
+	
+	<update id="upt" parameterType="part02_mybatis.MemDTO"> <!-- DTO일때는 변수값과 동일하게 Map일때는 키값과 동일하게 -->
+		update mem set name=#{name}, age=#{age}, loc=#{loc} where num=#{num}
+	</update>
+	
+	<delete id="del" parameterType="int">
+		delete from mem where num=#{num}
+	</delete>
+	
+</mapper>
+

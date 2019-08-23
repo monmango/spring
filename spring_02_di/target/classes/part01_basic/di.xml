@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 객체 클래스 선언부   -->
+	<!-- OracleImp svc = new OracleImp(); 인자값이 없는 생성자가 생성이된다.-->
+	<bean id="svc" class="part01_basic.OracleImp" />
+	<!--  bean 으로 사용한 클래스는 반드시 인터페이스를 상속 받아 사용한다. 컨테이너를 참조하는 빈은 인터페이스는 사용한다. --> 
+	<!-- <bean id="svc" class="part01_basic.MysqlImp"/> -->
+	
+</beans>
