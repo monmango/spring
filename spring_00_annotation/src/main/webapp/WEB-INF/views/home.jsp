@@ -22,7 +22,7 @@
 	$('#btn').on('click', function(){
 		$.ajax({
 			type:'POST',
-			dataType:'json',
+			/* dataType:'json', */
 			url:'dataJson',
 			data:{data1:$('#data1').val(), data2:$('#data2').val()},
 			success: function(result){
