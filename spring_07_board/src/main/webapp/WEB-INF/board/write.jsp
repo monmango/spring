@@ -41,7 +41,7 @@
 
 </head>
 <body>
-	<form name="frm" id="frm" method="post" enctype="multipart/form-data">
+	<form name="frm" id="frm" method="post" enctype="multipart/form-data"> <!-- enctype="multipart/form-data 첨부파일 관련 속성-->
 
 		<table>
 
@@ -68,7 +68,7 @@
 			</tr>
 
 			<tr>
-				<td width="20%" align="center">첨부파일</td>
+				<td width="20%" align="center">첨부파일</td>  <!-- 서블릿으로 보낸다. MultipartFile로 받는다.-->
 				<td><input type="file" name="filename" id="filepath"/>
 			</tr>
 		</table>

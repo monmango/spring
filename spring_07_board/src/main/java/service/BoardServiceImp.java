@@ -27,10 +27,10 @@ public class BoardServiceImp implements BoardService{
 	public List<BoardDTO> listProcess(PageDTO pv) {
 		return dao.list(pv);
 	}
-
+	/*제목글일때*/
 	@Override
 	public void insertProcess(BoardDTO dto) {
-		
+		dao.save(dto);
 	}
 
 	@Override
@@ -38,26 +38,33 @@ public class BoardServiceImp implements BoardService{
 		dao.readCount(num);
 		return dao.content(num);
 	}
-
+	/*답변글일때*/
 	@Override
 	public void reStepProcess(BoardDTO dto) {
-		
+		dao.reStepCount(dto);
+		dto.setRe_step(dto.getRe_step() + 1);
+		dto.setRe_level(dto.getRe_level() + 1);
+		dao.save(dto);
 	}
 
 	@Override
 	public BoardDTO updateSelectProcess(int num) {
-		return null;
+		return dao.updateNum(num);
 	}
 
 	@Override
-	public void updateProcess(BoardDTO dto, HttpServletRequest request) {
-		
+	public void updateProcess(BoardDTO dto) {
+		dao.update(dto);
 	}
 
 	@Override
-	public void deleteProcess(int num, HttpServletRequest request) {
-		
+	public void deleteProcess(int num) {
+		dao.delete(num);
 	}
 	
+	@Override
+	public String fileSelectprocess(int num) {
+		return dao.getFile(num);
+	}
 	
 }// end class

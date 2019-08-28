@@ -15,6 +15,9 @@ public interface BoardService {
 	public BoardDTO contentProcess(int num);
 	public void reStepProcess(BoardDTO dto);
 	public BoardDTO updateSelectProcess(int num);
-	public void updateProcess(BoardDTO dto, HttpServletRequest request);
-	public void deleteProcess(int num, HttpServletRequest request);
+	public void updateProcess(BoardDTO dto);
+	public void deleteProcess(int num);
+	
+	public String fileSelectprocess(int num);
+	
 }// end interface
