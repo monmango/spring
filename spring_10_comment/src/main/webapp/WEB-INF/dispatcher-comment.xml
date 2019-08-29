@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<mvc:annotation-driven></mvc:annotation-driven>  <!-- ArrayList를 json으로 바꿔줄때 하는 작업 -->
+
+	<!-- [1] DataSource 빈 선언 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin://@127.0.0.1:1521:xe" />
+		<property name="username" value="hr" />
+		<property name="password" value="a1234" />
+	</bean>
+
+	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:config/boardMapper.xml</value>
+				<value>classpath:config/replyMapper.xml</value>
+				<!-- 맵퍼등록하는곳 -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- [3] SqlSessionTemplate 빈 선언 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- Spring Jdbe나 Mybatis를 이용해서 DB연동을 처리하는 경우 DataSourceTransactionManager이 
+		트랜잭션 관리자로 사용된다. -->
+	<!-- [4] TransactionManager 빈 선언 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- [5]선언적 트랜잭션: <tx:advice>태그를 이용한 트랜젝션 처리 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*Process" rollback-for="java.lang.Exception" />
+			<!-- (*Process) Process로 끝나는 모든 메소드에 -->
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- [6] 트랜잭션으로 처리할 메소드에 transaction 설정 -->
+	<aop:config>
+		<aop:pointcut expression="execution(* service.BoardServiceImp.*Pocess(..))" id="aa" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="aa" />
+	</aop:config>
+
+	<!-- [7] DAO 빈 선언 -->
+	<bean id="dao" class="dao.BoardDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+	<!-- [8] Service 빈 선언 -->
+	<bean id="service" class="service.BoardServiceImp">
+		<property name="dao" ref="dao" />
+	</bean>
+
+	<bean id="path" class="java.lang.String">
+		<constructor-arg value="c:/temp/" />
+	</bean>
+
+	<!-- [9] Controller 빈 선언 -->
+	<bean class="controller.BoardController">
+		<property name="service" ref="service" />
+		<property name="path" ref="path" />
+	</bean>
+
+	<!-- 파일 업로드 시작 -->
+	<!-- 첨부 파일의 임시기억장치 경로 설정 -->
+	<!-- <bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource"> 
+		<constructor-arg value="c:/temp" /> 또는 <constructor-arg value="./src/main/webapp/files/" 
+		/> </bean> -->
+
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- <property name="uploadTempDir" ref="uploadDirResource" /> -->
+		<property name="maxUploadSize" value="1000000000" />
+	</bean>
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/WEB-INF/view/"/>
+      <property name="suffix" value=".jsp"/>
+   </bean>
+
+</beans>
