@@ -30,7 +30,21 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	
+	<!-- triggerServlet -->
+	<servlet>
+		<servlet-name>triggerServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/dispatcher-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>triggerServlet</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
 	
 	<!-- 사용 확장자 등록 -->
 	<servlet-mapping>

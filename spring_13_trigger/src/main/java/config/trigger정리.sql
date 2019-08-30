@@ -28,42 +28,42 @@ alter table EMP09
  drop constraint emp09_deptno_fk;
  
  
-[ íŠ¸ë¦¬ê±° ]
- ê°œë°œìžê°€ í˜¸ì¶œí•´ì„œ ì‚¬ìš©í•˜ëŠ” ê²ƒì´ ì•„ë‹ˆë¼, íŠ¹ì • ì´ë²¤íŠ¸ì™€ ì—°ë™í•´ì„œ ê·¸ ì´ë²¤íŠ¸, ì¡°ê±´ì´ ë°œìƒì‹œ
- ìžë™ì ìœ¼ë¡œ ìˆ˜í–‰í•˜ëŠ” ë™ìž‘ì„ ì˜ë¯¸í•œë‹¤.
-  (ë°ì´í„°ë² ì´ìŠ¤ê°€ ë¯¸ë¦¬ ì •í•´ ë†“ì€ ì¡°ê±´ë“¤ì„ ë§Œì¡±í•˜ê±°ë‚˜, íŠ¹ì • ì´ë²¤íŠ¸ê°€ ë°œìƒí•˜ë©´ ìžë™ì ìœ¼ë¡œ
-  ìˆ˜í–‰ë˜ëŠ” ë™ìž‘(PL/SQL ë¸”ëŸ­)ìœ¼ë¡œ ì˜¤ë¼í´ì—ì„œ ìžë™ì ìœ¼ë¡œ ì‹¤í–‰ë˜ëŠ” PL/SQL ë¸”ëŸ­ì„ ì˜ë¯¸)
+[ Æ®¸®°Å ]
+ °³¹ßÀÚ°¡ È£ÃâÇØ¼­ »ç¿ëÇÏ´Â °ÍÀÌ ¾Æ´Ï¶ó, Æ¯Á¤ ÀÌº¥Æ®¿Í ¿¬µ¿ÇØ¼­ ±× ÀÌº¥Æ®, Á¶°ÇÀÌ ¹ß»ý½Ã
+ ÀÚµ¿ÀûÀ¸·Î ¼öÇàÇÏ´Â µ¿ÀÛÀ» ÀÇ¹ÌÇÑ´Ù.
+  (µ¥ÀÌÅÍº£ÀÌ½º°¡ ¹Ì¸® Á¤ÇØ ³õÀº Á¶°ÇµéÀ» ¸¸Á·ÇÏ°Å³ª, Æ¯Á¤ ÀÌº¥Æ®°¡ ¹ß»ýÇÏ¸é ÀÚµ¿ÀûÀ¸·Î
+  ¼öÇàµÇ´Â µ¿ÀÛ(PL/SQL ºí·°)À¸·Î ¿À¶óÅ¬¿¡¼­ ÀÚµ¿ÀûÀ¸·Î ½ÇÇàµÇ´Â PL/SQL ºí·°À» ÀÇ¹Ì)
 
-[íŠ¸ë¦¬ê±° í˜•ì‹]
+[Æ®¸®°Å Çü½Ä]
 
-CREATE or REPLACE TRIGGER íŠ¸ë¦¬ê±°ì´ë¦„
+CREATE or REPLACE TRIGGER Æ®¸®°ÅÀÌ¸§
 BEFORE|AFTER 
-[INSERT,DELETE,UPDATE]ON í…Œì´ë¸”ì´ë¦„
-[Referencing OLD AS {ë³€ê²½ì „ ê°’ì„ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜ëª…} NEW AS {ë³€ê²½í›„ ê°’ì„ ì°¸ì¡°í•˜ëŠ” ë³€ìˆ˜ëª…}]
+[INSERT,DELETE,UPDATE]ON Å×ÀÌºíÀÌ¸§
+[Referencing OLD AS {º¯°æÀü °ªÀ» ÂüÁ¶ÇÏ´Â º¯¼ö¸í} NEW AS {º¯°æÈÄ °ªÀ» ÂüÁ¶ÇÏ´Â º¯¼ö¸í}]
 [ FOR EACH ROW ]
 DECLARE
 
--- ë³€ìˆ˜ì„ ì–¸
+-- º¯¼ö¼±¾ð
 
 BEGIN
 
--- íŠ¸ë¦¬ê±° ì½”ë“œ
+-- Æ®¸®°Å ÄÚµå
 
 EXCEPTION
 
 WHEN
 
---ìµì…‰ì…˜
+--ÀÍ¼Á¼Ç
 
 END;
 
-[ì´ë²¤íŠ¸]
+[ÀÌº¥Æ®]
  INSERT, UPDATE, DELETE
- BEFORE : êµ¬ë¬¸ì„ ì‹¤í–‰í•˜ê¸° ì „ì— íŠ¸ë¦¬ê±°ë¥¼ ì‹œìž‘
- AFTER : êµ¬ë¬¸ì„ ì‹¤í–‰í•œ í›„ì— íŠ¸ë¦¬ê±°ë¥¼ ì‹œìž‘
- FOR EACH ROW : í–‰ íŠ¸ë¦¬ê±°ìž„ì„ ì•Œë¦¼
- WHEN ì¡°ê±´ : ì‚¬ìš©ìžì˜ íŠ¸ë¦¬ê±° ì´ë²¤íŠ¸ ì¤‘ì— ì¡°ê±´ì— ë§Œì¡±í•˜ëŠ” ë°ì´í„°ë§Œ íŠ¸ë¦¬ê±° í•œë‹¤.
- REFERENCING : ì˜í–¥ ë°›ëŠ” í–‰ì˜ ê°’ì„ ì°¸ì¡°
+ BEFORE : ±¸¹®À» ½ÇÇàÇÏ±â Àü¿¡ Æ®¸®°Å¸¦ ½ÃÀÛ
+ AFTER : ±¸¹®À» ½ÇÇàÇÑ ÈÄ¿¡ Æ®¸®°Å¸¦ ½ÃÀÛ
+ FOR EACH ROW : Çà Æ®¸®°ÅÀÓÀ» ¾Ë¸²
+ WHEN Á¶°Ç : »ç¿ëÀÚÀÇ Æ®¸®°Å ÀÌº¥Æ® Áß¿¡ Á¶°Ç¿¡ ¸¸Á·ÇÏ´Â µ¥ÀÌÅÍ¸¸ Æ®¸®°Å ÇÑ´Ù.
+ REFERENCING : ¿µÇâ ¹Þ´Â ÇàÀÇ °ªÀ» ÂüÁ¶
 
- :NEW.ì»¬ëŸ¼ëª…: DMLíŠ¸ë¦¬ê±°ì˜ ìˆ˜ì • ë˜ëŠ” ì‚½ìž…ë¬¸ ë‚´ì—ì„œ ì‚¬ìš©ì´ ê°€ëŠ¥í•˜ë‹¤. -> SQL ë°˜ì˜ í›„ì˜ ì»¬ëŸ¼ ë°ì´í„°
- :OLD.ì»¬ëŸ¼ëª… : DMLíŠ¸ë¦¬ê±°ì˜ ìˆ˜ì • ë˜ëŠ” ì‚­ì œë¬¸ ë‚´ì—ì„œ ì‚¬ìš©ì´ ê°€ëŠ¥í•˜ë‹¤. -> SQL ë°˜ì˜ì „ì˜ ì»¬ëŸ¼ ë°ì´í„°
+ :NEW.ÄÃ·³¸í: DMLÆ®¸®°ÅÀÇ ¼öÁ¤ ¶Ç´Â »ðÀÔ¹® ³»¿¡¼­ »ç¿ëÀÌ °¡´ÉÇÏ´Ù. -> SQL ¹Ý¿µ ÈÄÀÇ ÄÃ·³ µ¥ÀÌÅÍ
+ :OLD.ÄÃ·³¸í : DMLÆ®¸®°ÅÀÇ ¼öÁ¤ ¶Ç´Â »èÁ¦¹® ³»¿¡¼­ »ç¿ëÀÌ °¡´ÉÇÏ´Ù. -> SQL ¹Ý¿µÀüÀÇ ÄÃ·³ µ¥ÀÌÅÍ
