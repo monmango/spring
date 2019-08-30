@@ -80,8 +80,8 @@
 	<!-- 파일 업로드 시작 -->
 	<!-- 첨부 파일의 임시기억장치 경로 설정 -->
 	<!-- <bean id="uploadDirResource" class="org.springframework.core.io.FileSystemResource"> 
-		<constructor-arg value="c:/temp" /> 또는 <constructor-arg value="./src/main/webapp/files/" 
-		/> </bean> -->
+		<constructor-arg value="c:/temp" /> 또는 <constructor-arg value="./src/main/webapp/files/" /> 
+		</bean> -->
 
 
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -93,5 +93,6 @@
       <property name="prefix" value="/WEB-INF/view/"/>
       <property name="suffix" value=".jsp"/>
    </bean>
+   <!-- 파일 업로드 끝 -->
 
 </beans>

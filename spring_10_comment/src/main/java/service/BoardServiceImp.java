@@ -40,7 +40,8 @@ public class BoardServiceImp  implements BoardService{
 
 	@Override
 	public List<ReplyDTO> replyUpdateProcess(ReplyDTO rdto) {
-		return null;
+		dao.replyUpdateMethod(rdto);
+		return dao.replyListMethod(rdto.getBno());
 	}
 	
 }// end class

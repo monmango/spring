@@ -33,14 +33,41 @@
 <script type="text/javascript">
 	var urno='';
 	$(document).ready(function(){
+		//수정 모달 숨기기
+		$('#modifyModal').addClass('modifyHide');
+		
 		//댓글 추가
 		$('#replyAddBtn').on('click', reply_list);
 		
 		//댓글 삭제 수정 이벤트 등록
 		$(document).on('click', '.timeline button', reply_update_delete);
 		
+		//모달창 닫기
+		$('#btnClose').on('click', function(){
+			$('#modifyModal').removeClass('modifyShow');
+			$('#modifyModal').addClass('modifyHide');
+			$(document).on('click', '.timeline button', reply_update_delete);
+			urno = '';
+		});		
+		
+		//모달창에 수정버튼
+		$('#btnModify').on('click', reply_update_send);
+		
 	});// end ready()
 	
+	function reply_update_send(){
+		$.ajax({
+			type:'GET',
+			dataType:'json',
+			url:"replyUpdate.do?bno=${boardDTO.bno}&rno="+urno+"&replytext="+$('#updateReplyText').val(),
+			success:reply_list_result
+		});
+		$('#updateReplyText').val('');
+		$('#modifyModal').removeClass('modifyShow').addClass('modifyHide');
+		$(document).on('click','.timeline button', reply_update_delete);
+		urno='';
+	}// end reply_update_send()
+
 	function reply_update_delete(){
 		if($(this).text()=='delete'){
 			var drno = $(this).prop("id");// 삭제시 지역 변수로 사용 / 1회성
@@ -52,6 +79,12 @@
 			})
 		}else if($(this).text()=='update'){
 			urno = $(this).prop("id")//수정시 멤버변수에 저장 필요함
+			var stop = $(window).scrollTop();
+			$('#modifyModal').css('top', 50+stop);
+			$('#modifyModal').removeClass('modifyHide');
+			$('#modifyModal').addClass('modifyShow');
+			//$('#modifyModal').removeClass('modifyHide').addClass('modifyShow');
+			$(document).off('click', '.timeline button');
 		}
 	}
 	
@@ -145,7 +178,7 @@
 				<h3 class="box-title">ADD NEW REPLY</h3>
 			</div>
 
-			<div class="box=body">
+			<div class="box-body">
 				<label for="newReplyWriter">Writer</label> 
 				<input class="form-control" type="text" placeholder="USER ID" id="newReplyWriter">
 				<label for="newReplyText">Reply text</label> 
@@ -176,6 +209,18 @@
 				</li>
 			</c:forEach>
 		</ul>
+	</div>
+	
+	<!-- Update Modal -->
+	<div id="modifyModal">
+		<p>
+			<label for="updateReplyText">Reply Text</label>
+			<input class="form-control" type="text" placeholder="REPLY TEXT" id="updateReplyText">
+		</p>
+		<p>
+			<button id="btnModify">Modify</button>
+			<button id="btnClose">Close</button>
+		</p>	
 	</div>
 </body>
 </html>

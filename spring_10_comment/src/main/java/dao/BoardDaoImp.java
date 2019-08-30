@@ -45,7 +45,7 @@ public class BoardDaoImp implements BoardDAO{
 
 	@Override
 	public void replyUpdateMethod(ReplyDTO rdto) {
-		
+		sqlSession.update("reply.r_update", rdto);
 	}
 	
 	
