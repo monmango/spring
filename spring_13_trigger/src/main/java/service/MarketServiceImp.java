@@ -21,12 +21,14 @@ public class MarketServiceImp implements MarketService{
 	
 	@Override
 	public void insertProcess(WarehouseDTO dto) {
-		
+		dao.inputInsertmethod(dto);
 	}
 
 	@Override
 	public void salesInsertProcess(SalesDTO dto) {
-		
+		int price = dao.salesSelectMethod(dto.getCode());
+		dto.setSaprice(price * dto.getSacnt()); // 수량 변화에 따른 가격 계산
+		dao.salesInsertMethod(dto);
 	}
 
 	@Override
@@ -36,7 +38,7 @@ public class MarketServiceImp implements MarketService{
 
 	@Override
 	public List<String> pnameSelectProcess() {
-		return null;
+		return dao.pnameSelectMethod();
 	}
 
 }// end class

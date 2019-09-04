@@ -20,27 +20,27 @@ public class MarketDaoImp implements MarketDAO {
 	
 	@Override
 	public void inputInsertmethod(WarehouseDTO dto) {
-		
+		sqlSession.insert("mt.pins", dto);
 	}
 
 	@Override
 	public int salesSelectMethod(String code) {
-		return 0;
+		return sqlSession.selectOne("mt.salesPrice", code);
 	}
 
 	@Override
 	public void salesInsertMethod(SalesDTO dto) {
-		
+		sqlSession.insert("mt.salesIns", dto);
 	}
 
 	@Override
 	public List<ItemDTO> itemSelectMethod() {
-		return sqlSession.selectList("mt.waresel");
+		return sqlSession.selectList("mt.wareSel");
 	}
 
 	@Override
 	public List<String> pnameSelectMethod() {
-		return null;
+		return sqlSession.selectList("mt.pcodeSel");
 	}
 
 }
