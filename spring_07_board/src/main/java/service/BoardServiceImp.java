@@ -54,6 +54,7 @@ public class BoardServiceImp implements BoardService{
 
 	@Override
 	public void updateProcess(BoardDTO dto) {
+		System.out.println("서비스");
 		dao.update(dto);
 	}
 

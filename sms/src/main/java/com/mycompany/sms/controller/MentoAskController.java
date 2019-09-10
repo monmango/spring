@@ -1,0 +1,78 @@
+package com.mycompany.sms.controller;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.core.format.DataFormatDetector;
+import com.mycompany.sms.dto.MentorDTO;
+import com.mycompany.sms.dto.MentorFieldDTO;
+import com.mycompany.sms.dto.UserDTO;
+import com.mycompany.sms.service.UserService;
+import com.mycompany.sms.service.WannaService;
+
+//http://localhost:8090/sms/wannabe.do
+
+@Controller
+public class MentoAskController {
+	@Autowired
+	private WannaService service;
+
+	@Autowired
+	private UserService uservice;
+
+	public void setService(WannaService service) {
+		this.service = service;
+	}
+
+	@RequestMapping("/wannabe.do")
+	public ModelAndView signUpMentoProcess(ModelAndView mav, HttpSession session) {
+		if (session.getAttribute("user_id") != null) {
+			UserDTO dto = new UserDTO();
+			dto = uservice.userInfoMethod((String) session.getAttribute("user_id"));
+			mav.addObject("userDTO", dto);
+		}
+		mav.setViewName("wannabe");
+		return mav;
+	}
+
+	@RequestMapping("/signUpMento.do")
+	public String process(MentorDTO dto, HttpServletRequest req) {
+		service.insertProcess(dto);
+		int mentor_num = service.getMentorNumMethod();
+
+		String[] field = req.getParameterValues("field_num");
+
+		for (String s : field) {
+			MentorFieldDTO fdto = new MentorFieldDTO();
+			fdto.setMentor_num(mentor_num);
+			fdto.setField_num(Integer.parseInt(s));
+			service.insertFieldMethod(fdto);
+		}
+
+		return "redirect:/mentor_list.do";
+	}
+
+	/*
+	 * public UUID saveCopyFile(MultipartFile file, HttpServletRequest request) {
+	 * String fileName = file.getOriginalFilename(); // 중복파일명을 처리하기 위해 난수 발생 UUID
+	 * random = UUID.randomUUID(); String root =
+	 * request.getSession().getServletContext().getRealPath("/"); //
+	 * System.out.println(root); //
+	 * C:\study\spring_workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0
+	 * \wtpwebapps\spring_07_board\ // root + "temp/" String saveDirectory = root +
+	 * "temp" + File.separator; File fe = new File(saveDirectory); if (!fe.exists())
+	 * fe.mkdir();
+	 * 
+	 * File ff = new File(saveDirectory, random + "_" + fileName); try {
+	 * FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff)); } catch
+	 * (IOException e) { e.printStackTrace(); }
+	 * 
+	 * return random; }// end saveCopyFile()/////////////////////////////
+	 */
+}// end class

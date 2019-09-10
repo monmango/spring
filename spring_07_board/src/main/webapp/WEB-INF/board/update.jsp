@@ -84,11 +84,11 @@ table {
 				</td>
 			</tr>
 		</table>
-		<input type="hidden" name="num" value="${dto.num}" /> <input
-			type="hidden" name="currentPage" value="${currentPage}" /> <input
-			type="button" id="update" value="수정" /> <input type="button"
-			id="cancel" value="취소" />
-			<input type="button" id="back" value="뒤로" />
+		<input type="hidden" name="num" value="${dto.num}" /> 
+		<input type="hidden" name="currentPage" value="${currentPage}" /> 
+		<input type="button" id="update" value="수정" /> 
+		<input type="button" id="cancel" value="취소" />
+		<input type="button" id="back" value="뒤로" />
 			
 	</form>
 </body>

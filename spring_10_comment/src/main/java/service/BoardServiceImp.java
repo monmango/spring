@@ -6,11 +6,12 @@ import dao.BoardDAO;
 import dto.BoardDTO;
 import dto.ReplyDTO;
 
-public class BoardServiceImp  implements BoardService{
-	
+public class BoardServiceImp implements BoardService {
 	private BoardDAO dao;
 	
-	public BoardServiceImp() {}
+	public BoardServiceImp() {
+
+	}
 	
 	public void setDao(BoardDAO dao) {
 		this.dao = dao;
@@ -18,11 +19,13 @@ public class BoardServiceImp  implements BoardService{
 
 	@Override
 	public List<BoardDTO> boardListProcess() {
+
 		return dao.boardListMethod();
 	}
 
 	@Override
 	public BoardDTO boardViewProcess(int bno) {
+
 		return dao.boardViewMethod(bno);
 	}
 
@@ -43,5 +46,5 @@ public class BoardServiceImp  implements BoardService{
 		dao.replyUpdateMethod(rdto);
 		return dao.replyListMethod(rdto.getBno());
 	}
-	
-}// end class
+
+}//end class

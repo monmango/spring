@@ -45,7 +45,6 @@
 	$(document).ready(function(){
 		//수정 모달 숨기기
 		$('#modifyModal').addClass('modifyHide');
-		//$('#modifyModal').addClass('modifyHide');
 		
 		//댓글 추가
 		$('#replyAddBtn').on('click', reply_list);
@@ -85,7 +84,7 @@
 		
 		//첨부 파일 드래그 시작
 		var obj = $('.fileDrop');
-		var win = $('body');
+		var win = $('.fileDrop');
 		//dragover: Drag중 Mouse가 현재 위차한 Element
 		win.on('dragover', function(e){
 			e.preventDefault();

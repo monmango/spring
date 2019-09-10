@@ -34,14 +34,10 @@
 			<c:forEach items="${aList }" var="dto">
 				<tr>
 					<td>${dto.num }</td>
-					<td><c:url var="path" value="view.sb">
+					<td><c:url var="path" value="View.do">
 							<c:param name="currentPage" value="${pv.currentPage }" />
 							<c:param name="num" value="${dto.num }" />
-						</c:url> <c:if test="${dto.re_level != 0 }">
-							<img src="images/level.gif" width="${20*dto.re_level }"
-								height="15" />
-							<img src="images/re.gif" />
-						</c:if> <a href="${path}"> ${dto.subject }</a></td>
+						</c:url> <a href="${path}"> ${dto.subject }</a></td>
 					<td>${dto.writer }</td>
 					<td>${dto.readcount }</td>
 				</tr>

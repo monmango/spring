@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mt">
+
+	<resultMap type="com.mycompany.sms.dto.MentorDTO" id="mentorDTO"
+		autoMapping="false">
+		<result column="mentor_name" property="mentor_name" />
+		<result column="mentor_career" property="mentor_career" />
+		<result column="mentor_co" property="mentor_co" />
+		<result column="mentor_image" property="mentor_image" />
+		<collection property="meetingDTO" javaType="java.util.List"
+			ofType="com.mycompany.sms.dto.MeetingDTO">
+			<result column="meeting_title" property="meeting_title" />
+			<result column="meeting_introduction" property="meeting_introduction" />
+			<result column="meeting_num" property="meeting_num" />
+			<result column="meeting_date" property="meeting_date" />
+			<result column="meeting_place" property="meeting_place" />
+			<result column="meeting_img_name" property="meeting_img_name" />
+		</collection>
+
+	</resultMap>
+
+
+
+	<select id="dd" resultMap="mentorDTO">
+		select b.meeting_img_name,
+		b.meeting_title, b.meeting_introduction, b.meeting_place,
+		b.meeting_num,
+		b.meeting_date, m.mentor_co, m.mentor_name,
+		m.mentor_career, m.mentor_image
+		from sms_mentor m, sms_meeting b
+		where b.mentor_num = m.mentor_num order by b.meeting_num
+	</select>
+
+	<select id="mem" resultType="com.mycompany.sms.dto.MeetingDTO">
+		select mentor_num from sms_meeting
+		order by mentor_num
+	</select>
+
+	<select id="list" resultType="com.mycompany.sms.dto.MeetingDTO">
+		select * from sms_meeting order by
+		meeting_num
+	</select>
+
+	<!-- 미팅 디테일 -->
+	<insert id="ins_meeting" parameterType="com.mycompany.sms.dto.MeetingDTO">
+		insert into
+		sms_meeting
+		values(sms_meeting_seq.nextval,1,#{meeting_recruitment},#{meeting_price},
+		#{meeting_title},#{meeting_comment},#{meeting_date},#{meeting_time},
+		#{meeting_introduction},#{meeting_place},#{meeting_address},#{meeting_img_name})
+	</insert>
+	<!-- jdbcType=TIMESTAMP -->
+	<select id="select_meeting" parameterType="int"
+		resultType="com.mycompany.sms.dto.MeetingDTO">
+		select * from sms_meeting where meeting_num=#{meeting_num}
+	</select>
+
+	<select id="select_date" resultType="String">
+		select meeting_date from
+		sms_meeting where meeting_num=1
+	</select>
+
+</mapper>
+
+

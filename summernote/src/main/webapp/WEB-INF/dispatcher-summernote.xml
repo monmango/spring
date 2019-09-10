@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+		
+	<context:component-scan base-package="com.mycompany.sms.*" />
+
+	<!-- DataSource빈 선언 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin://@127.0.0.1:1521:xe" />
+		<property name="username" value="hr" />
+		<property name="password" value="a1234" />
+	</bean>
+
+	<!--sqlSessionFactoryBean 빈선언 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:com/mycompany/sms/config/userMapper.xml</value>
+				
+			</list>
+		</property>
+	</bean>
+
+	<!-- MemDaoImp빈 선언 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- Spring Jdbc나 Mybatis를 이용해서 DB연동을 처리하는 경우 DataSourceTransactionManager이 
+		트랜잭션관리자로 사용된다. -->
+	<!-- transactionManager 빈 선언 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- 선언적 트랜잭션 : <tx:advice>태그를 이용한 트랜잭션 처리 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*Process" rollback-for="java.lang.Exception" /><!-- 
+				process로 끝나는 모든(*)메소드 -->
+			<!-- <tx:method name="deleteProcess" rollback-for="java.lang.NullPointerException" 
+				/> -->
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- 트랜잭션 설정 -->
+	<aop:config>
+		<!-- service패키지에서 board로 시작하는 모든 메소드 -->
+		<aop:advisor advice-ref="txAdvice"
+			pointcut="execution(* service.Board*.*(..))" /><!-- tx:advice id를 설정 -->
+	</aop:config>
+
+	<!-- Dao 빈 선언 -->
+	<bean id="userdao" class="com.mycompany.sms.dao.UserDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+	<bean id="essaydao" class="com.mycompany.sms.dao.EssayDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
+	<bean id="wannabedao" class="com.mycompany.sms.dao.WannaDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
+	<bean id="mentodao" class="com.mycompany.sms.dao.">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+	
+	<bean id="meetingdao" class="com.mycompany.sms.dao.MeetingDaoImg">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/" />
+		<property name="suffix" value=".jsp" />
+
+	</bean>
+</beans>

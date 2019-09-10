@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+
+	<!-- [1] DataSource 빈 선언 -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin://@127.0.0.1:1521:xe" />
+		<property name="username" value="hr" />
+		<property name="password" value="a1234" />
+	</bean>
+
+	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations">
+			<list>
+				<value>classpath:config/essayMapper.xml</value>
+				<!-- 맵퍼등록하는곳 -->
+			</list>
+		</property>
+	</bean>
+
+	<!-- [3] SqlSessionTemplate 빈 선언 -->
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- Spring Jdbe나 Mybatis를 이용해서 DB연동을 처리하는 경우 DataSourceTransactionManager이 
+		트랜잭션 관리자로 사용된다. -->
+	<!-- [4] TransactionManager 빈 선언 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- [5]선언적 트랜잭션: <tx:advice>태그를 이용한 트랜젝션 처리 -->
+	<tx:advice id="txAdivce" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*Process" rollback-for="java.lang.Exception" />
+			<!-- (*Process) Process로 끝나는 모든 메소드에 -->
+		</tx:attributes>
+	</tx:advice>
+	
+	<!-- [6] 트랜잭션 설정 -->
+	<aop:config>
+		<aop:advisor advice-ref="txAdivce"
+			pointcut="execution(* service.essay*.*(..))" /> <!-- essay로 시작하는 모든 메소드 -->
+	</aop:config>
+
+	<bean id="service" class="service.EssayServiceImp">
+		<property name="dao" ref="dao"></property>
+	</bean>
+	<!-- [7] DAO 빈 선언 -->
+	<bean id="dao" class="dao.EssayDaoImp">
+		<property name="sqlSession" ref="sqlSession" />
+	</bean>
+
+	<!-- Controller -->
+	<bean class="controller.EssayController" >
+		<!-- <property name="service" ref="service" /> -->
+	</bean>
+	
+	<!-- viewResolver -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="1" /> <!-- 우선순위를 준다. -->
+	</bean>
+	
+	<!-- 여러개 뷰를 설정할때 InternalResourceViewResolver 는 제일 마지막에 설정한다. -->
+	
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/essay/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="2" /> 
+	</bean>
+
+</beans>

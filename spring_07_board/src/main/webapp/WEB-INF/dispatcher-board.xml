@@ -77,7 +77,7 @@
 	</bean>
 
 	<!-- [9] Controller 빈 선언 -->
-	<bean class="controller.BoardController">
+	<bean class="controller.BoardController_1">
 		<property name="service" ref="service" />
 	</bean>
 	

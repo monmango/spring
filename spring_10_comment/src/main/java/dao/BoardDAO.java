@@ -6,7 +6,6 @@ import dto.BoardDTO;
 import dto.ReplyDTO;
 
 public interface BoardDAO {
-	
 	public List<BoardDTO> boardListMethod();
 	public BoardDTO boardViewMethod(int bno);
 	public void replyInserMethod(ReplyDTO rdto);
@@ -14,4 +13,5 @@ public interface BoardDAO {
 	public void replyDeleteMethod(int rno);
 	public void replyUpdateMethod(ReplyDTO rdto);
 	
-}// end interface
+	
+}//end interface

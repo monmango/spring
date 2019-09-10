@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="essay">
+
+	<select id="count" resultType="int">
+		select count(*) from essay
+	</select>
+
+	<select id="e_list" parameterType="dto.PageDTO" resultType="dto.EssayDTO">
+		<![CDATA[
+			select b.* from (select rownum as rm, a.* 
+			from(select * from essay order by essay_num asc)a)b 
+			where b.rm >= #{startRow} and b.rm <= #{endRow}		
+		]]>
+	</select>
+
+	<select resultType="dto.EssayDTO" id="e_view" parameterType="int">select
+		* from essay where essay_num = #{essay_num} 
+	</select>
+
+	<insert id="e_ins" parameterType="dto.EssayDTO">
+		insert into essay(mentor_num, essay_num, essay_subject, essay_content, essay_date)
+		values(mentor_num_seq.nextval, essay_num_seq.nextval, #{essay_subject}, #{essay_content}, sysdate) 
+	</insert>
+
+	<update id="e_update" parameterType="dto.EssayDTO">
+		update essay set essay_subject = #{essay_subject}, essay_content = #{essay_content}, essay_date = sysdate 
+		where essay_num = #{essay_num}
+	</update>
+
+	<delete id="e_del" parameterType="int">
+		delete from essay where essay_num = #{essay_num} 
+	</delete>
+
+</mapper>

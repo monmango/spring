@@ -28,8 +28,8 @@
 	  //첨부파일 용량체크
 	  $('#filepath').on('change',function(){						 
 			 if(this.files && this.files[0]){				 
-				if(this.files[0].size>1000000000){
-					alert("1GB바이트 이하만 첨부할 수 있습니다.");				
+				if(this.files[0].size>10000000){
+					alert("10MB바이트 이하만 첨부할 수 있습니다.");				
 					$('#filepath').val('');				
 					return false;
 				}				

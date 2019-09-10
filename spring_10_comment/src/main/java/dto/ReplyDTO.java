@@ -1,7 +1,6 @@
 package dto;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,18 +11,17 @@ public class ReplyDTO {
 	private String replyer;
 	private Date regdate;
 	private String rupload;
-	private List<MultipartFile> filename;
-	//private MultipartFile filename;
-	
+	private MultipartFile filename;
+
 	public ReplyDTO() {
 
 	}
 
-	public List<MultipartFile> getFilename() {
+	public MultipartFile getFilename() {
 		return filename;
-	} 
-	
-	public void setFilename(List<MultipartFile> filename) {
+	}
+
+	public void setFilename(MultipartFile filename) {
 		this.filename = filename;
 	}
 

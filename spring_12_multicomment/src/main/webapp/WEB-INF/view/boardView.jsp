@@ -354,12 +354,8 @@
 					<!-- 	<label for = "filename">Upload</label>
 						<input type = "file" id = "filename" name = "filename" /> -->
 						
-							<div>
-								<span id = "userpc" style = "cursor:pointer">내PC</span>
-							</div>
-							<div class ="fileDrop">
-								
-							</div>
+							<div><span id = "userpc" style = "cursor:pointer">내PC</span></div>
+							<div class ="fileDrop"></div>
 					   </div>
 						
 						<div class="box-footer">

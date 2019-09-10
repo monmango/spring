@@ -53,6 +53,7 @@ public class BoardDaoImp implements BoardDAO{
 
 	@Override
 	public void update(BoardDTO dto) { 
+		System.out.println("디에이오");
 		sqlSession.update("board.update", dto);
 	}
 

@@ -72,4 +72,7 @@ public class BoardDTO {
 		this.replyList = replyList;
 	}
 	
+	
+	
+
 }// end class
