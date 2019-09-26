@@ -18,43 +18,36 @@
   	transition: 1.5s;
 }
 
-button{
-  background:#1AAB8A;
-  color:#fff;
+.w3-button{
+  background:#fff;
+  color:black 2px;;
+  font-weight:bold;
   border:none;
   position:relative;
-  height:60px;
-  font-size:1.6em;
+  height:40px;
   padding:0 2em;
   cursor:pointer;
   transition:800ms ease all;
   outline:none;
+  border: 1px solid #d17acb;
 }
 
-button:hover{
-  background:#fff;
-  color:#1AAB8A;
-}
-button:before,button:after{
-  content:'';
-  position:absolute;
-  top:0;
-  right:0;
-  height:2px;
-  width:0;
-  background: #1AAB8A;
+.w3-button:hover{
+
+  background: #d17acb;
   transition:400ms ease all;
 }
-button:after{
-  right:inherit;
-  top:inherit;
-  left:0;
-  bottom:0;
+.item-checkbox{
+	height: 100%;
+	width: 190px;
+	padding:10px;
+	display:inline-block;
 }
-button:hover:before,button:hover:after{
-  width:100%;
-  transition:800ms ease all;
+.item-checkbox:hover{
+	background: #ececa6;
+  	transition: 400ms ease all;
 }
+
 </style>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -126,16 +119,32 @@ $(document).ready(function() {
 					<div>
 						<label>멘토링 분야</label>
 					</div>
-					<label>
-						<input type="checkbox" name="field_num" value="1">직무&emsp;
+					<label class="item-checkbox">
+						<input type="checkbox" name="field_num" value="1"> 직무&emsp;
+						</label>
+						<label class="item-checkbox">
 						<input type="checkbox" name="field_num" value="2">진로&emsp;
+						</label>
+						<label class="item-checkbox">
 						<input type="checkbox" name="field_num" value="3">스펙&emsp;
+						</label>
+						<label class="item-checkbox">
 						<input type="checkbox" name="field_num" value="4">외국어&emsp;
-						<input type="checkbox" name="field_num" value="5">면접/자소서<br/>
+						</label>
+						<label class="item-checkbox">
+						<input type="checkbox" name="field_num" value="5">면접/자소서&emsp;
+						</label>
+						<label class="item-checkbox">
 						<input type="checkbox" name="field_num" value="6">회사생활&emsp;
+						</label>
+						<label class="item-checkbox">
 						<input type="checkbox" name="field_num" value="7">창업&emsp;
+						</label>
+						<label class="item-checkbox">
 						<input type="checkbox" name="field_num" value="8">이직&emsp;
-						<input type="checkbox" name="field_num" value="9">기타&emsp;
+						</label>
+						<label class="item-checkbox">
+						<input type="checkbox" name="field_num" value="9">기타&emsp;						
 					</label>
 					<br/>	<br/>
 					
@@ -147,26 +156,18 @@ $(document).ready(function() {
 					</div>
 					<br/>
 					<div>
-						<label>멘토에게 하고 싶은 말</label>
+						<label>멘티에게 하고 싶은 말</label>
 					</div>
 					<div>
 						<input class="w3-input" type="text" id="mentor_sub" name="mentor_sub" required>
 					</div>
 					<br/>
-						<input class="w3-input" type="text" id="mentor_sub" name="mentor_image" value="${userDTO.user_image }">
+						<input class="hidden" type="text" id="mentor_sub" name="mentor_image" value="${userDTO.user_image }">
 					<br/>
-
+	
 					<button type="submit" class="w3-button" style="position:relative; margin-left:40%;" >제출</button>
+					<br/><br/><br/>
 				</form>
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
-
-
-

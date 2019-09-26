@@ -1,5 +1,8 @@
 package com.mycompany.sms.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -10,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.core.format.DataFormatDetector;
+import com.mycompany.sms.dto.FieldDTO;
 import com.mycompany.sms.dto.MentorDTO;
 import com.mycompany.sms.dto.MentorFieldDTO;
+import com.mycompany.sms.dto.MentorFollowDTO;
 import com.mycompany.sms.dto.UserDTO;
+import com.mycompany.sms.service.MentorService;
 import com.mycompany.sms.service.UserService;
 import com.mycompany.sms.service.WannaService;
 
@@ -26,25 +32,26 @@ public class MentoAskController {
 	@Autowired
 	private UserService uservice;
 
+	@Autowired
+	private MentorService mservice;
+
 	public void setService(WannaService service) {
 		this.service = service;
 	}
 
-	@RequestMapping("/wannabe.do")
-	public ModelAndView signUpMentoProcess(ModelAndView mav, HttpSession session) {
-		if (session.getAttribute("user_id") != null) {
-			UserDTO dto = new UserDTO();
-			dto = uservice.userInfoMethod((String) session.getAttribute("user_id"));
-			mav.addObject("userDTO", dto);
-		}
-		mav.setViewName("wannabe");
-		return mav;
-	}
-
 	@RequestMapping("/signUpMento.do")
-	public String process(MentorDTO dto, HttpServletRequest req) {
+	public ModelAndView process(ModelAndView mav, MentorDTO dto, HttpServletRequest req, HttpSession session) {
+		String user_id = (String) session.getAttribute("user_id");
+		dto.setUser_id(user_id);
 		service.insertProcess(dto);
+		MentorFollowDTO mfdto = new MentorFollowDTO();
+
 		int mentor_num = service.getMentorNumMethod();
+		mfdto.setMentor_num(mentor_num);
+		mfdto.setUser_id(user_id);
+
+		service.InsertmentorMethod(mfdto);
+		int mCheck = service.getMentorCheckMethod(user_id);
 
 		String[] field = req.getParameterValues("field_num");
 
@@ -54,25 +61,67 @@ public class MentoAskController {
 			fdto.setField_num(Integer.parseInt(s));
 			service.insertFieldMethod(fdto);
 		}
-
-		return "redirect:/mentor_list.do";
+		mav.addObject("mCheck", mCheck);
+		mav.setViewName("redirect:/home.do");
+		return mav;
 	}
 
-	/*
-	 * public UUID saveCopyFile(MultipartFile file, HttpServletRequest request) {
-	 * String fileName = file.getOriginalFilename(); // 중복파일명을 처리하기 위해 난수 발생 UUID
-	 * random = UUID.randomUUID(); String root =
-	 * request.getSession().getServletContext().getRealPath("/"); //
-	 * System.out.println(root); //
-	 * C:\study\spring_workspace\.metadata\.plugins\org.eclipse.wst.server.core\tmp0
-	 * \wtpwebapps\spring_07_board\ // root + "temp/" String saveDirectory = root +
-	 * "temp" + File.separator; File fe = new File(saveDirectory); if (!fe.exists())
-	 * fe.mkdir();
-	 * 
-	 * File ff = new File(saveDirectory, random + "_" + fileName); try {
-	 * FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(ff)); } catch
-	 * (IOException e) { e.printStackTrace(); }
-	 * 
-	 * return random; }// end saveCopyFile()/////////////////////////////
-	 */
+	@RequestMapping("/wannabe.do")
+	public ModelAndView signUpMentoProcess(ModelAndView mav, HttpSession session) {
+		if (session.getAttribute("user_id") != null) {
+			UserDTO dto = new UserDTO();
+			dto = uservice.userInfoMethod((String) session.getAttribute("user_id"));
+			mav.addObject("userDTO", dto);
+			String user_id = (String) session.getAttribute("user_id");
+			int mCheck = service.getMentorCheckMethod(user_id);
+			mav.addObject("mCheck", mCheck);
+		}
+		mav.setViewName("wannabe");
+		return mav;
+	}
+
+	@RequestMapping("/update_Mento.do")
+	public ModelAndView updateprocess(ModelAndView mav, HttpSession session) {
+		if (session.getAttribute("user_id") != null) {
+			UserDTO dto = new UserDTO();
+			dto = uservice.userInfoMethod((String) session.getAttribute("user_id"));
+			mav.addObject("userDTO", dto);
+			String user_id = (String) session.getAttribute("user_id");
+			int mCheck = service.getMentorCheckMethod(user_id);
+			MentorDTO mdto = new MentorDTO();
+			mdto = service.getMentorinfoMethod(user_id);
+			mav.addObject("MentorDTO", mdto);
+			mav.addObject("mCheck", mCheck);
+		}
+		mav.setViewName("wannabe_update");
+		return mav;
+	}
+
+	@RequestMapping("/setmentor.do")
+	public ModelAndView setMentorInfoProcess(ModelAndView mav, MentorDTO dto, HttpServletRequest req,
+			HttpSession session) {
+
+		String user_id = (String) session.getAttribute("user_id");
+		if (user_id != null) {
+			int mCheck = service.getMentorCheckMethod(user_id);
+			mav.addObject("mCheck", mCheck);
+			service.updateMentorMethod(dto);
+			service.deletFieldMethod(dto.getMentor_num());
+			String[] field = req.getParameterValues("field_num");
+
+			for (String s : field) {
+				MentorFieldDTO fdto = new MentorFieldDTO();
+				fdto.setMentor_num(dto.getMentor_num());
+				fdto.setField_num(Integer.parseInt(s));
+				service.insertFieldMethod(fdto);
+			}
+			mav.addObject("userDTO", uservice.userInfoMethod(user_id));
+			mav.addObject("mentorView", dto);
+			mav.addObject("fieldDTO", mservice.fieldviewProcess(dto.getMentor_num()));
+		}
+		mav.setViewName("mentor_view");
+		return mav;
+
+	}
+
 }// end class

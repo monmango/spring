@@ -1,331 +1,236 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>essay_update.jsp</title>
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    
-    <!-- Bootstrap -->
-	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
-    
-    <!-- Google font -->
-	<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:700%7CNunito:300,600" rel="stylesheet">
-	
-	<!-- Font Awesome Icon -->
-	<link rel="stylesheet" href="css/font-awesome.min.css">
-	
-	<!-- Custom stlylesheet -->
-	<link type="text/css" rel="stylesheet" href="css/style.css" />
-		
-	<!-- include summernote -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-lite.js"></script>
-    
-    <!-- include summernote-ko-KR -->
-    <script src="lang/summernote-ko-KR.js"></script>
-    
-  </head>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<style type="text/css">
+.w3-input {
+	width: 100%;
+	resize: none;
+	padding: 12px 20px;
+	margin: 8px 0;
+	display: inline-block;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+	transition: 1.5s;
+	width: 600px;
+}
 
-  <body>
-	<!-- Header -->
-	<header id="header">
-		<!-- Nav -->
-		<div id="nav">
-			<!-- Main Nav -->
-			<div id="nav-fixed">
-				<div class="container">
-					<!-- logo -->
-					<div class="nav-logo">
-						<a href="index.html" class="logo"><img src="./img/logo.png" w
-							alt=""></a>
-					</div>
-					<!-- /logo -->
+#img {
+	/*  visibility: hidden; */
+	height: 300px;
+	max-width: 600px;
+}
 
-					<!-- nav -->
-					<ul class="nav-menu nav navbar-nav">
-						<li><a href="about.do">About</a></li>
-						<li><a href="blank.do">Blank</a></li>
-						<li class="cat-1"><a href="blog-post.do">Blog-post</a></li>
-						<li class="cat-2"><a href="category.do">Category</a></li>
-						<li class="cat-3"><a href="contact.do">Contact</a></li>
-						<li class="cat-4"><a href="index.do">Index</a></li>
-					</ul>
-					<!-- /nav -->
+.primary-button {
+	display: inline-block;
+	text-align: center;
+}
 
-					<!-- search & aside toggle -->
-					<div class="nav-btns">
-						<button class="aside-btn">
-							<i class="fa fa-bars"></i>
-						</button>
-						<button class="search-btn">
-							<i class="fa fa-search"></i>
-						</button>
-						<div class="search-form">
-							<input class="search-input" type="text" name="search"
-								placeholder="Enter Your Search ...">
-							<button class="search-close">
-								<i class="fa fa-times"></i>
-							</button>
-						</div>
-					</div>
-					<!-- /search & aside toggle -->
-				</div>
-			</div>
-			<!-- /Main Nav -->
+.section {
+	margin-left: 0%;
+}
 
-			<!-- Aside Nav -->
-			<div id="nav-aside">
-				<!-- nav -->
+.container {
+	display: flex;
+	flex-direction: row;
+}
+
+#author {
+	position: absolute;
+	width: 500px;
+	height: 400px;
+	top: 396px;
+	background-color: transparent;
+	color: #212631;
+}
+
+.field-chip {
+	display: inline-block;
+	font-size: 13px;
+	text-transform: uppercase;
+	padding: 3px 10px;
+	font-weight: 600;
+	border-radius: 2px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	color: #FFF;
+	background-color: #ff8700;
+	-webkit-transition: 0.2s opacity;
+	transition: 0.2s opacity
+}
+
+#author_border {
+	border: 1px solid #ccc;
+	border-radius: 10px;
+	padding: 20px;
+}
+</style>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('#pictureUpload').on('click', function() {
+			alert("picture");
+			$('#essay_img').click();
+		});
+
+		floatB();
+		//첨부파일 용량체크
+		$('#essay_img').on('change', function() {
+			if (this.files && this.files[0]) {
+				if (this.files[0].size > 10000000) {
+					alert("10MB바이트 이하만 첨부할 수 있습니다.");
+					$('#essay_img').val('');
+					return false;
+				}
+			}
+		});
+
+		//업로드시 이미지 보기
+		$("#essay_img").change(function() {
+			imgFileCheck();
+			readURL(this);
+		});
+
+	});
+
+	//업로드시 이미지 보기
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$('#img').attr('src', e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+
+	//이미지 확장자 체크
+	function imgFileCheck() {
+		var imgFormat = "\.(bmp|gif|jpg|jpeg|png)";
+		if (!(new RegExp(imgFormat, "i")).test(document.frm.essay_img.value)) {
+			alert("이미지 파일만 등록 가능합니다");
+			$('#essay_img').val('');
+			return;
+		}
+	}
+
+	function floatB() {
+		// 기존 css에서 플로팅 배너 위치(top)값을 가져와 저장한다.
+		var floatPosition = parseInt($("#author").css('top'));
+		// 250px 이런식으로 가져오므로 여기서 숫자만 가져온다. parseInt( 값 );
+
+		$(window).scroll(function() {
+			// 현재 스크롤 위치를 가져온다.
+			var scrollTop = $(window).scrollTop();
+			var newPosition = scrollTop + floatPosition - 300;
+			if (newPosition <= 393) {
+				newPosition = 380;
+			}
+			$("#author").stop().animate({
+				"top" : newPosition + "px"
+			}, 0);
+		}).scroll();
+
+	}
+</script>
+
+
+
+<!-- section -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row" style="width: 70%;">
+			<div class="col-md-5 col-md-offset-1">
 				<div class="section-row">
-					<ul class="nav-aside-menu">
-						<li><a href="index.html">Home</a></li>
-						<li><a href="about.html">About Us</a></li>
-						<li><a href="#">Join Us</a></li>
-						<li><a href="#">Advertisement</a></li>
-						<li><a href="contact.html">Contacts</a></li>
-					</ul>
-				</div>
-				<!-- /nav -->
-
-				<!-- widget posts -->
-				<div class="section-row">
-					<h3>Recent Posts</h3>
-					<div class="post post-widget">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/widget-2.jpg" alt=""></a>
-						<div class="post-body">
-							<h3 class="post-title">
-								<a href="blog-post.html">Pagedraw UI Builder Turns Your
-									Website Design Mockup Into Code Automatically</a>
-							</h3>
-						</div>
-					</div>
-
-					<div class="post post-widget">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/widget-3.jpg" alt=""></a>
-						<div class="post-body">
-							<h3 class="post-title">
-								<a href="blog-post.html">Why Node.js Is The Coolest Kid On
-									The Backend Development Block!</a>
-							</h3>
-						</div>
-					</div>
-
-					<div class="post post-widget">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/widget-4.jpg" alt=""></a>
-						<div class="post-body">
-							<h3 class="post-title">
-								<a href="blog-post.html">Tell-A-Tool: Guide To Web Design
-									And Development Tools</a>
-							</h3>
-						</div>
-					</div>
-				</div>
-				<!-- /widget posts -->
-
-				<!-- social links -->
-				<div class="section-row">
-					<h3>Follow us</h3>
-					<ul class="nav-aside-social">
-						<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-						<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-						<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-						<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-					</ul>
-				</div>
-				<!-- /social links -->
-
-				<!-- aside nav close -->
-				<button class="nav-aside-close">
-					<i class="fa fa-times"></i>
-				</button>
-				<!-- /aside nav close -->
-			</div>
-			<!-- Aside Nav -->
-		</div>
-		<!-- /Nav -->
-
-		<!-- Page Header -->
-		<!-- 		<div class="page-header">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-10">
-						<ul class="page-header-breadcrumb">
-							<li><a href="index.html">Home</a></li>
-							<li>Contact</li>
-						</ul>
-						<h1>Contact</h1>
-					</div>
-				</div>
-			</div>
-		</div> -->
-		<!-- /Page Header -->
-	</header>
-	<!-- /Header -->
-	<!--//////////////////////////////////// 수정  ///////////////////////////////////-->
-	<!-- section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-5 col-md-offset-1">
-					<div class="section-row">
-						<h3>Essay Write</h3>
-						<form class="frm" name="frm">
-							<div class="row">
-								<div class="col-md-7">
-									<div class="form-group">
-										<span>Subject</span> 
-										<input class="input" type="text" name="essay_subject" value="${essayDto.essay_subject }">
-									</div>
-								</div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<textarea class="input" id="summernote" name="essay_content" placeholder="" >${essayDto.essay_content }</textarea> 
-											<script>
-									      $('#summernote').summernote({
-									        placeholder: '글쓰기',
-									        tabsize: 2,  
-									        height: 600,
-									        fontNames : [ '맑은고딕', 'Arial', 'Arial Black', 'Comic Sans MS', 'Courier New', ],
-									        focus: true,
-									        callbacks: {
-												onImageUpload: function(files, editor, welEditable) {
-										            for (var i = files.length - 1; i >= 0; i--) {
-										            	sendFile(files[i], this);
-										            }
-										        }
-											}
-									        
-									       });
-									      
-									      function sendFile(file, el) {
-									  		var form_data = new FormData();
-									        	form_data.append('file', file);
-									        	$.ajax({
-									          	data: form_data,
-									          	type: "POST",
-									          	url: './profileImage.mpf',
-									          	cache: false,
-									          	contentType: false,
-									          	enctype: 'multipart/form-data',
-									          	processData: false,
-									          	success: function(img_name) {
-									            		$(el).summernote('editor.insertImage', img_name);
-									          	}
-									        	});
-									      }
-									    </script>
-									</div>
-									<button class="primary-button center-block" id="update">Update</button>
-									<button class="primary-button center-block" id="list">List</button>
-									<input type="hidden" name="currentPage" id="currentPage" value="${currentPage}" /> 
-									<input type="hidden" name="essay_num" value="${essayDto.essay_num }" />
+					<h3>Essay Update</h3>
+					<form class="frm" name="frm" method="post"
+						enctype="multipart/form-data" action="essay_update.do">
+						<div class="row">
+							<div class="col-md-7">
+								<div class="form-group">
+									<span>Subject</span> <input class="w3-input" type="text"
+										name="essay_subject" id="essay_subject"
+										value="${essayDTO.essay_subject}">
 								</div>
 							</div>
-						</form>
+							<div class="col-md-12">
+								<div class="form-group ">
+									<span>Image</span><br /> <span class="w3-input"
+										style="height: 300px; text-align: center"><img id="img"
+										src="/sms/temp/${essayDTO.essay_img }"
+										style="max-height: 270px" /> </span> <input style="display: none"
+										type="file" id="essay_img" name="filepath" />
+								</div>
+
+								<p></p>
+								<div class="form-group">
+									<span>
+										<button type="button" class="primary-button center-block"
+											id="pictureUpload" name="pictureUpload" style="float: left">
+											<i class="fa fa-cog fa-spin"></i>사진 삽입
+										</button>
+									</span><br /> <br /> <span>Summary</span>
+									<textarea class="w3-input" rows="10" cols="40"
+										id="essay_summary" name="essay_summary" placeholder="">${essayDTO.essay_summary}</textarea>
+								</div>
+								<div class="form-group">
+									<span>Content</span>
+									<textarea class="w3-input" rows="10" cols="50"
+										id="essay_content" name="essay_content" placeholder="">${essayDTO.essay_content}</textarea>
+								</div>
+								<input type="hidden" name="essay_num" id="essay_num"
+									value="${essayDTO.essay_num}" /> <input type="hidden"
+									name="currentPage" id="currentPage" value="${currentPage}" />
+								<input type="hidden" id="mentor_num" name="mentor_num"
+									value="${essayDTO.mentor_num}" />
+								<button class="primary-button center-block" id="submit">Submit</button>
+								<a href="essay_list.do"><input type="button"
+									class="primary-button center-block"
+									onclick="location.replace()='essay_list.do'" value="list"></a>
+
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- /row -->
+		<!-- author -->
+		<div class="section-row"
+			style="border-left: 2px dotted #ccc; padding-left: 63px;">
+			<div id="author">
+				<div id="author_border">
+					<div class="post-author" style="width: 78%">
+
+						<div class="media">
+							<div class="media-left">
+								<img class="media-object"
+									src="/sms/temp/${mentorDTO.mentor_image}" alt=""
+									style="height: 120px">
+							</div>
+							<div class="media-body">
+								<div class="media-heading">
+									<h3>${mentorDTO.mentor_name}</h3>
+								</div>
+								<div id="mentorSub">${mentorDTO.mentor_sub}</div>
+
+								<hr />
+								<h6>맨토링 분야</h6>
+								<ul>
+									<c:forEach items="${fieldDTO}" var="flist">
+										<li class="field-chip">${flist.field_name}</li>
+									</c:forEach>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-			<!-- /row -->
 		</div>
-		<!-- /container -->
+		<!-- author -->
 	</div>
-	<!-- /section -->
-
-	<!-- Footer -->
-	<footer id="footer">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-5">
-					<div class="footer-widget">
-						<div class="footer-logo">
-							<a href="index.html" class="logo"><img src="./img/logo.png"
-								alt=""></a>
-						</div>
-						<ul class="footer-nav">
-							<li><a href="#">Privacy Policy</a></li>
-							<li><a href="#">Advertisement</a></li>
-						</ul>
-						<div class="footer-copyright">
-							<span>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-								Copyright &copy;<script>
-									document.write(new Date().getFullYear());
-								</script> All rights reserved | This template is made with <i
-								class="fa fa-heart-o" aria-hidden="true"></i> by <a
-								href="https://colorlib.com" target="_blank">Colorlib</a> <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="footer-widget">
-								<h3 class="footer-title">About Us</h3>
-								<ul class="footer-links">
-									<li><a href="about.html">About Us</a></li>
-									<li><a href="#">Join Us</a></li>
-									<li><a href="contact.html">Contacts</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="footer-widget">
-								<h3 class="footer-title">Catagories</h3>
-								<ul class="footer-links">
-									<li><a href="category.html">Web Design</a></li>
-									<li><a href="category.html">JavaScript</a></li>
-									<li><a href="category.html">Css</a></li>
-									<li><a href="category.html">Jquery</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-3">
-					<div class="footer-widget">
-						<h3 class="footer-title">Join our Newsletter</h3>
-						<div class="footer-newsletter">
-							<form>
-								<input class="input" type="email" name="newsletter"
-									placeholder="Enter your email">
-								<button class="newsletter-btn">
-									<i class="fa fa-paper-plane"></i>
-								</button>
-							</form>
-						</div>
-						<ul class="footer-social">
-							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-						</ul>
-					</div>
-				</div>
-
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</footer>
-	<!-- /Footer -->
-
-	<!-- jQuery Plugins -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/main.js"></script>
-
-</body>
-</html>
+	<!-- /container -->
+</div>
+<!-- /section -->

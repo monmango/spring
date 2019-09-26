@@ -1,5 +1,7 @@
 package com.mycompany.sms.dto;
 
+import java.util.List;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class MeetingDTO {
@@ -16,10 +18,30 @@ public class MeetingDTO {
 	private String meeting_address; // 모임 주소
 	private String meeting_img_name; // 모임 이미지패스
 	private MultipartFile meeting_file; // 미팅 사진 파일
+	private List<MentorDTO> mentorDTO;
+	
+
 
 	public MeetingDTO() {
 
 	}
+		
+
+
+
+
+
+	public List<MentorDTO> getMentorDTO() {
+		return mentorDTO;
+	}
+
+
+
+
+	public void setMentorDTO(List<MentorDTO> mentorDTO) {
+		this.mentorDTO = mentorDTO;
+	}
+
 
 	public int getMeeting_num() {
 		return meeting_num;

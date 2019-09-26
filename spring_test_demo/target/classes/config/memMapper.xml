@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mem">
+	<select id="sel" resultType="String">
+	  select sysdate from dual
+	</select>
+	
+ <insert id="register" parameterType="com.mycompany.mytest.model.MyBatisTestVO">
+	   insert into testmember(num,name,email,tel,addr,writeday)
+	    values(1,#{name},#{email},#{tel},#{addr},sysdate)
+	</insert> 
+	
+	 
+	<insert id="ins" parameterType="java.util.HashMap">
+		INSERT INTO register
+		VALUES
+		( #{userid, jdbcType=VARCHAR},#{passwd, jdbcType=VARCHAR},#{name, jdbcType=VARCHAR},#{email, jdbcType=VARCHAR},#{tel, jdbcType=VARCHAR})
+
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>title</title>
+<style type="text/css">
+table tr th:hover{
+font-size: 20px;
+}
+</style>
+</head>
+<body>
+<form class="frm">
+	<input type="checkbox" class="chk" name="all">
+	<input type="checkbox" class="chk"  name="nor">
+	<input type="checkbox" class="chk"  name="pro">
+	
+	<script>
+	$('input[name:all]').click(function(){
+		if($(this).prop('checked')){
+			$('.chk').prop('checked', this.checked);
+		}else {
+			$('.chk').prop('checked', this.checked);
+		}
+	})
+	</script>
+	
+	<table>
+	<tr>
+		<th>제목</th><th>가격</th>
+	</tr>
+	<tr>
+		<td></td><td></td>	
+	</tr>
+	</table>
+</form>
+</body>
+</html>

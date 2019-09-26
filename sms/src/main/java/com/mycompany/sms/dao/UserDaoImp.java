@@ -1,7 +1,6 @@
 package com.mycompany.sms.dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mycompany.sms.dto.UserDTO;
@@ -33,6 +32,14 @@ public class UserDaoImp implements UserDAO{
 	@Override
 	public int userCheckMethod(UserDTO dto) {
 		return sqlSession.selectOne("userInput.uCheck", dto);
+	}
+	@Override
+	public void userQuitSMSProcess(String user_id) {
+		sqlSession.delete("userInput.uQuit", user_id);
+	}
+	@Override
+	public int uCheck2(String email) {
+		return sqlSession.selectOne("userInput.uCheck2",email);
 	}
 
 }

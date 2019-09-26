@@ -3,10 +3,10 @@ package com.mycompany.sms.dao;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.mycompany.sms.dto.EssayDTO;
+import com.mycompany.sms.dto.MentorDTO;
 import com.mycompany.sms.dto.PageDTO;
 @Repository
 public class EssayDaoImp implements EssayDAO{
@@ -31,7 +31,6 @@ public class EssayDaoImp implements EssayDAO{
 	
 	@Override
 	public void essayInsetMethod(EssayDTO dto) {
-		System.out.println("여기3");
 		sqlSession.insert("essay.e_ins", dto);
 	}
 	
@@ -50,8 +49,8 @@ public class EssayDaoImp implements EssayDAO{
 	}
 	
 	@Override
-	public EssayDTO essayUpdateMethod(EssayDTO dto) {
-		return sqlSession.selectOne("essay.e_updat", dto);
+	public void essayUpdateMethod(EssayDTO dto) {
+		sqlSession.update("essay.e_update", dto);
 	}
 
 	@Override
@@ -60,4 +59,47 @@ public class EssayDaoImp implements EssayDAO{
 		
 	}
 
+	@Override
+	public int checkMentorMethod(String user_id) {
+		return sqlSession.selectOne("essay.checkMentor", user_id);
+	}
+
+	@Override
+	public int getMentorNumMethod(String user_id) {
+		return sqlSession.selectOne("essay.getMentorNum", user_id);
+	}
+
+	@Override
+	public MentorDTO getMentorInfo(int mentor_num) {
+		return sqlSession.selectOne("essay.getMentorInfo", mentor_num);
+	}
+
+	@Override
+	public int compareMentorAndUser(MentorDTO dto) {
+		return sqlSession.selectOne("essay.compareMentorAndUser", dto);
+	}
+
+	@Override
+	public int getEssayNum() {
+		return sqlSession.selectOne("essay.getEssayNum");
+	}
+
+	@Override
+	public MentorDTO getMentorInfoFromUserIdMethod(String user_id) {
+		return sqlSession.selectOne("essay.getMentorInfoFromUserId", user_id);
+	}
+
+	@Override
+	public List<EssayDTO> mainEssayProcess() {
+		return sqlSession.selectList("essay.main_list");
+	}
+
+//	for mypage
+	@Override
+	public List<EssayDTO> myPageEssay(Integer mentor_num) {
+		
+		return sqlSession.selectList("essay.myPageEssay", mentor_num);
+	}
+	
+	
 }

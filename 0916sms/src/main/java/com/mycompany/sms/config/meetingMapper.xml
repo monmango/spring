@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mt">
+
+	<!-- list 버튼 기능 로근인한 유저 멘토넘버값 -->
+	<select id="login_user" parameterType="String" resultType="int">
+		select count(*) from sms_mentor where user_id=#{user_id}
+	
+	</select>
+
+	<!-- 유저의 아이디값-->
+	<select id="meuser" parameterType="int" resultType="String">
+		select user_id from sms_mentor where mentor_num = #{mentor_num}
+	</select>
+	
+	
+	<!-- 멘토의 넘버값 -->
+	<select id="mentorNum" parameterType="String" resultType="Integer">
+		select
+		mentor_num from sms_mentor where user_id = #{user_id}
+	</select>
+
+	<!-- 리스트 쿼리 -->
+	<resultMap type="com.mycompany.sms.dto.MentorDTO" id="mentorDTO"
+		autoMapping="false">
+		<result column="mentor_name" property="mentor_name" />
+		<result column="mentor_career" property="mentor_career" />
+		<result column="mentor_co" property="mentor_co" />
+		<result column="mentor_image" property="mentor_image" />
+		<collection property="meetingDTO" javaType="java.util.List"
+			ofType="com.mycompany.sms.dto.MeetingDTO">
+			<result column="meeting_title" property="meeting_title" />
+			<result column="meeting_introduction" property="meeting_introduction" />
+			<result column="meeting_num" property="meeting_num" />
+			<result column="meeting_date" property="meeting_date" />
+			<result column="meeting_place" property="meeting_place" />
+			<result column="meeting_img_name" property="meeting_img_name" />
+		</collection>
+	</resultMap>
+	
+	<select id="list" resultMap="mentorDTO">
+		select b.meeting_img_name,
+		b.meeting_title, b.meeting_introduction, b.meeting_place,
+		b.meeting_num,
+		b.meeting_date, m.mentor_co, m.mentor_name,
+		m.mentor_career, m.mentor_image
+		from sms_mentor m, sms_meeting b
+		where
+		b.mentor_num = m.mentor_num order by b.meeting_num
+	</select>
+
+
+	<!-- 미팅 디테일 -->
+
+	<insert id="ins_meeting" parameterType="com.mycompany.sms.dto.MeetingDTO">
+		insert into
+		sms_meeting(meeting_num, mentor_num, meeting_recruitment, meeting_price, meeting_title,
+		meeting_comment, meeting_date, meeting_introduction, meeting_place, meeting_address, meeting_img_name)
+		values(sms_meeting_seq.nextval, #{mentor_num}, #{meeting_recruitment}, #{meeting_price},
+		#{meeting_title}, #{meeting_comment}, #{meeting_date},
+		#{meeting_introduction}, #{meeting_place}, #{meeting_address}, #{meeting_img_name})
+	</insert>
+
+	<select id="select_meeting" resultType="com.mycompany.sms.dto.MeetingDTO"
+		parameterType="int">
+		select * from sms_meeting where
+		meeting_num=#{meeting_num} 
+	</select>
+
+	<!-- detail 쿼리문 -->
+	<select id="select_mentor" parameterType="com.mycompany.sms.dto.MeetingDTO"
+		resultType="com.mycompany.sms.dto.MentorDTO">
+		select * from sms_mentor where mentor_num=#{mentor_num}
+	</select>
+	
+
+</mapper>
+
+

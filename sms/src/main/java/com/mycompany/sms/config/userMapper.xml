@@ -26,4 +26,12 @@
 	<select id="uCheck" parameterType="com.mycompany.sms.dto.UserDTO" resultType="int">
 		select count(*) from sms_user_info where user_id =#{user_id} and user_pass = #{user_pass}
 	</select>
+
+	<select id="uCheck2" parameterType="String" resultType="int">
+		select count(*) from sms_user_info where user_id =#{user_id}
+	</select>
+	
+	<delete id="uQuit" parameterType="String">
+		delete from sms_user_info where user_id = #{email}
+	</delete>
 </mapper>

@@ -9,18 +9,24 @@
 <title><tiles:getAsString name="title" /></title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 <!-- Google font -->
 <link
 	href="https://fonts.googleapis.com/css?family=Nunito+Sans:700%7CNunito:300,600"
 	rel="stylesheet">
+
+
 <!-- Bootstrap -->
 <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
 <!-- Font Awesome Icon -->
 <link rel="stylesheet" href="css/font-awesome.min.css">
 <!-- Custom stlylesheet -->
 <link type="text/css" rel="stylesheet" href="css/style.css" />
-<link type="text/css" rel="stylesheet" href="css/meeting-list.css" />
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e125bfc102f60cc43e9ffab343755532&libraries=services"></script>
+
 </head>
 <body>
 	<header>

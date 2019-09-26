@@ -8,4 +8,6 @@ public interface UserDAO {
 	public void userSettingUploadMethod(UserDTO dto);
 	public String userSelectfile(UserDTO dto);
 	public int userCheckMethod(UserDTO dto);
+	public void userQuitSMSProcess(String user_id);
+	public int uCheck2(String email);
 }

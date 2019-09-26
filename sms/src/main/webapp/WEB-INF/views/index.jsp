@@ -2,424 +2,267 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-	<!-- section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<!-- post -->
-				<div class="col-md-6">
-					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/post-1.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-meta">
-								<a class="post-category cat-2" href="category.html">JavaScript</a>
-								<span class="post-date">March 27, 2018</span>
-							</div>
-							<h3 class="post-title">
-								<a href="blog-post.html">Chrome Extension Protects Against
-									JavaScript-Based CPU Side-Channel Attacks</a>
-							</h3>
-						</div>
-					</div>
-				</div>
-				<!-- /post -->
+<style type="text/css">
+* {
+	margin: 0;
+	padding: 0;
+}
 
-				<!-- post -->
-				<div class="col-md-6">
-					<div class="post post-thumb">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/post-2.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-meta">
-								<a class="post-category cat-3" href="category.html">Jquery</a> <span
-									class="post-date">March 27, 2018</span>
-							</div>
-							<h3 class="post-title">
-								<a href="blog-post.html">Ask HN: Does Anybody Still Use
-									JQuery?</a>
-							</h3>
-						</div>
-					</div>
-				</div>
-				<!-- /post -->
-			</div>
-			<!-- /row -->
+.post {
+	margin-bottom: 15px;
+}
+/* border: 1px solid #e0ebeb; */
+.col-md-4 {
+	width: auto;
+}
 
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-12">
+.aside-widget {
+	padding: 20px;
+	border: 1px solid #e0ebeb;
+	border-radius: 10px;
+}
+
+#follower:hover {
+	background-color: aliceblue;
+}
+
+.meeting_body {
+	width: 90%;
+	margin-top: 0;
+	margin-bottom: 60px;
+	margin-left: 120px;
+	display: inline-block;
+	margin-left: 120px;
+}
+
+.meeting_body .meeting {
+	width: 100%;
+	margin: 0 auto;
+}
+
+.meeting_body .meeting .metable {
+	width: 30%;
+	height: 470px;
+	float: left;
+	margin: 0 auto;
+	margin-left: 30px;
+	margin-top: 50px;
+	border: 1px solid #e0ebeb;
+	border-radius: 10px;
+}
+
+.meeting_body .meeting .metable:hover {
+	padding: 0.2%;
+	box-shadow: 2px 1px 18px #d9d9f2;
+}
+
+.meeting_body .meeting .metable .text_group {
+	margin-left: 10px;
+	margin-right: 10px;
+	color: #585858;
+}
+
+.meeting_body .meeting .metable img {
+	width: 100%;
+	height: 190px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	margin: 0 auto;
+	margin-bottom: 15px;
+}
+
+img:after {
+	background-image: linear-gradient(rgba(0, 0, 0, 0.10),
+		rgba(0, 0, 0, 0.05));
+}
+
+.meeting_body .meeting .metable p {
+	margin-top: 10px;
+}
+
+.meeting_body .meeting .metable .mm {
+	margin-top: 10px;
+}
+
+hr {
+	display: block;
+	height: 1px;
+	border: 0;
+	border-top: 1px solid #F2F2F2;
+	margin: 10px 0;
+	padding: 0;
+}
+
+.meeting_body .meeting .metable .mm #m {
+	float: right;
+}
+
+.meeting_body .meeting .metable .mento {
+	display: flex;
+	margin-top: 20px;
+	margin-left: 10px;
+	margin-right: 10px;
+	color: #585858;
+}
+
+.meeting_body .meeting .metable .mento .badge {
+	float: right;
+	width: 120px;
+	height: 20px;
+}
+
+.btn {
+	padding: 9px 45px;
+	border: none;
+	background-color: #212631;
+	font-weight: 600;
+	text-transform: uppercase;
+	font-size: 13px;
+	color: #fff;
+	margin-left: 410px;
+	margin-top: 20px;
+	-webkit-transition: 0.2s opacity;
+	transition: 0.2s opacity;
+}
+
+.write {
+	margin-left: 450px;
+	border: 0;
+	padding: 0;
+}
+
+.pageList {
+	margin-left: 1500px;
+}
+
+.text_num {
+	width: 130px;
+	height: 30px;
+	border: 1px solid #9F81F7;
+	border-radius: 10px;
+	padding-top: auto;
+	font-size: small;
+	line-height: 30px;
+}
+
+#introduction {
+	white-space: nowrap;
+	width: 300px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	border: 0px solid #000000;
+}
+</style>
+<!-- section -->
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-8">
+				<div class="row">
 					<div class="section-title">
-						<h2>Recent Posts</h2>
+						<h2>최근 에쎄이</h2>
 					</div>
-				</div>
+					<div class="col-md-12"></div>
 
-				<!-- post -->
-				<div class="col-md-4">
-					<div class="post">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/post-3.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-meta">
-								<a class="post-category cat-1" href="category.html">Web
-									Design</a> <span class="post-date">March 27, 2018</span>
+					<c:forEach items="${main_list}" var="dto" begin="0" end="2">
+
+						<div class="essay_list">
+							<c:url var="path" value="essay_view.do">
+								<c:param name="currentPage" value="1" />
+								<c:param name="essay_num" value="${dto.essay_num }" />
+								<c:param name="mentor_num" value="${dto.mentor_num }" />
+							</c:url>
+							<div class="post post-row">
+								<a class="post-img" href="${path}"
+									style="width: 200px; height: 150px; margin-right: 50px;"> <img
+									id="img" src="/sms/temp/${dto.essay_img }" alt="#"></a>
+								<div class="post-body" style="margin: auto;">
+									<div class="post-meta"></div>
+									<h3 class="post-title"
+										style="padding-left: 10px; padding-right: 10px">
+										<a href="${path}">${dto.essay_subject }</a>
+									</h3>
+									<div class="subtitle"
+										style="padding: 10px width: 100px; height:30px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+										${dto.essay_summary }</div>
+								</div>
 							</div>
-							<h3 class="post-title">
-								<a href="blog-post.html">Pagedraw UI Builder Turns Your
-									Website Design Mockup Into Code Automatically</a>
-							</h3>
+						</div>
+						<hr/>
+					</c:forEach>
+					<!-- /post -->
+					<div class="col-md-12">
+						<div class="section-row">
+							<a class="w3-input" href="essay_list.do"
+								style="float: right; margin-bottom: 30px; text-decoration: none;"><button
+									class="primary-button center-block">더 보기</button></a>
 						</div>
 					</div>
 				</div>
-				<!-- /post -->
-
-				<!-- post -->
-				<div class="col-md-4">
-					<div class="post">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/post-4.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-meta">
-								<a class="post-category cat-2" href="category.html">JavaScript</a>
-								<span class="post-date">March 27, 2018</span>
-							</div>
-							<h3 class="post-title">
-								<a href="blog-post.html">Chrome Extension Protects Against
-									JavaScript-Based CPU Side-Channel Attacks</a>
-							</h3>
-						</div>
-					</div>
-				</div>
-				<!-- /post -->
-
-				<!-- post -->
-				<div class="col-md-4">
-					<div class="post">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/post-5.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-meta">
-								<a class="post-category cat-3" href="category.html">Jquery</a> <span
-									class="post-date">March 27, 2018</span>
-							</div>
-							<h3 class="post-title">
-								<a href="blog-post.html">Ask HN: Does Anybody Still Use
-									JQuery?</a>
-							</h3>
-						</div>
-					</div>
-				</div>
-				<!-- /post -->
-
-				<div class="clearfix visible-md visible-lg"></div>
-
-				<!-- post -->
-				<div class="col-md-4">
-					<div class="post">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/post-6.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-meta">
-								<a class="post-category cat-2" href="category.html">JavaScript</a>
-								<span class="post-date">March 27, 2018</span>
-							</div>
-							<h3 class="post-title">
-								<a href="blog-post.html">Why Node.js Is The Coolest Kid On
-									The Backend Development Block!</a>
-							</h3>
-						</div>
-					</div>
-				</div>
-				<!-- /post -->
-
-				<!-- post -->
-				<div class="col-md-4">
-					<div class="post">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/post-1.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-meta">
-								<a class="post-category cat-4" href="category.html">Css</a> <span
-									class="post-date">March 27, 2018</span>
-							</div>
-							<h3 class="post-title">
-								<a href="blog-post.html">CSS Float: A Tutorial</a>
-							</h3>
-						</div>
-					</div>
-				</div>
-				<!-- /post -->
-
-				<!-- post -->
-				<div class="col-md-4">
-					<div class="post">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/post-2.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-meta">
-								<a class="post-category cat-1" href="category.html">Web
-									Design</a> <span class="post-date">March 27, 2018</span>
-							</div>
-							<h3 class="post-title">
-								<a href="blog-post.html">Tell-A-Tool: Guide To Web Design
-									And Development Tools</a>
-							</h3>
-						</div>
-					</div>
-				</div>
-				<!-- /post -->
 			</div>
-			<!-- /row -->
-
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-8">
-					<div class="row">
-						<!-- post -->
-						<div class="col-md-12">
-							<div class="post post-thumb">
-								<a class="post-img" href="blog-post.html"><img
-									src="./img/post-2.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-meta">
-										<a class="post-category cat-3" href="category.html">Jquery</a>
-										<span class="post-date">March 27, 2018</span>
-									</div>
-									<h3 class="post-title">
-										<a href="blog-post.html">Ask HN: Does Anybody Still Use
-											JQuery?</a>
-									</h3>
-								</div>
-							</div>
+			<div class="col-md-4" style="margin-left:60px">
+				<br /> <br />
+				<!-- catagories -->
+				<div class="aside-widget">
+					<div class="section-title">
+						<h3>팔로워 순위</h3>
+					</div>
+					<div style="width: 300px">
+						<div>
+							<span style="text-decoration: none; font-size: large;">팔로워
+								아이디</span> <span style="display: inline-block; float: right;">
+								팔로워 수</span>
 						</div>
-						<!-- /post -->
-
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post.html"><img
-									src="./img/post-1.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-meta">
-										<a class="post-category cat-4" href="category.html">Css</a> <span
-											class="post-date">March 27, 2018</span>
-									</div>
-									<h3 class="post-title">
-										<a href="blog-post.html">CSS Float: A Tutorial</a>
-									</h3>
-								</div>
+						<hr />
+					</div>
+					<div class="category-widget">
+						<c:forEach items="${mentorInfo}" var="bflist" begin="0" end="2">
+							<div id="follower">
+								<a href="mentor_view.do?num=${bflist.mentor_num}"
+									style="text-decoration: none; font-size: x-large; width: 300px;">
+									${bflist.mentor_name}</a> <small>멘토님</small> <span id="follownum"
+									style="display: inline-block; float: right;">( ${bflist.follow_num} )</span>
+								<hr />
 							</div>
-						</div>
-						<!-- /post -->
-
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post.html"><img
-									src="./img/post-2.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-meta">
-										<a class="post-category cat-1" href="category.html">Web
-											Design</a> <span class="post-date">March 27, 2018</span>
-									</div>
-									<h3 class="post-title">
-										<a href="blog-post.html">Tell-A-Tool: Guide To Web Design
-											And Development Tools</a>
-									</h3>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
-
-						<div class="clearfix visible-md visible-lg"></div>
-
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post.html"><img
-									src="./img/post-4.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-meta">
-										<a class="post-category cat-2" href="category.html">JavaScript</a>
-										<span class="post-date">March 27, 2018</span>
-									</div>
-									<h3 class="post-title">
-										<a href="blog-post.html">Chrome Extension Protects Against
-											JavaScript-Based CPU Side-Channel Attacks</a>
-									</h3>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
-
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post.html"><img
-									src="./img/post-5.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-meta">
-										<a class="post-category cat-3" href="category.html">Jquery</a>
-										<span class="post-date">March 27, 2018</span>
-									</div>
-									<h3 class="post-title">
-										<a href="blog-post.html">Ask HN: Does Anybody Still Use
-											JQuery?</a>
-									</h3>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
-
-						<div class="clearfix visible-md visible-lg"></div>
-
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post.html"><img
-									src="./img/post-3.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-meta">
-										<a class="post-category cat-1" href="category.html">Web
-											Design</a> <span class="post-date">March 27, 2018</span>
-									</div>
-									<h3 class="post-title">
-										<a href="blog-post.html">Pagedraw UI Builder Turns Your
-											Website Design Mockup Into Code Automatically</a>
-									</h3>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
-
-						<!-- post -->
-						<div class="col-md-6">
-							<div class="post">
-								<a class="post-img" href="blog-post.html"><img
-									src="./img/post-4.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-meta">
-										<a class="post-category cat-2" href="category.html">JavaScript</a>
-										<span class="post-date">March 27, 2018</span>
-									</div>
-									<h3 class="post-title">
-										<a href="blog-post.html">Chrome Extension Protects Against
-											JavaScript-Based CPU Side-Channel Attacks</a>
-									</h3>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
+						</c:forEach>
 					</div>
 				</div>
-
-				<div class="col-md-4">
-					<!-- post widget -->
+				<!-- /catagories -->
+				<!-- catagories -->
+				<c:if test="${not empty sessionScope.user_id}">
 					<div class="aside-widget">
 						<div class="section-title">
-							<h2>Most Read</h2>
+							<h2>나의 팔로워</h2>
 						</div>
-
-						<div class="post post-widget">
-							<a class="post-img" href="blog-post.html"><img
-								src="./img/widget-1.jpg" alt=""></a>
-							<div class="post-body">
-								<h3 class="post-title">
-									<a href="blog-post.html">Tell-A-Tool: Guide To Web Design
-										And Development Tools</a>
-								</h3>
-							</div>
+						<div class="category-widget">
+							<c:if test="${not empty sessionScope.user_id}">
+								<p>
+									<c:forEach items="${mymentorInfo}" var="mlist" begin="0"
+										end="2">
+										<div id="follower">
+											<a href="mentor_view.do?num=${mlist.mentor_num}"
+												style="text-decoration: none;">
+												<h3>
+													<span class="card-name">${mlist.mentor_name}</span>&nbsp; <small>멘토</small>
+												</h3>
+												<hr />
+											</a>
+										</div>
+									</c:forEach>
+								</p>
+							</c:if>
 						</div>
-
-						<div class="post post-widget">
-							<a class="post-img" href="blog-post.html"><img
-								src="./img/widget-2.jpg" alt=""></a>
-							<div class="post-body">
-								<h3 class="post-title">
-									<a href="blog-post.html">Pagedraw UI Builder Turns Your
-										Website Design Mockup Into Code Automatically</a>
-								</h3>
-							</div>
-						</div>
-
-						<div class="post post-widget">
-							<a class="post-img" href="blog-post.html"><img
-								src="./img/widget-3.jpg" alt=""></a>
-							<div class="post-body">
-								<h3 class="post-title">
-									<a href="blog-post.html">Why Node.js Is The Coolest Kid On
-										The Backend Development Block!</a>
-								</h3>
-							</div>
-						</div>
-
-						<div class="post post-widget">
-							<a class="post-img" href="blog-post.html"><img
-								src="./img/widget-4.jpg" alt=""></a>
-							<div class="post-body">
-								<h3 class="post-title">
-									<a href="blog-post.html">Tell-A-Tool: Guide To Web Design
-										And Development Tools</a>
-								</h3>
-							</div>
-						</div>
+						<!-- /catagories -->
 					</div>
-					<!-- /post widget -->
-
-					<!-- post widget -->
-					<div class="aside-widget">
-						<div class="section-title">
-							<h2>Featured Posts</h2>
-						</div>
-						<div class="post post-thumb">
-							<a class="post-img" href="blog-post.html"><img
-								src="./img/post-2.jpg" alt=""></a>
-							<div class="post-body">
-								<div class="post-meta">
-									<a class="post-category cat-3" href="category.html">Jquery</a>
-									<span class="post-date">March 27, 2018</span>
-								</div>
-								<h3 class="post-title">
-									<a href="blog-post.html">Ask HN: Does Anybody Still Use
-										JQuery?</a>
-								</h3>
-							</div>
-						</div>
-
-						<div class="post post-thumb">
-							<a class="post-img" href="blog-post.html"><img
-								src="./img/post-1.jpg" alt=""></a>
-							<div class="post-body">
-								<div class="post-meta">
-									<a class="post-category cat-2" href="category.html">JavaScript</a>
-									<span class="post-date">March 27, 2018</span>
-								</div>
-								<h3 class="post-title">
-									<a href="blog-post.html">Chrome Extension Protects Against
-										JavaScript-Based CPU Side-Channel Attacks</a>
-								</h3>
-							</div>
-						</div>
-					</div>
-					<!-- /post widget -->
-
-					<!-- ad -->
-					<div class="aside-widget text-center">
-						<a href="#" style="display: inline-block; margin: auto;"> <img
-							class="img-responsive" src="./img/ad-1.jpg" alt="">
-						</a>
-					</div>
-					<!-- /ad -->
-				</div>
+				</c:if>
 			</div>
 			<!-- /row -->
 		</div>
 		<!-- /container -->
 	</div>
 	<!-- /section -->
-
 	<!-- section -->
 	<div class="section section-grey">
 		<!-- container -->
@@ -428,229 +271,61 @@
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-title text-center">
-						<h2>Featured Posts</h2>
+						<h2>최근 개설된 모임</h2>
 					</div>
 				</div>
-
-				<!-- post -->
-				<div class="col-md-4">
-					<div class="post">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/post-4.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-meta">
-								<a class="post-category cat-2" href="category.html">JavaScript</a>
-								<span class="post-date">March 27, 2018</span>
-							</div>
-							<h3 class="post-title">
-								<a href="blog-post.html">Chrome Extension Protects Against
-									JavaScript-Based CPU Side-Channel Attacks</a>
-							</h3>
-						</div>
-					</div>
+				<div class="meeting_body">
+					<form name="frm" class="meeting" action="list.do" method="get">
+						<c:forEach items="${mm}" var="men" begin="0" end="2">
+							<c:forEach items="${men.mentorDTO}" var="mee">
+								<a href="detail.do?meeting_num=${men.meeting_num}"
+									style="text-decoration: none;">
+									<div class="metable">
+										<img alt="#" src="/sms/temp/${men.meeting_img_name}">
+										<div class="text_group">
+											<b class="title">${men.meeting_title}</b>
+											<p id="introduction">${men.meeting_introduction}</p>
+											<div class="mm">
+												<span><b>장소</b></span><span id="m">${men.meeting_place}</span>
+												<hr />
+												<span><b>일시</b></span><span id="m">${men.meeting_date}</span>
+												<hr />
+												<span><b>주최</b></span><span id="m">${mee.mentor_co}</span>
+											</div>
+										</div>
+								</a>
+								<a class="mentor_de" href="mentor_view.do?num=${mee.mentor_num}"
+									style="text-decoration: none;">
+									<div class="mento" id="${mee.mentor_num}">
+										<div id="me_1">
+											<img class="img-responsive"
+												style="width: 45px; height: 45px; border-radius: 50%;"
+												src="/sms/temp/${mee.mentor_image}">
+										</div>
+										<div id="me_2" style="margin-left: 10px; width: 160px;">
+											<span class="mento_name"
+												style="font-size: small; width: 90px;">${mee.mentor_name}</span>
+											<span class="mem" style="font-size: small; width: 90px;">멘토</span>
+											<span class="so"
+												style="display: block; font-size: small; border: 0;">${mee.mentor_co}, ${mee.mentor_dept}</span>
+										</div>
+										<div class="text_num text-center">
+											<span style="margin-left: 5px; margin-right: 5px;"> <i
+												class="fa fa-users" aria-hidden="true"></i>모집인원
+												:${men.meeting_recruitment }명
+											</span>
+										</div>
+									</div>
+								</a>
 				</div>
-				<!-- /post -->
-
-				<!-- post -->
-				<div class="col-md-4">
-					<div class="post">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/post-5.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-meta">
-								<a class="post-category cat-3" href="category.html">Jquery</a> <span
-									class="post-date">March 27, 2018</span>
-							</div>
-							<h3 class="post-title">
-								<a href="blog-post.html">Ask HN: Does Anybody Still Use
-									JQuery?</a>
-							</h3>
-						</div>
-					</div>
-				</div>
-				<!-- /post -->
-
-				<!-- post -->
-				<div class="col-md-4">
-					<div class="post">
-						<a class="post-img" href="blog-post.html"><img
-							src="./img/post-3.jpg" alt=""></a>
-						<div class="post-body">
-							<div class="post-meta">
-								<a class="post-category cat-1" href="category.html">Web
-									Design</a> <span class="post-date">March 27, 2018</span>
-							</div>
-							<h3 class="post-title">
-								<a href="blog-post.html">Pagedraw UI Builder Turns Your
-									Website Design Mockup Into Code Automatically</a>
-							</h3>
-						</div>
-					</div>
-				</div>
-				<!-- /post -->
+				</c:forEach>
+				</c:forEach>
+				</form>
 			</div>
-			<!-- /row -->
+
 		</div>
-		<!-- /container -->
+		<!-- /row -->
 	</div>
-	<!-- /section -->
-
-	<!-- section -->
-	<div class="section">
-		<!-- container -->
-		<div class="container">
-			<!-- row -->
-			<div class="row">
-				<div class="col-md-8">
-					<div class="row">
-						<div class="col-md-12">
-							<div class="section-title">
-								<h2>Most Read</h2>
-							</div>
-						</div>
-						<!-- post -->
-						<div class="col-md-12">
-							<div class="post post-row">
-								<a class="post-img" href="blog-post.html"><img
-									src="./img/post-4.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-meta">
-										<a class="post-category cat-2" href="category.html">JavaScript</a>
-										<span class="post-date">March 27, 2018</span>
-									</div>
-									<h3 class="post-title">
-										<a href="blog-post.html">Chrome Extension Protects Against
-											JavaScript-Based CPU Side-Channel Attacks</a>
-									</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit, sed do eiusmod tempor incididunt ut labore et dolore
-										magna aliqua. Ut enim ad minim veniam...</p>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
-
-						<!-- post -->
-						<div class="col-md-12">
-							<div class="post post-row">
-								<a class="post-img" href="blog-post.html"><img
-									src="./img/post-6.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-meta">
-										<a class="post-category cat-2" href="category.html">JavaScript</a>
-										<span class="post-date">March 27, 2018</span>
-									</div>
-									<h3 class="post-title">
-										<a href="blog-post.html">Why Node.js Is The Coolest Kid On
-											The Backend Development Block!</a>
-									</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit, sed do eiusmod tempor incididunt ut labore et dolore
-										magna aliqua. Ut enim ad minim veniam...</p>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
-
-						<!-- post -->
-						<div class="col-md-12">
-							<div class="post post-row">
-								<a class="post-img" href="blog-post.html"><img
-									src="./img/post-1.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-meta">
-										<a class="post-category cat-4" href="category.html">Css</a> <span
-											class="post-date">March 27, 2018</span>
-									</div>
-									<h3 class="post-title">
-										<a href="blog-post.html">CSS Float: A Tutorial</a>
-									</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit, sed do eiusmod tempor incididunt ut labore et dolore
-										magna aliqua. Ut enim ad minim veniam...</p>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
-
-						<!-- post -->
-						<div class="col-md-12">
-							<div class="post post-row">
-								<a class="post-img" href="blog-post.html"><img
-									src="./img/post-2.jpg" alt=""></a>
-								<div class="post-body">
-									<div class="post-meta">
-										<a class="post-category cat-3" href="category.html">Jquery</a>
-										<span class="post-date">March 27, 2018</span>
-									</div>
-									<h3 class="post-title">
-										<a href="blog-post.html">Ask HN: Does Anybody Still Use
-											JQuery?</a>
-									</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing
-										elit, sed do eiusmod tempor incididunt ut labore et dolore
-										magna aliqua. Ut enim ad minim veniam...</p>
-								</div>
-							</div>
-						</div>
-						<!-- /post -->
-
-						<div class="col-md-12">
-							<div class="section-row">
-								<button class="primary-button center-block">Load More</button>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4">
-					<!-- ad -->
-					<div class="aside-widget text-center">
-						<a href="#" style="display: inline-block; margin: auto;"> <img
-							class="img-responsive" src="./img/ad-1.jpg" alt="">
-						</a>
-					</div>
-					<!-- /ad -->
-
-					<!-- catagories -->
-					<div class="aside-widget">
-						<div class="section-title">
-							<h2>Catagories</h2>
-						</div>
-						<div class="category-widget">
-							<ul>
-								<li><a href="#" class="cat-1">Web Design<span>340</span></a></li>
-								<li><a href="#" class="cat-2">JavaScript<span>74</span></a></li>
-								<li><a href="#" class="cat-4">JQuery<span>41</span></a></li>
-								<li><a href="#" class="cat-3">CSS<span>35</span></a></li>
-							</ul>
-						</div>
-					</div>
-					<!-- /catagories -->
-
-					<!-- tags -->
-					<div class="aside-widget">
-						<div class="tags-widget">
-							<ul>
-								<li><a href="#">Chrome</a></li>
-								<li><a href="#">CSS</a></li>
-								<li><a href="#">Tutorial</a></li>
-								<li><a href="#">Backend</a></li>
-								<li><a href="#">JQuery</a></li>
-								<li><a href="#">Design</a></li>
-								<li><a href="#">Development</a></li>
-								<li><a href="#">JavaScript</a></li>
-								<li><a href="#">Website</a></li>
-							</ul>
-						</div>
-					</div>
-					<!-- /tags -->
-				</div>
-			</div>
-			<!-- /row -->
-		</div>
-		<!-- /container -->
-	</div>
-	<!-- /section -->
-
-	
+	<!-- /container -->
+</div>
+<!-- /section -->

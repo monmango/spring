@@ -7,7 +7,36 @@
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
 
-	<context:component-scan base-package="com.mycompany.sms.*" />
+	<context:component-scan base-package="com.mycompany.sms.controller" />
+	<context:component-scan base-package="com.mycompany.sms.service" />
+	<context:component-scan base-package="com.mycompany.sms.dao" />
+	<context:component-scan base-package="com.mycompany.sms.api" />
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+
+	<!-- Google 소셜 로그인 연결 설정 -->
+	<bean id="googleOAuth2Template"
+		class="org.springframework.social.google.connect.GoogleOAuth2Template">
+		<constructor-arg
+			value="878614229019-acd6e5ds8bnsllt2rqm9e0oauaaq0u6e.apps.googleusercontent.com" />
+		<constructor-arg value="BLzSf5uagQuetOSz2GIZWvDl" />
+	</bean>
+
+
+	<bean id="googleOAuth2Parameters" class="org.springframework.social.oauth2.OAuth2Parameters">
+		<property name="scope" value="email profile"></property>
+		<property name="redirectUri"
+			value="http://localhost:8090/sms/googleSignInCallback.do" />
+	</bean>
+
+	<bean id="authInfo" class="com.mycompany.sms.dto.GoogleAuthInfo">
+		<constructor-arg
+			value="878614229019-acd6e5ds8bnsllt2rqm9e0oauaaq0u6e.apps.googleusercontent.com" />
+		<constructor-arg value="BLzSf5uagQuetOSz2GIZWvDl" />
+
+	</bean>
+
 
 	<!-- DataSource빈 선언 -->
 	<bean id="dataSource"
@@ -98,7 +127,7 @@
 	</bean>
 
 	<!-- 파일 업로드 끝 -->
-	
+
 	<!-- tiles -->
 	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
 		<property name="definitions">
@@ -120,5 +149,7 @@
 		<property name="suffix" value=".jsp" />
 		<property name="order" value="2"></property>
 	</bean>
+
+
 
 </beans>

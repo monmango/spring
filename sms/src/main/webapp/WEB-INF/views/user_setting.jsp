@@ -11,7 +11,7 @@
 		})
 		$('#quit').on('click', function() {
 			alert("탈퇴 되었습니다.");
-			$('.form-inline').attr('action', 'quit.do').submit();
+			$('.form-inline').attr('action', 'quitSMS.do').submit();
 		})
 
 		$('#pictureUpload').on('click', function() {
@@ -90,11 +90,12 @@
 		<!-- row -->
 		<div class="row">
 			<form method="POST" class="form-inline" enctype="multipart/form-data">
-
 				<div class="settingbody">
 					<ul>
-						<li><input type="text" name="user_id"
-							value="${userDTO.user_id}" /></li>
+						<li><label for="userId">유저아이디</label></li>
+						<li><input type="text" name="user_id" class="form-control"
+							aria-label="Large" aria-describedby="inputGroup-sizing-sm"
+							style="width: 100%" value="${userDTO.user_id}" readonly /></li>
 						<li><label for="userName">이름</label></li>
 						<li><input type="text" name="user_name" class="form-control"
 							aria-label="Large" aria-describedby="inputGroup-sizing-sm"

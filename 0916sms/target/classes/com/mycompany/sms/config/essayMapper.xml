@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="essay">
+
+	<select id="count" resultType="int">
+		select count(*) from sms_essay
+	</select>
+
+	<select id="e_list" parameterType="com.mycompany.sms.dto.PageDTO" resultType="com.mycompany.sms.dto.EssayDTO">
+		<![CDATA[
+			select b.* from (select rownum as rm, a.* 
+			from(select * from sms_essay order by essay_num asc)a)b 
+			where b.rm >= #{startRow} and b.rm <= #{endRow}		
+		]]>
+	</select>
+	
+	<resultMap type="com.mycompany.sms.dto.EssayDTO" id="essayDTO" autoMapping="false">
+		<result column="essay_subject" property="essay_subject" />
+		<result column="essay_img" property="essay_img" />
+		<result column="essay_summary" property="essay_summary" />
+		<result column="essay_content" property="essay_content" />
+		<collection property="mentorDTO" javaType="java.util.List" ofType="com.mycompany.sms.dto.MentorDTO">
+			<result column="mentor_name" property="mentor_name" />
+			<result column="mentor_image" property="mentor_image" />
+			<result column="mentor_info" property="mentor_info" />
+		</collection>
+	</resultMap>
+	
+	
+	<select id="e_view" resultMap="essayDTO" parameterType="int">
+		select e.essay_subject, e.essay_img, e.essay_summary, e.essay_content, m.mentor_name, m.mentor_image, m.mentor_info  from sms_essay e, sms_mentor m where e.mentor_num = m.mentor_num and e.essay_num = #{essay_num}
+	</select>
+
+	<insert id="e_ins" parameterType="com.mycompany.sms.dto.EssayDTO">
+		insert into sms_essay(mentor_num, essay_num, essay_subject, essay_summary, essay_content, essay_date, essay_img)
+		values(mentor_num_seq.nextval, essay_num_seq.nextval, #{essay_subject}, #{essay_summary}, #{essay_content}, sysdate, #{essay_img})
+	</insert>
+
+	<select id="e_img" parameterType="com.mycompany.sms.dto.EssayDTO" resultType="String">
+		select essay_img from sms_essay where essay_num = #{essay_num }
+	</select>
+
+	<update id="e_update" parameterType="com.mycompany.sms.dto.EssayDTO">
+		update sms_essay set
+		essay_subject = '#{essay_subject}', essay_summary = '#{essay_summary}, essay_content =
+		'#{essay_content}', essay_date = sysdate
+	</update>
+
+	<delete id="e_del" parameterType="int">
+		delete from sms_essay where
+		essay_num = #{essay_num}
+	</delete>
+
+</mapper>

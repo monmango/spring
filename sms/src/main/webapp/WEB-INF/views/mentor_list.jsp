@@ -6,16 +6,22 @@
 <head>
 <meta charset="UTF-8">
 <title>SMS - 멘토 찾기</title>
-<style type="text/css">
+<link href="css/mentor.css" type="text/css" rel="stylesheet">
+<!-- <style type="text/css">
 .aside-widget {
-padding : 0px 15px;
+    padding : 0px 15px;
 }
 
+.block-title {
+    font-size : 20px;
+    font-weight: 500; 
+}
 .card {
 	border: 1px solid #ccc;
 	border-radius: 10px;
 	padding: 10px;
-	margin: 5px;
+	margin: 20px;
+	position : relative;
 }
 
 .card img {
@@ -66,13 +72,18 @@ padding : 0px 15px;
 	font-weight: bold;
 	text-align: right;
 	top: 50px;
-	right: 42px;
+	right: 29px;
+}
+
+.pagelist{
+text-align: right;
+margin-right: 20%;
 }
 </style>
+ -->
+<body>
 
-
-	<!-- tags -->
-
+	<!-- 멘토링 카테고리 -->
 	<div class="section">
 		<!-- container -->
 		<div class="container">
@@ -80,24 +91,25 @@ padding : 0px 15px;
 			<div class="row">
 				<div class="aside-widget">
 					<div class="tags-widget">
-						<p>멘토링 유형</p>
+						<h2 class="block-title"> 멘토링 유형 </h2>
 						<ul>
-							<li><a href="#">직무</a></li>
-							<li><a href="#">진로</a></li>
-							<li><a href="#">스펙</a></li>
-							<li><a href="#">외국어</a></li>
-							<li><a href="#">면접/자소서</a></li>
-							<li><a href="#">창업</a></li>
-							<li><a href="#">이직</a></li>
-							<li><a href="#">자격증</a></li>
-							<li><a href="#">스펙</a></li>
+						    <li><a href="mentor_list.do">전체보기</a></li>
+							<li><a href="mentor_list.do?field_num=1">직무</a></li>
+							<li><a href="mentor_list.do?field_num=2">진로</a></li>
+							<li><a href="mentor_list.do?field_num=3">스펙</a></li>
+							<li><a href="mentor_list.do?field_num=4">외국어</a></li>
+							<li><a href="mentor_list.do?field_num=5">면접/자소서</a></li>
+							<li><a href="mentor_list.do?field_num=6">회사생활</a></li>
+							<li><a href="mentor_list.do?field_num=7">창업</a></li>
+							<li><a href="mentor_list.do?field_num=8">이직</a></li>
+							<li><a href="mentor_list.do?field_num=9">기타</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<!-- /tags -->
+	<!-- /멘토링 카테고리 -->
 
 	<!-- section -->
 	<div class="section">
@@ -106,7 +118,7 @@ padding : 0px 15px;
 			<!-- row -->
 			<div class="row">
 				<div class="col-md-12">
-					<div class="section-title">
+					<div class="mentor-section-title">
 						<h2>멘토</h2>
 					</div>
 				</div>
@@ -116,10 +128,10 @@ padding : 0px 15px;
 					<div class="col-md-4">
 						<a href="mentor_view.do?num=${mlist.mentor_num}" style="text-decoration:none;">
 							<div class="card">
-								<span class="card-field">멘토 분야</span>
+								<span class="card-field">멘토 한마디</span>
 								<div id="title">${mlist.mentor_sub}</div>
 								<img src="/sms/temp/${mlist.mentor_image}" alt=""
-									style="width: 100px; height: 100px;" />
+									style="width: 120px; height: 120px;" />
 								<div class="card-info">
 									<span class="card-name">${mlist.mentor_name}</span> <small>멘토</small>
 								</div>
@@ -136,4 +148,5 @@ padding : 0px 15px;
 		<!-- /container -->
 	</div>
 	<!-- /section -->
+</body>
 

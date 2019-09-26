@@ -3,23 +3,28 @@ package com.mycompany.sms.dto;
 import java.util.List;
 
 public class MentorDTO {
-	private int mentor_num;
-	private String mentor_name, mentor_co, mentor_dept, mentor_level, 
-	              mentor_career, mentor_info,mentor_sub,mentor_image;
-	 
-	private List<MeetingDTO> meetingDTO;
-	
-	public List<MeetingDTO> getMeetingDTO() {
-		return meetingDTO;
-	}
-	
-	public void setMeetingDTO(List<MeetingDTO> meetingDTO) {
-		this.meetingDTO = meetingDTO;
-	}
-	
+	private int mentor_num, follow_num;
+	private String mentor_name, mentor_co, mentor_dept, mentor_level, mentor_career, mentor_info, mentor_sub,
+			mentor_image, user_id;
+
+
 	public MentorDTO() {
 		// TODO Auto-generated constructor stub
 	}
+
+	
+	
+	public int getFollow_num() {
+		return follow_num;
+	}
+
+
+
+	public void setFollow_num(int follow_num) {
+		this.follow_num = follow_num;
+	}
+
+
 
 	public int getMentor_num() {
 		return mentor_num;
@@ -61,7 +66,6 @@ public class MentorDTO {
 		this.mentor_level = mentor_level;
 	}
 
-
 	public String getMentor_career() {
 		return mentor_career;
 	}
@@ -77,7 +81,6 @@ public class MentorDTO {
 	public void setMentor_info(String mentor_info) {
 		this.mentor_info = mentor_info;
 	}
-
 
 	public String getMentor_sub() {
 		return mentor_sub;
@@ -95,10 +98,12 @@ public class MentorDTO {
 		this.mentor_image = mentor_image;
 	}
 
+	public String getUser_id() {
+		return user_id;
+	}
 
-	
-	
-	
-	
-	
-}//end class
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
+
+}// end class

@@ -8,4 +8,7 @@ public interface UserService {
 	public void userSettingUploadServiceMethod(UserDTO dto);
 	public String userSelectFile(UserDTO dto);
 	public int userCheckMethod(UserDTO dto);
+	public void userQuitSMSProcess(String user_id);
+	public int uCheck2(String email);
+	
 }

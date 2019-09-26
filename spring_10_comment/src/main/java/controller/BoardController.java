@@ -19,7 +19,7 @@ import dto.BoardDTO;
 import dto.ReplyDTO;
 import service.BoardService;
 
-//http://lovalhost:8090/mycomment/boardList.do
+//http://localhost:8090/mycomment/boardList.do
 
 @Controller
 public class BoardController {
