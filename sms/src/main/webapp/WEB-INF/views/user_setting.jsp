@@ -10,8 +10,11 @@
 			$('.form-inline').attr('action', 'userUpdate.do').submit();
 		})
 		$('#quit').on('click', function() {
-			alert("탈퇴 되었습니다.");
-			$('.form-inline').attr('action', 'quitSMS.do').submit();
+			Swal.fire({
+				  type: 'warning',
+				  title: '회원 탈퇴 버튼를 누르셨습니다',
+				  footer: '<a href="quitSMS.do">정말로 회원 탈퇴를 하시겠습니까?</a>'
+				});
 		})
 
 		$('#pictureUpload').on('click', function() {

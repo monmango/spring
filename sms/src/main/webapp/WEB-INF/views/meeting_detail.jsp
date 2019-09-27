@@ -175,7 +175,7 @@ hr {
 
 .meeting_form .mentor-box .card-field {
 	/* display: block; */
-	background-color: #4BB92F;
+	background-color: #f38037;
 	font-size: 13px;
 	text-transform: uppercase;
 	padding: 3px 10px;
@@ -382,6 +382,7 @@ text-decoration: none;
 								<p id="m_d">${meeting.meeting_address}</p>
 								<div id="map" style="width: 100%; height: 350px;"></div>
 							</div>
+							
 							<div class="bt_group">
 							<a class="meeting_apply" href="meeting_cnt.do?user_Id=${user_Id}&meeting_num=${meeting.meeting_num}"><button id="meeting_apply" type="button" 
 							class="btn btn-warning"><i class="fa fa-users" aria-hidden="true"></i> 모임참여하기</button></a>

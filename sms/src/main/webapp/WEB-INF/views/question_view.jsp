@@ -8,31 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="css/mentor.css" type="text/css" rel="stylesheet">
-<!-- <style type="text/css">
-.post-content {
-	padding: 20px 0;
-}
-
-.post-info {
-	text-align: right;
-}
-
-.main-post {
-	border-bottom: 1px solid #eceef2;
-}
-
-.post-container {
-	padding-right: 80px;
-}
-
-.section-row:nth-child(2), .section-title {
-	padding-top: 50px;
-}
-
-.list-btn {
- float : right;
-}
-</style> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script type="text/javascript">

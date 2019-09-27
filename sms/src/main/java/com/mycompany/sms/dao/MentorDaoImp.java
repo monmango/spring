@@ -118,4 +118,9 @@ public class MentorDaoImp implements MentorDAO {
 		return sqlSession.selectOne("mentor.fieldmembercheck", field_num);
 	}
 
+	@Override
+	public int followercnt(int num) {
+		return sqlSession.selectOne("mentor.follower", num);
+	}
+
 }//end class

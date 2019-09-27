@@ -40,7 +40,7 @@
 	position: absolute;
 	width: 500px;
 	height: 400px;
-	top: 396px;
+	top: 420px;
 	background-color: transparent;
 	color: #212631;
 }
@@ -126,7 +126,7 @@
 			var scrollTop = $(window).scrollTop();
 			var newPosition = scrollTop + floatPosition - 300;
 			if (newPosition <= 393) {
-				newPosition = 380;
+				newPosition = 420;
 			}
 			$("#author").stop().animate({
 				"top" : newPosition + "px"

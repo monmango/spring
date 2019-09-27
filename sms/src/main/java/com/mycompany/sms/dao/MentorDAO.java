@@ -30,4 +30,5 @@ public interface MentorDAO {
 	public List<MentorFollowDTO> myfollow(String user_id);
 	public MentorDTO checkMentor(String user_id);//mypage
 	public int mentorMemberCheck(int field_num);
+	public int followercnt(int num);
 }

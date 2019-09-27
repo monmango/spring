@@ -80,7 +80,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="section-title">
-					<h2>ESSAY</h2>
+					<h2><i class="fa fa-pencil" aria-hidden="true"></i> ESSAY</h2>
 				</div>
 			</div>
 			<!--////////////////////////////////////////              여기 부터                       //////////////////////////////////////-->

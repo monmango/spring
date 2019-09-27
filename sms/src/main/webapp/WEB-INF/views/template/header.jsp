@@ -9,38 +9,63 @@
 		var mCheck = $('#mcheck').val();
 		$("#wannabe").on('click', function() {
 			if (mCheck == 1) {
-				alert('★경고★ 이미 멘토를 지원하셨습니다.');
+				Swal.fire({
+					type : 'info',
+					title : '어~라~~?',
+					text : '이미 멘토신데요? 멘토를 지원하실 필요가 없습니다 :)'
+				})
 				return false;
-			}else if(mCheck==""){
-				alert('로그인을 해주셔야 합니다.');
+			} else if (mCheck == "") {
+				Swal.fire({
+					type : 'error',
+					title : '이런이런~맙소사',
+					text : '로그인을 먼저 해주셔야 합니다!'
+				})
 				return false
 			} else {
 				return true;
 			}
 
 		});
-		
+
 		$(".post-category").on('click', function() {
 			if (mCheck == 1) {
-				alert('★경고★ 이미 멘토를 지원하셨습니다.');
+				Swal.fire({
+					type : 'info',
+					title : '어~라~~?',
+					text : '이미 멘토신데요? 멘토를 지원하실 필요가 없습니다 :)'
+				})
 				return false;
-			}else if(mCheck==""){
-				alert('로그인을 해주셔야 합니다.');
+			} else if (mCheck == "") {
+				Swal.fire({
+					type : 'error',
+					title : '이런이런~맙소사',
+					text : '로그인을 먼저 해주셔야 합니다!'
+				})
 				return false
 			} else {
 				return true;
 			}
 
 		});
-		
+
 		$(document).ready(function() {
 			var mCheck = $('#mcheck').val();
 			$("#update_mentor").on('click', function() {
 				if (mCheck == 0) {
-					alert('멘토를 먼저 지원해주세요~');
+					Swal.fire({
+						type : 'warning',
+						title : '이런이런~맙소사',
+						text : '멘토지원을 먼저 해주셔야되요~!',
+						footer : '<a href="wannabe.do">멘토 지원을 하시겠습니까?</a>'
+					})
 					return false;
-				}else if(mCheck==""){
-					alert('로그인을 해주셔야 합니다.');
+				} else if (mCheck == "") {
+					Swal.fire({
+						type : 'error',
+						title : '이런이런~맙소사',
+						text : '로그인을 먼저 해주셔야 합니다!'
+					})
 					return false
 				} else {
 					return true;
@@ -61,16 +86,23 @@
 				<a href="home.do?${session.user_id}" class="logo"><img
 					src="./img/logo3.png" alt=""></a>
 			</div>
+
 			<!-- /logo -->
 			<!-- nav -->
 			<ul class="nav-menu nav navbar-nav" style="margin-left: 300px;">
+				<c:choose>
+					<c:when test="${not empty userDTO.user_image}">
+						<li><a style="padding-left:0px; padding-right:0px" ><marquee width="200px" direction="left">
+									${userDTO.user_name }님   SMS 에 오신 걸 환영합니다! :) </marquee></a></li>
+					</c:when>
+				</c:choose>
 				<li class="cat-4"><a href="about.do">About</a></li>
 				<li class="cat-4"><a href="mentor_list.do">멘토 찾기</a></li>
 				<li class="cat-4"><a href="essay_list.do">에세이</a></li>
 				<li class="cat-4"><a href="list.do">모임</a></li>
 				<li class="cat-4"><a id="wannabe" href="wannabe.do">멘토지원하기</a></li>
 				<input type="hidden" id="mcheck" value="${mCheck}" />
-			
+
 				<c:choose>
 					<c:when test="${empty sessionScope.user_id}">
 						<li class="cat-4"><a href="signUp.do">회원가입</a></li>
@@ -108,23 +140,17 @@
 		<div class="section-row">
 			<ul class="nav-aside-menu">
 				<li><a href="home.do">Home</a></li>
-				<li><a href="userSetting.do?user_id=${sessionScope.user_id}">Profile Setting</a></li>
-				<li id="update_mentor"><a href="update_Mento.do">Mentor Setting</a></li>
+				<li><a href="userSetting.do?user_id=${sessionScope.user_id}">Profile
+						Setting</a></li>
+				<li id="update_mentor"><a href="update_Mento.do">Mentor
+						Setting</a></li>
 				<li><a href="myPage.do?user_id=${sessionScope.user_id }">MyPage</a></li>
-			    <li><a href="question_list.do?user_id=${sessionScope.user_id}">My Q&A</a></li>
+				<li><a href="question_list.do?user_id=${sessionScope.user_id}">My
+						Q&A</a></li>
 				<li><a href="userLogout.do?user_id=${sessionScope.user_id }">Logout</a></li>
 			</ul>
 		</div>
-	
-		<div class="section-row">
-			<h3>Follow us</h3>
-			<ul class="nav-aside-social">
-				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-				<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-				<li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-			</ul>
-		</div>
+
 		<!-- /social links -->
 
 		<!-- aside nav close -->
@@ -145,8 +171,8 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-10">
-				<div class="post-meta" >
-					<a class="post-category cat-2" href="wannabe.do" >멘토 지원하기</a>
+				<div class="post-meta">
+					<a class="post-category cat-2" href="wannabe.do">멘토 지원하기</a>
 				</div>
 				<h1>가치 있는 커리어 경험을 공유해 보세요 :)</h1>
 			</div>

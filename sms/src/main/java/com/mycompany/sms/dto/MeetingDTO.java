@@ -19,6 +19,7 @@ public class MeetingDTO {
 	private String meeting_img_name; // 모임 이미지패스
 	private MultipartFile meeting_file; // 미팅 사진 파일
 	private List<MentorDTO> mentorDTO;
+	private int memberCheck;
 	
 
 
@@ -41,7 +42,17 @@ public class MeetingDTO {
 	public void setMentorDTO(List<MentorDTO> mentorDTO) {
 		this.mentorDTO = mentorDTO;
 	}
+	
+	
 
+
+	public int getMemberCheck() {
+		return memberCheck;
+	}
+
+	public void setMemberCheck(int memberCheck) {
+		this.memberCheck = memberCheck;
+	}
 
 	public int getMeeting_num() {
 		return meeting_num;

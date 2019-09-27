@@ -9,5 +9,7 @@ public interface UserDAO {
 	public String userSelectfile(UserDTO dto);
 	public int userCheckMethod(UserDTO dto);
 	public void userQuitSMSProcess(String user_id);
+	public void userQuitSMSProcess2(String user_id);
 	public int uCheck2(String email);
+	
 }

@@ -8,17 +8,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="css/mentor.css" type="text/css" rel="stylesheet">
-<!-- <style type="text/css">
-.body {
-	width: 50%;
-	margin: 0 auto;
-	margin-top: 20px;
-}
-
-#question_table {
- margin : 50px 0 100px 0;
- }
-</style> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>

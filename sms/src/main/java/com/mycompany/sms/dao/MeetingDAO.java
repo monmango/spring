@@ -48,5 +48,6 @@ public interface MeetingDAO {
 		// for mypage 멘토
 	public List<MeetingDTO> forMyPage2(Integer meeting_num);
 	
+	public int memberCheckList(int hash);
 
 }

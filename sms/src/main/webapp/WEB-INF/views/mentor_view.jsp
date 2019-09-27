@@ -7,290 +7,73 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="css/mentor.css" type="text/css" rel="stylesheet">
-<!-- <style type="text/css">
-.body {
-	width: 50%;
-	margin: 0 auto;
-	margin-top: 20px;
-}
-
-.mentor-box {
-	margin: 50px 100px;
-}
-
-.mentor-image-circle {
-	margin: 30px;
-	display: inline-block;
-	float: left;
-	/* background-color: yellow;  */
-}
-
-.mentor-image-circle img {
-	border-radius: 50%;
-	border: 2px solid #ccc;
-}
-
-.mentor-info {
-	margin: 30px 0 0 100px;
-	display: inline-block;
-	width: 50%;
-	/* background-color: red;  */
-}
-
-.mentoring-type {
-	margin-top: 30px;
-	color: #6d6d72;
-	font-weight: 600;
-}
-
-.mentoring-type-block {
-	font-size: 13px;
-	margin-top: 5px;
-}
-
-.mentoring-info {
-	color: #6d6d72;
-	font-weight: 600;
-	margin-top: 30px;
-}
-
-.button-container {
-	margin-top: 5px;
-}
-
-.mentor-name {
-	color: rgba;
-	font-size: 30px;
-	font-weight: bold;
-	font-size: 30px;
-}
-
-.mentor-name small {
-	font-size: 50%;
-	color: #6d6d72;
-}
-
-.mentor-job {
-	margin-top: 15px;
-	font-size: 20px;
-}
-
-.btn-container {
-	margin-top: 30px;
-}
-
-.detail-box {
-	margin: 35px 0;
-	padding: 15px 0;
-	border-top: 1px solid #c8c7cc;
-	border-bottom: 1px solid #c8c7cc;
-}
-
-.detail-box #block-title {
-	font-weight: bold;
-	margin: 35px 15px 10px;
-}
-
-.detail-box #block-content {
-	padding: 0 15px;
-}
-
-.field-chip {
-	display: inline-block;
-	font-size: 13px;
-	text-transform: uppercase;
-	padding: 3px 10px;
-	font-weight: 600;
-	border-radius: 2px;
-	margin-right: 5px;
-	margin-bottom: 5px;
-	color: #FFF;
-	background-color: #ff8700;
-	-webkit-transition: 0.2s opacity;
-	transition: 0.2s opacity
-}
-
-table {
-	border: 1px solid black;
-}
-
-.modal {
-	display: none; /* Hidden by default */
-	position: fixed; /* Stay in place */
-	z-index: 10; /* Sit on top */
-	left: 0;
-	top: 0;
-	width: 100%; /* Full width */
-	height: 100%; /* Full height */
-	overflow: auto; /* Enable scroll if needed */
-	background-color: rgb(0, 0, 0); /* Fallback color */
-	background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-}
-
-/* Modal Content/Box */
-.modal-content {
-	background-color: #fefefe;
-	margin: 15% auto; /* 15% from the top and centered */
-	padding: 20px;
-	border: 1px solid #888;
-	width: 50%; /* Could be more or less, depending on screen size */
-}
-/* The Close Button */
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-
-.close:hover, .close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-	float: left;
-}
-
-#question_content {
-    height : 300px;
-}
-</style> -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- <script type="text/javascript" src="js/mentor.js"></script> -->
 <script type="text/javascript">
-$(document).ready(function() {
-	$('#follow_btn').on('click', mentor_follow);
+	$(document).ready(function() {
+		$('#follow_btn').on('click', mentor_follow);
 
-	$('#question_btn').click(function() {
-		$('#myModal').css('display', 'block');
-	});
+		$('#question_btn').click(function() {
+			$('#myModal').css('display', 'block');
+		});
 
-	$('#close').click(function() {
-		$('#myModal').css('display', 'none');
-	});
-
-	$(window).click(function(e) {
-		if ($(e.target) == $('#mymodal'))
+		$('#close').click(function() {
 			$('#myModal').css('display', 'none');
+		});
+
+		/* $(window).click(function(e) {
+			if ($(e.target) == $('#mymodal'))
+				$('#myModal').css('display', 'none');
+		}); */
+
+		$('form').on('submit', space_change);
+
 	});
+	// ////////////end ready()//////////////////////////////
+	// 팔로우 처리
+	function mentor_follow() {
+		$
+				.ajax({
+					url : 'mentor_follow.do',
+					type : 'POST',
+					dataType : 'json',
+					data : 'mentor_num=${mentorView.mentor_num}&user_id=${sessionScope.user_id}',
+					success : follow_success
+				});
+	}//end mentor_follow
 
-	$('form').on('submit', space_change);
+	function follow_success(res) {
+		var text = $('#follow_btn').text();
+		if (res.check_num == 0) {
+			$('#follow_btn').text(text.replace('팔로우 취소', '팔로우'));
+			$('#follow_btn').attr(
+					'class',
+					$('#follow_btn').attr('class').replace("btn btn-danger",
+							"btn btn-default"));
 
-});
-// ////////////end ready()//////////////////////////////
-// 팔로우 처리
-function mentor_follow() {
-	$.ajax({
-			url : 'mentor_follow.do',
-			type : 'POST',
-			dataType : 'json',
-			data : 'mentor_num=${mentorView.mentor_num}&user_id=${sessionScope.user_id}',
-			success : follow_success
-			});
-}//end mentor_follow
+			$('.cnt').text(res.cnt2);
 
-function follow_success(res) {
-	var text = $('#follow_btn').text();
-	if (res.check_num == 0) {
-		$('#follow_btn').text(text.replace('팔로우 취소', '팔로우'));
-		$('#follow_btn').attr('class',
-				$('#follow_btn').attr('class').replace("btn btn-danger",
-						"btn btn-default"));
-		alert("팔로우가 취소됐습니다.");
-	} else {
-		$('#follow_btn').text(text.replace('팔로우', '팔로우 취소'));
-		$('#follow_btn').attr('class',
-				$('#follow_btn').attr('class').replace("btn btn-default",
-						"btn btn-danger"));
-		alert("팔로우가 완료됐습니다.");
-	}
-}//end follow_success
+			/* console.log(cnt); */
+			Swal.fire('팔로우가 취소 되었습니다!', '', 'success')
+		} else if (res.check_num == 1) {
+			$('#follow_btn').text(text.replace('팔로우', '팔로우 취소'));
+			$('#follow_btn').attr(
+					'class',
+					$('#follow_btn').attr('class').replace("btn btn-default",
+							"btn btn-danger"));
 
-function space_change() {
-	$('[name=question_content]').val(
-			$('[name=question_content]').val().replace(/\n/gi, '<br/>'));
-	alert("질문 등록 완료!등록하신 질문은 My Q&A 페이지에서 확인하실 수 있습니다.")
-}//end space_change
-	/* $(document).ready(
-					function() {
-						$('#follow_btn').click(
-										function() {
-											$.ajax({
-														url : 'mentor_follow.do',
-														type : 'POST',
-														dataType : 'json',
-														data : 'mentor_num=${mentorView.mentor_num}&user_id=${sessionScope.user_id}',
-														success : function viewMessage(
-																res) {
-													
-															var text = $(
-																	'#follow_btn')
-																	.text();
-															if (res.check_num == 0) {
-																$('#follow_btn')
-																		.text(
-																				text
-																						.replace(
-																								'팔로우 취소',
-																								'팔로우'));
-																$('#follow_btn')
-																		.attr(
-																				'class',
-																				$(
-																						'#follow_btn')
-																						.attr(
-																								'class')
-																						.replace(
-																								"btn btn-danger",
-																								"btn btn-default"));
-																alert("팔로우가 취소됐습니다.")
-															} else {
-																$('#follow_btn')
-																		.text(
-																				text
-																						.replace(
-																								'팔로우',
-																								'팔로우 취소'));
-																$('#follow_btn')
-																		.attr(
-																				'class',
-																				$(
-																						'#follow_btn')
-																						.attr(
-																								'class')
-																						.replace(
-																								"btn btn-default",
-																								"btn btn-danger"));
-																alert("팔로우가 완료됐습니다.")
-															}
-														}
-													});
-										});
-						
-						$('#question_btn').click(function(){
-							$('#myModal').css('display','block');
-						});
-						
-						$('#close').click(function(){
-							$('#myModal').css('display','none');
-						});
-						
-						$(window).click(function(e){
-							if($(e.target) == $('#mymodal'))
-								$('#myModal').css('display','none');
-						});
-						
-						$('form').on(
-								'submit',
-								function() {
-									$('[name=question_content]').val(
-											$('[name=question_content]').val().replace(/\n/gi,
-													'<br/>'));
-									alert("질문 등록 완료!등록하신 질문은 My Q&A 페이지에서 확인하실 수 있습니다.")
-								});
-						
-						
-					}); */
+			$('.cnt').text(res.cnt2);
+
+			/* console.log(cnt); */
+			Swal.fire('팔로우가 완료되었습니다!', '', 'success')
+		}
+	}//end follow_success
+
+	function space_change() {
+		$('[name=question_content]').val(
+				$('[name=question_content]').val().replace(/\n/gi, '<br/>'));
+		alert("질문 등록 완료!등록하신 질문은 My Q&A 페이지에서 확인하실 수 있습니다.")
+	}//end space_change
 </script>
 </head>
 
@@ -307,6 +90,8 @@ function space_change() {
 			<div class="mentor-info">
 				<div id="name">
 					<span class="mentor-name">${mentorView.mentor_name} <small>멘토</small></span>
+					<span class="follower">팔로워 <span class="cnt">${cnt}</span>명
+					</span>
 				</div>
 				<div class="mentor-job">${mentorView.mentor_co}&nbsp;${mentorView.mentor_dept}</div>
 				<div class="detail-block">
@@ -330,15 +115,15 @@ function space_change() {
 					</c:choose>>
 								<c:choose>
 									<c:when test="${check_num==0}">
-					팔로우
+					<i class="fa fa-circle-o" aria-hidden="true"></i> 팔로우
 					</c:when>
 									<c:otherwise>
-					팔로우 취소
+					<i class="fa fa-check-circle-o" aria-hidden="true"></i> 팔로우 취소
 					</c:otherwise>
 								</c:choose>
 							</button>
 							<button id="question_btn" type="button" class="btn btn-danger"<%-- onclick="location.href='question_write.do?mentor_num=${mentorView.mentor_num}'" --%>>
-								질문하기</button>
+								<i class="fa fa-question-circle-o" aria-hidden="true"></i>질문하기</button>
 						</div>
 					</c:when>
 				</c:choose>
@@ -364,7 +149,8 @@ function space_change() {
 			<!-- Modal content -->
 			<div class="modal-content">
 				<h3>멘토에게 질문하기</h3>
-				<p style= "color:red; font-size : 12px;"> 한 번 작성하신 질문은 수정, 취소가 어려우니 신중하게 작성해주시기 바랍니다. </p>
+				<p style="color: red; font-size: 12px;"> 한 번 작성하신 질문은 수정, 취소가
+					어려우니 신중하게 작성해주시기 바랍니다.. </p>
 				<form name="question_form" action="question_pro.do" method="POST">
 					<div class="row">
 						<%-- <div class="col-md-7">
@@ -391,11 +177,9 @@ function space_change() {
 						</div>
 					</div>
 					<input type="hidden" name="mentor_num" id="mentor_num"
-						value="${mentorView.mentor_num}" /> 
-					<input type="hidden" name="user_id" id="user_id" 
-					    value="${sessionScope.user_id}" />
-					<input type="hidden" name="user_name" 
-					     value="${userDTO.user_name}">
+						value="${mentorView.mentor_num}" /> <input type="hidden"
+						name="user_id" id="user_id" value="${sessionScope.user_id}" /> <input
+						type="hidden" name="user_name" value="${userDTO.user_name}">
 				</form>
 			</div>
 		</div>

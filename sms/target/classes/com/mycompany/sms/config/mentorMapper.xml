@@ -73,7 +73,7 @@
 		where user_id=#{user_id} and mentor_num=#{mentor_num}
 	</delete>
 	
-		<!-- 질문 등록 -->
+	<!-- 질문 등록 -->
 	<insert id="qsinsert" parameterType="com.mycompany.sms.dto.QuestionDTO">
 		insert into sms_question values
 		(sms_question_seq.nextval,#{mentor_num}, #{user_id}, #{user_name},
@@ -122,9 +122,20 @@
 	  (sms_answer_seq.nextval, #{question_num}, #{user_name},
 	   #{user_image},#{answer_content}, sysdate)
 	</insert>
+	
+	<!-- 멘토 팔로워 수  -->
+	<select id="follower" parameterType="int" resultType="int">
+	    select count(user_id) as
+		follow_count
+		from sms_follow
+		where mentor_num=#{num}
+        group by mentor_num
+		order by
+		count(user_id) desc
+	</select>
 
 	<select id="bestfollow" resultType="com.mycompany.sms.dto.BestFollow">
-		select count(user_id) as
+		select count(user_id)-1 as
 		follow_count,
 		mentor_num
 		from sms_follow
@@ -138,7 +149,6 @@
 		select * from sms_follow
 		where user_id = #{user_id}
 	</select>
-
 
 	<select resultType="com.mycompany.sms.dto.MentorDTO" id="chkMentor" parameterType="String">
 		select*from sms_mentor where user_id=#{user_id} 

@@ -26,7 +26,7 @@
 <link type="text/css" rel="stylesheet" href="css/style.css" />
 <script type="text/javascript"
 	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e125bfc102f60cc43e9ffab343755532&libraries=services"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 </head>
 <body>
 	<header>

@@ -47,5 +47,6 @@ public interface MeetingService {
 	//for 멘토
 	public List<MeetingDTO> forMyPage2(Integer mentor_num);
 
-	
+	public int memberCheckList(int hash);
+
 }

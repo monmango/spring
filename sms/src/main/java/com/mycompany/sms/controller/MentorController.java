@@ -82,7 +82,7 @@ public class MentorController {
 			mav.addObject("mCheck", mCheck);
 			mav.addObject("mentorView", mservice.viewProcess(num));
 			mav.addObject("fieldDTO", mservice.fieldviewProcess(num));
-
+			mav.addObject("cnt", (mservice.followerCnt(num)-1));
 			// 멘토 팔로우 여부 검색
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("user_id", session.getAttribute("user_id"));
@@ -120,23 +120,17 @@ public class MentorController {
 			mservice.followdelProcess(fdto);
 
 		int check_num2 = mservice.followcheckProcess(map);
-
+		int num = Integer.parseInt(mentor_num);
+		int cnt2 = mservice.followerCnt(num)-1;
+		/*System.out.println("팔로워수 :" + cnt2);*/
 		// ajax로 check_num값 넘기기 위해 JsonObject에 값 저장
 		JsonObject obj = new JsonObject();
 		obj.addProperty("check_num", check_num2);
+		obj.addProperty("cnt2", cnt2);
 
 		return new Gson().toJson(obj);
 	}// end followUpdateMethod()
 
-	// 질문하기 form
-	/*
-	 * @RequestMapping("/question_write.do") public ModelAndView
-	 * questionWriteMethod(ModelAndView mav, HttpSession session ,int mentor_num) {
-	 * if(session.getAttribute("user_id") != null) { UserDTO dto = new UserDTO();
-	 * dto = uservice.userInfoMethod((String) session.getAttribute("user_id"));
-	 * mav.addObject("userDTO", dto); mav.addObject("mentor_num",mentor_num);
-	 * mav.setViewName("question_write"); } return mav; }//end questionWriteMethod()
-	 */
 	// 질문 등록
 	@RequestMapping("/question_pro.do")
 	public ModelAndView questionProMethod(ModelAndView mav, QuestionDTO qdto) {

@@ -16,6 +16,12 @@
 	</select>
 
 
+
+	<!-- 미팅인원 체크 리스트 -->
+	<select id="membercheck_List" parameterType="int" resultType="int">
+		select count(*) as memberCheck from sms_meeting_cnt where meeting_num = #{meeting_num}
+	</select>
+
 	<!-- 미팅 신청인원 -->
 	<select id="registered" parameterType="int" resultType="int">
 		select count(*) from sms_meeting_cnt where meeting_num = #{meeting_num}
@@ -95,9 +101,8 @@
 				<result column="mentor_num" property="mentor_num" />
 				<result column="mentor_career" property="mentor_career" />
 				<result column="mentor_co" property="mentor_co" />
-				<result column="mentor_image" property="mentor_image" />
 				<result column="mentor_dept" property="mentor_dept" />
-				
+				<result column="mentor_image" property="mentor_image" />
 			</collection>
 	</resultMap>
 
@@ -112,7 +117,7 @@
 		from sms_mentor m,sms_meeting b
 		where m.mentor_num= b.mentor_num
 		order by b.meeting_num desc)a)b
-		where b.rm>=#{startRow} and b.rm<=#{endRow}
+		where b.rm>=#{startRow,jdbcType=VARCHAR} and b.rm<=#{endRow,jdbcType=VARCHAR}
 		]]>
 
 	</select>
@@ -154,7 +159,7 @@
 		b.meeting_title, b.meeting_introduction, b.meeting_place,
 		b.meeting_num,
 		b.meeting_date, m.mentor_co, m.mentor_name,
-		m.mentor_career, m.mentor_image, b.meeting_recruitment, m.mentor_dept
+		m.mentor_career, m.mentor_image, b.meeting_recruitment,m.mentor_dept
 		from sms_mentor m, sms_meeting b
 		where
 		b.mentor_num = m.mentor_num order by b.meeting_num desc

@@ -41,5 +41,9 @@ public class UserDaoImp implements UserDAO{
 	public int uCheck2(String email) {
 		return sqlSession.selectOne("userInput.uCheck2",email);
 	}
+	@Override
+	public void userQuitSMSProcess2(String user_id) {
+		sqlSession.delete("userInput.uQuit2", user_id);
+	}
 
 }

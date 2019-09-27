@@ -41,5 +41,9 @@ public class UserServiceImp implements UserService {
 	public int uCheck2(String email) {
 		return userdao.uCheck2(email);
 	}
+	@Override
+	public void userQuitSMSProcess2(String user_id) {
+		userdao.userQuitSMSProcess2(user_id);
+	}
 	
 }

@@ -123,5 +123,11 @@ public class MeetingDaoImg implements MeetingDAO {
 		
 		return sqlSession.selectList("mt.forMyPage2", mentor_num);
 	}
+	
+	@Override
+	public int memberCheckList(int hash) {
+		return sqlSession.selectOne("mt.membercheck_List", hash);
+	}
+
 
 }//end class

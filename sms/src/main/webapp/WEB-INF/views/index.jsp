@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
+
 <style type="text/css">
 * {
 	margin: 0;
@@ -153,6 +155,23 @@ hr {
 	border: 0px solid #000000;
 }
 </style>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		var yesUser = $('#yesUser').val();
+		if (yesUser == 1) {
+			Swal.fire({
+				position : 'top-end',
+				type : 'success',
+				title : 'Your work has been saved',
+				showConfirmButton : false,
+				timer : 2500
+			})
+		}
+	})
+</script>
+
+
 <!-- section -->
 <div class="section">
 	<!-- container -->
@@ -162,7 +181,7 @@ hr {
 			<div class="col-md-8">
 				<div class="row">
 					<div class="section-title">
-						<h2>최근 에쎄이</h2>
+						<h2><i class="fa fa-pencil" aria-hidden="true"></i> 최근 에쎄이</h2>
 					</div>
 					<div class="col-md-12"></div>
 
@@ -185,12 +204,12 @@ hr {
 										<a href="${path}">${dto.essay_subject }</a>
 									</h3>
 									<div class="subtitle"
-										style="padding: 10px width: 100px; height:30px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
+										style="padding: 10px width: 100px; height: 30px; overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">
 										${dto.essay_summary }</div>
 								</div>
 							</div>
 						</div>
-						<hr/>
+						<hr />
 					</c:forEach>
 					<!-- /post -->
 					<div class="col-md-12">
@@ -202,12 +221,12 @@ hr {
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4" style="margin-left:60px">
+			<div class="col-md-4" style="margin-left: 60px">
 				<br /> <br />
 				<!-- catagories -->
 				<div class="aside-widget">
 					<div class="section-title">
-						<h3>팔로워 순위</h3>
+						<h3><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 베스트 팔로워</h3>
 					</div>
 					<div style="width: 300px">
 						<div>
@@ -218,12 +237,14 @@ hr {
 						<hr />
 					</div>
 					<div class="category-widget">
-						<c:forEach items="${mentorInfo}" var="bflist" begin="0" end="2">
+						<c:forEach items="${mentorInfo}" var="bflist" begin="0" end="2" varStatus="num">
 							<div id="follower">
-								<a href="mentor_view.do?num=${bflist.mentor_num}"
+								<img src="./img/트로피${num.count }.png" style="width:35px;height:35px;" alt=""> <a
+									href="mentor_view.do?num=${bflist.mentor_num}"
 									style="text-decoration: none; font-size: x-large; width: 300px;">
 									${bflist.mentor_name}</a> <small>멘토님</small> <span id="follownum"
-									style="display: inline-block; float: right;">( ${bflist.follow_num} )</span>
+									style="display: inline-block; float: right;">(
+									${bflist.follow_num} )</span>
 								<hr />
 							</div>
 						</c:forEach>
@@ -234,7 +255,7 @@ hr {
 				<c:if test="${not empty sessionScope.user_id}">
 					<div class="aside-widget">
 						<div class="section-title">
-							<h2>나의 팔로워</h2>
+							<h2> 나의 팔로워</h2>
 						</div>
 						<div class="category-widget">
 							<c:if test="${not empty sessionScope.user_id}">
@@ -271,7 +292,7 @@ hr {
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-title text-center">
-						<h2>최근 개설된 모임</h2>
+						<h2><i class="fa fa-meetup" aria-hidden="true"></i> 최근 개설된 모임</h2>
 					</div>
 				</div>
 				<div class="meeting_body">
@@ -307,7 +328,8 @@ hr {
 												style="font-size: small; width: 90px;">${mee.mentor_name}</span>
 											<span class="mem" style="font-size: small; width: 90px;">멘토</span>
 											<span class="so"
-												style="display: block; font-size: small; border: 0;">${mee.mentor_co}, ${mee.mentor_dept}</span>
+												style="display: block; font-size: small; border: 0;">${mee.mentor_co},
+												${mee.mentor_dept}</span>
 										</div>
 										<div class="text_num text-center">
 											<span style="margin-left: 5px; margin-right: 5px;"> <i
@@ -322,7 +344,7 @@ hr {
 				</c:forEach>
 				</form>
 			</div>
-
+			<input type="hidden" id="yesUser" value="${sessionScope.yesUser }" />
 		</div>
 		<!-- /row -->
 	</div>

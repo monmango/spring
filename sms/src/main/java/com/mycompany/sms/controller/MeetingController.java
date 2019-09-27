@@ -101,6 +101,8 @@ public class MeetingController {
 	public ModelAndView mettinglist(ModelAndView mav, HttpSession session, PageDTO pv) {
 		String user_id = null;
 		String date = null;
+		System.out.println("list.do");
+		List<MeetingDTO> membercheck = new ArrayList<MeetingDTO>();
 		int totalRecord = service.countProcess();
 		if (session.getAttribute("user_id") != null) {
 			user_id = (String) session.getAttribute("user_id");
@@ -112,8 +114,8 @@ public class MeetingController {
 			if (service.login_user(user_id) > 0) {
 				mav.addObject("user", service.login_user(user_id));
 			}
-		}
-		;
+		};
+
 		if (totalRecord >= 1) {
 			if (pv.getCurrentPage() == 0) {
 				currentPage = 1;
@@ -121,15 +123,26 @@ public class MeetingController {
 				currentPage = pv.getCurrentPage();
 			}
 			pdto = new PageDTO(currentPage, totalRecord);
+			System.out.println("pv 보낼때 ");
 			mav.addObject("pv", pdto);
-		
 			}
-		mav.addObject("meetingList", service.mainmeetingList(pdto));
+		System.out.println("totalRecord 후");
+		membercheck = service.mainmeetingList(pdto);
+		
+		for(int i=0; i<membercheck.size(); i++) {
+			//모집 가득참 확인
+			int max = (membercheck.get(i).getMeeting_recruitment() - service.memberCheckList(membercheck.get(i).getMeeting_num()));
+			//max = 0 가득참 양수일땐 모집중
+			if(max==0) {
+				membercheck.get(i).setMemberCheck(0);
+			}else
+				membercheck.get(i).setMemberCheck(1);
+		}
+		mav.addObject("meetingList", membercheck);
 		mav.setViewName("meeting_list");
-
 		return mav;
 	}
-
+	
 	@RequestMapping(value = "/write.do", method = RequestMethod.GET) // 리스트에서 글쓰기로 넘어감
 	public ModelAndView meetingWriteProcess(ModelAndView mav, HttpSession session) {
 		String date = null;
@@ -150,11 +163,8 @@ public class MeetingController {
 		String date = null;
 		MultipartFile file = dto.getMeeting_file();
 		if (!file.isEmpty()) {
-
 			UUID random=saveCopyfile(file, request);
-
 			dto.setMeeting_img_name(random + "_" + file.getOriginalFilename());
-
 		}	
 		String user_id = (String) session.getAttribute("user_id");
 		int mentor_num = service.getMentorNumMethod(user_id);
@@ -223,9 +233,7 @@ public class MeetingController {
 			File fe = new File(saveDirectory, upload);
 			fe.delete();
 		}
-
 		service.delete(meeting_num);
-
 		return "redirect:/list.do";
 	}
 
@@ -237,7 +245,6 @@ public class MeetingController {
 		service.meeting_apply(map);
 		mav.addObject("meeting_num", meeting_num);
 		mav.setViewName("redirect:/detail.do");
-
 		return mav;
 	}
 
@@ -246,7 +253,6 @@ public class MeetingController {
 		service.memeberCancel(user_Id);
 		mav.addObject("meeting_num", meeting_num);
 		mav.setViewName("redirect:/detail.do");
-
 		return mav;
 	}
 

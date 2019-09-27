@@ -189,7 +189,9 @@ public class MainController {
 	@RequestMapping("/quitSMS.do")
 	public ModelAndView quitSMSProcess(HttpSession session, ModelAndView mav) {
 		String user_id = (String) session.getAttribute("user_id");
+		System.out.println(user_id);
 		service.userQuitSMSProcess(user_id);
+		service.userQuitSMSProcess2(user_id);
 		session.removeAttribute("user_id");
 		session.invalidate();
 		mav.setViewName("home");
@@ -318,6 +320,7 @@ public class MainController {
 		List<BestFollow> bflist = new ArrayList<BestFollow>();
 		bflist = mentorservice.getBestFollowProcess();// 저장
 		List<MentorDTO> mList = new ArrayList<MentorDTO>();
+		int mCheck = wservice.getMentorCheckMethod(user_id);
 		for (int i = 0; i < bflist.size(); i++) {
 			MentorDTO mdto = new MentorDTO();
 			mdto = mentorservice.viewProcess(bflist.get(i).getMentor_num());
@@ -329,7 +332,8 @@ public class MainController {
 			mav.addObject("meetingInfoList", meetingservice.forMyPage(user_id));
 			mav.addObject("mymentorInfo", mmList);
 			mav.addObject("userDTO", service.userInfoMethod(user_id));
-			mav.setViewName("myPageMenti");
+			mav.addObject("mCheck",mCheck);
+			mav.setViewName("myPageMentor");
 
 		} else {
 			// 멘토
@@ -338,6 +342,7 @@ public class MainController {
 			mav.addObject("eassayInfoList", eservice.myPageEssay(mentor_num));
 			mav.addObject("mymentorInfo", mmList);
 			mav.addObject("userDTO", service.userInfoMethod(user_id));
+			mav.addObject("mCheck",mCheck);
 			mav.setViewName("myPageMentor");
 		}
 		return mav;

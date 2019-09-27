@@ -32,6 +32,10 @@
 	</select>
 	
 	<delete id="uQuit" parameterType="String">
-		delete from sms_user_info where user_id = #{email}
+		delete from sms_user_info where user_id = #{user_id}
+	</delete>
+	
+	<delete id="uQuit2" parameterType="String">
+		delete from sms_mentor where user_id = #{user_id}
 	</delete>
 </mapper>

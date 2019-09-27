@@ -7,7 +7,28 @@
 		$('#smslogin').on('click', function() {
 			$('.form-inline').attr('action', 'home.do').submit();
 		})
-
+		var needMentor = $('#needMentor').val();
+		var noUser = $('#noUser').val();
+		console.log(needMentor);
+		if(needMentor==1){
+			Swal.fire({
+				  position: 'center',
+				  type: 'warning',
+				  title: '로그인하셔야 맨토 정보를 볼수있어요!!',
+				  showConfirmButton: false,
+				  timer: 2000
+				})
+		}
+		
+		if(noUser==1){
+			Swal.fire({
+				  type: 'error',
+				  title: '로그인을 할 수가 없습니다!',
+				  text: 'Something went wrong!',
+				  timer: 2000
+				})
+		}
+		
 	});
 	
 
@@ -145,7 +166,8 @@ span {
 						<li><input type="button" id="smslogin" value="로그인"
 							class="btn btn-info" /></li>
 					</ul>
-
+						<input type="hidden" id="needMentor" value="${needMentor }"/>
+						<input type="hidden" id="noUser" value="${noUser }"/>
 				</div>
 			</form>
 		</div>

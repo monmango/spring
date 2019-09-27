@@ -29,4 +29,5 @@ public interface MentorService {
 	public List<MentorFollowDTO> myfollowProcess(String user_id);
 	public MentorDTO checkMentor(String user_id); //for my page
 	public int mentorMemberCheck(int field_num);
+	public int followerCnt(int num);
 }//end interface

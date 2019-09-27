@@ -110,6 +110,7 @@ hr {
 	padding-top: auto;
 	font-size: small;
 	line-height: 30px;
+	background-color:
 }
 </style>
 
@@ -165,15 +166,30 @@ hr {
 													style="font-size: small; width: 90px;">${mee.mentor_name}</span>
 												<span class="mem" style="font-size: small; width: 90px;">멘토</span>
 												<span class="so"
-													style="display: block; font-size: small; border: 0;">${mee.mentor_co}, ${mee.mentor_dept }</span>
+													style="display: block; font-size: small; border: 0;">${mee.mentor_co}
+													${mee.mentor_dept}</span>
 											</div>
-
+												<c:choose>
+													<c:when test="${men.memberCheck==0}">
+													<div class="text_num text-center" style="background-color:#ef3730;color:white;border:none">
+														<span
+															style="margin-left: 5px; margin-right: 5px;">
+															<i class="fa fa-users" aria-hidden="true"></i> 마감 되었습니다
+														</span>
+													</div>
+												</c:when>
+													<c:otherwise>
 											<div class="text_num text-center">
-												<span style="margin-left: 5px; margin-right: 5px;"> <i
-													class="fa fa-users" aria-hidden="true"></i>모집인원
-													:${men.meeting_recruitment }명
+														<span style="margin-left: 5px; margin-right: 5px;">
+															<i class="fa fa-users" aria-hidden="true"></i> 모집인원
+															:${men.meeting_recruitment }명 
 												</span>
 											</div>
+													</c:otherwise>
+												</c:choose>
+												 <input type="hidden" class="num-1"
+													value="${men.meeting_recruitment}" /> <input type="hidden"
+													class="num-2" value="${men.memberCheck}" />
 										</div>
 									</a>
 								</form>

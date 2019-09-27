@@ -118,4 +118,9 @@ public class MentorServiceImp implements MentorService {
 		return mentodao.mentorMemberCheck(field_num);
 	}
 
+	@Override
+	public int followerCnt(int num) {
+		return mentodao.followercnt(num);
+	}
+
 }//end class

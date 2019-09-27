@@ -71,7 +71,7 @@
 <div class="section">
 	<div class="w3-container w3-card-4">
 		<div class="w3-center w3-large w3-margin-top">
-			<h1 style="text-align: center">멘토 지원하기</h1>
+			<h1 style="text-align: center">멘토정보 수정하기</h1>
 		</div>
 		<br />
 		<br />

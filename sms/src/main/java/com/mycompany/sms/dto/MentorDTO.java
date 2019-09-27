@@ -7,24 +7,17 @@ public class MentorDTO {
 	private String mentor_name, mentor_co, mentor_dept, mentor_level, mentor_career, mentor_info, mentor_sub,
 			mentor_image, user_id;
 
-
 	public MentorDTO() {
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
 	public int getFollow_num() {
 		return follow_num;
 	}
 
-
-
 	public void setFollow_num(int follow_num) {
 		this.follow_num = follow_num;
 	}
-
-
 
 	public int getMentor_num() {
 		return mentor_num;

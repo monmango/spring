@@ -130,6 +130,14 @@ public class MeetingServiceImp implements MeetingService {
 		
 		return meetingdao.forMyPage2(mentor_num);
 	}
+
+	@Override
+	public int memberCheckList(int hash) {
+		
+		return meetingdao.memberCheckList(hash);
+	}
+
+
 	
 
 }
