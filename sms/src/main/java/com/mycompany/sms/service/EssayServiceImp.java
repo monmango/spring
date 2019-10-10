@@ -9,23 +9,25 @@ import com.mycompany.sms.dao.EssayDAO;
 import com.mycompany.sms.dto.EssayDTO;
 import com.mycompany.sms.dto.MentorDTO;
 import com.mycompany.sms.dto.PageDTO;
+
 @Service
-public class EssayServiceImp implements EssayService{
-	
+public class EssayServiceImp implements EssayService {
+
 	@Autowired
 	private EssayDAO essaydao;
-	
-	public EssayServiceImp() {}
-	
+
+	public EssayServiceImp() {
+	}
+
 	public void setDao(EssayDAO essaydao) {
 		this.essaydao = essaydao;
 	}
-	
+
 	@Override
 	public int countProcess() {
 		return essaydao.count();
 	}
-	
+
 	@Override
 	public List<EssayDTO> essayListProcess(PageDTO pv) {
 		return essaydao.essayListMethod(pv);
@@ -44,7 +46,7 @@ public class EssayServiceImp implements EssayService{
 	public String essayUpViImgProcess(int essay_num) {
 		return essaydao.essayUpViImgMethod(essay_num);
 	}
-	
+
 	@Override
 	public EssayDTO essayUpViewProcess(int essay_num) {
 		return essaydao.essayUpViewMethod(essay_num);
@@ -53,13 +55,13 @@ public class EssayServiceImp implements EssayService{
 	@Override
 	public void essayUpdateProcess(EssayDTO dto) {
 		essaydao.essayUpdateMethod(dto);
-		
+
 	}
 
 	@Override
 	public void essayDeleteProcess(int essay_num) {
 		essaydao.essayDeleteMethod(essay_num);
-		
+
 	}
 
 	@Override
@@ -96,10 +98,11 @@ public class EssayServiceImp implements EssayService{
 	public List<EssayDTO> mainEssayProcess() {
 		return essaydao.mainEssayProcess();
 	}
+
 	// for mypage
 	@Override
 	public List<EssayDTO> myPageEssay(Integer mentor_num) {
 		return essaydao.myPageEssay(mentor_num);
-		}
+	}
 
 }

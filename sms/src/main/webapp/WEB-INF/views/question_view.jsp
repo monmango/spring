@@ -56,8 +56,15 @@
 							<c:forEach items="${answerList}" var="aList">
 								<div class="media">
 									<div class="media-left">
-										<img class="media-object" src="/sms/temp/${aList.user_image}"
-											alt="">
+										<c:choose>
+											<c:when test="${not empty aList.user_image}">
+												<img class="media-object"
+													src="/sms/temp/${aList.user_image}" alt="" />
+											</c:when>
+											<c:otherwise>
+												<img class="media-object" src="./img/userpicture.png" alt="" />
+											</c:otherwise>
+										</c:choose>
 									</div>
 									<div class="media-body">
 										<div class="media-heading">
@@ -82,14 +89,16 @@
 						<div class="section-title">
 							<h2>대화하기</h2>
 							<p>질문에 대한 답변과 멘토님께 더 하고 싶은 말을 자유롭게 남겨주세요.</p>
-							<p style= "color:red; font-size : 12px;"> 
-							한 번 작성하신 답글은 수정, 취소가 어려우니 신중하게 작성해주시기 바랍니다. </p>
+							<p style="color: red; font-size: 12px;">한 번 작성하신 답글은 수정, 취소가
+								어려우니 신중하게 작성해주시기 바랍니다.</p>
 						</div>
-						<form name="answer_form" class="post-reply" action="answer_pro.do" method="POST">
+						<form name="answer_form" class="post-reply" action="answer_pro.do"
+							method="POST">
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group">
-										<textarea class="input" name="answer_content" placeholder="내용" required></textarea>
+										<textarea class="input" name="answer_content" placeholder="내용"
+											required></textarea>
 										<input type="hidden" name="question_num"
 											value="${questionView.question_num}" /> <input type="hidden"
 											name="user_name" value="${userDTO.user_name}" /> <input
@@ -115,8 +124,16 @@
 						</div>
 
 						<div class="post post-widget">
-							<a class="post-img" href="mentor_view.do?num=${mentorDTO.mentor_num}"><img
-								src="/sms/temp/${mentorDTO.mentor_image}" alt=""></a>
+							<a class="post-img"
+								href="mentor_view.do?num=${mentorDTO.mentor_num}"> <c:choose>
+									<c:when test="${not empty mentorDTO.mentor_image }">
+										<img src="/sms/temp/${mentorDTO.mentor_image}" alt="">
+									</c:when>
+									<c:otherwise>
+										<img src="./img/userpicture.png" alt="">
+									</c:otherwise>
+								</c:choose>
+							</a>
 							<div class="post-body">
 								<h3 class="post-title">
 									<a href="mentor_view.do?num=${mentorDTO.mentor_num}">${mentorDTO.mentor_name}</a>

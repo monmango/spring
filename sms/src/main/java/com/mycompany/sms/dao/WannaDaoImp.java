@@ -61,8 +61,7 @@ public class WannaDaoImp implements WannaDAO {
 
 	@Override
 	public void deletFieldMethod(int mentor_num) {
-		sqlSession.delete("wannabe.field_delete",mentor_num);
+		sqlSession.delete("wannabe.field_delete", mentor_num);
 	}
-
 
 }// end class

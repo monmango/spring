@@ -7,6 +7,38 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		var mCheck = $('#mcheck').val();
+
+		var login = $('#loginSuccess').val();
+		console.log(login);
+		if (login == 1) {
+			Swal.fire({
+				type : 'success',
+				title : '로그인이 성공적으로 되었습니다',
+				text : '환영합니다!!'
+			})
+		}
+		$('#logout').on('click',function(){
+			Swal.fire({
+				  title: '로그아웃 하시겠습니까?',
+				  type: 'warning',
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: 'logout!',
+				}).then((result) => {
+				  if (result.value) {
+				    Swal.fire({
+				    		position: 'center',
+				    		  type: 'success',
+				    		  title: '로그아웃이 성공적으로 되었습니다',
+				    		  showConfirmButton: false,
+				    		  timer: 2000
+				    })
+				  setTimeout(function(){ window.location.href="userLogout.do"; }, 2000);
+				  }
+				})
+		})
+
 		$("#wannabe").on('click', function() {
 			if (mCheck == 1) {
 				Swal.fire({
@@ -77,6 +109,14 @@
 
 	});
 </script>
+<style type="text/css">
+
+#logout:hover{
+	 text-decoration: underline;
+}
+
+</style>
+
 <div id="nav">
 	<!-- Main Nav -->
 	<div id="nav-fixed">
@@ -89,11 +129,14 @@
 
 			<!-- /logo -->
 			<!-- nav -->
+			<input type="hidden" id="mcheck" value="${mCheck}" /> <input
+				type="hidden" id="loginSuccess" value="${loginSuccess}" />
 			<ul class="nav-menu nav navbar-nav" style="margin-left: 300px;">
 				<c:choose>
-					<c:when test="${not empty userDTO.user_image}">
-						<li><a style="padding-left:0px; padding-right:0px" ><marquee width="200px" direction="left">
-									${userDTO.user_name }님   SMS 에 오신 걸 환영합니다! :) </marquee></a></li>
+					<c:when test="${not empty userDTO.user_id}">
+						<li><a style="padding-left: 0px; padding-right: 0px"><marquee
+									width="200px" direction="left"> ${userDTO.user_name }님
+									SMS 에 오신 걸 환영합니다! :) </marquee></a></li>
 					</c:when>
 				</c:choose>
 				<li class="cat-4"><a href="about.do">About</a></li>
@@ -101,8 +144,6 @@
 				<li class="cat-4"><a href="essay_list.do">에세이</a></li>
 				<li class="cat-4"><a href="list.do">모임</a></li>
 				<li class="cat-4"><a id="wannabe" href="wannabe.do">멘토지원하기</a></li>
-				<input type="hidden" id="mcheck" value="${mCheck}" />
-
 				<c:choose>
 					<c:when test="${empty sessionScope.user_id}">
 						<li class="cat-4"><a href="signUp.do">회원가입</a></li>
@@ -147,7 +188,9 @@
 				<li><a href="myPage.do?user_id=${sessionScope.user_id }">MyPage</a></li>
 				<li><a href="question_list.do?user_id=${sessionScope.user_id}">My
 						Q&A</a></li>
-				<li><a href="userLogout.do?user_id=${sessionScope.user_id }">Logout</a></li>
+				<%-- <li><a id="logout" href="userLogout.do?user_id=${sessionScope.user_id }">Logout</a></li> --%>
+				<li><button id="logout"
+						style="font-family: 'Nunito Sans', sans-serif; font-weight: 700; font-size: 23px; border: 0px; background-color: white">Logout</button></li>
 			</ul>
 		</div>
 
@@ -179,6 +222,7 @@
 		</div>
 	</div>
 </div>
+
 <!-- /Page Header -->
 
 

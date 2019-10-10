@@ -107,37 +107,34 @@ public class MeetingServiceImp implements MeetingService {
 		return meetingdao.meeting_list();
 	}
 
-//	mypage for 멘티 =============================
-//	첫번째 service =======================
+	// mypage for 멘티 =============================
+	// 첫번째 service =======================
 	@Override
 	public List<MeetingDTO> forMyPage(String user_id) {
 		List<Integer> forMyPage = meetingdao.forMyPage(user_id);
-		
+
 		return myPage2(forMyPage);
 	}
 
-	private List<MeetingDTO> myPage2(List<Integer> meetingNums){
+	private List<MeetingDTO> myPage2(List<Integer> meetingNums) {
 		List<MeetingDTO> meetingDTO = new ArrayList<MeetingDTO>();
-		for(Integer meetingNum:meetingNums) {
+		for (Integer meetingNum : meetingNums) {
 			meetingDTO.add(meetingdao.meeting_info(meetingNum));
 		}
 		return meetingDTO;
 	}
-//	for 멘토 
+	// for 멘토
 
 	@Override
 	public List<MeetingDTO> forMyPage2(Integer mentor_num) {
-		
+
 		return meetingdao.forMyPage2(mentor_num);
 	}
 
 	@Override
 	public int memberCheckList(int hash) {
-		
+
 		return meetingdao.memberCheckList(hash);
 	}
-
-
-	
 
 }

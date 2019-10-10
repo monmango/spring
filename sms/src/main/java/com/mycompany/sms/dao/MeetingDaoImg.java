@@ -1,6 +1,5 @@
 package com.mycompany.sms.dao;
 
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,38 +13,35 @@ import com.mycompany.sms.dto.PageDTO;
 @Repository
 public class MeetingDaoImg implements MeetingDAO {
 	private SqlSessionTemplate sqlSession;
+
 	public MeetingDaoImg() {
 
 	}
-	
+
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
 	}
 
-
-
 	@Override
 	public void meetingInsertProcess(MeetingDTO dto) {
 		sqlSession.insert("mt.ins_meeting", dto);
-		
-	}
 
+	}
 
 	@Override
 	public MeetingDTO meeting_info(int dto) {
 		return sqlSession.selectOne("mt.select_meeting", dto);
 	}
+
 	@Override
 	public MentorDTO mentor_infor(MeetingDTO dto) {
 		return sqlSession.selectOne("mt.select_mentor", dto);
 	}
 
-	
 	@Override
-	public List<MeetingDTO> mainmeetingList(PageDTO pv) { 
+	public List<MeetingDTO> mainmeetingList(PageDTO pv) {
 		return sqlSession.selectList("mt.list", pv);
 	}
-
 
 	@Override
 	public int getMentorNumMethod(String str) {
@@ -70,7 +66,7 @@ public class MeetingDaoImg implements MeetingDAO {
 	@Override
 	public void update(MeetingDTO dto) {
 		sqlSession.update("mt.update", dto);
-		
+
 	}
 
 	@Override
@@ -79,14 +75,14 @@ public class MeetingDaoImg implements MeetingDAO {
 	}
 
 	@Override
-	public String getFile(int meeting_num) { 
-		return sqlSession.selectOne("mt.uploadFile",meeting_num);
+	public String getFile(int meeting_num) {
+		return sqlSession.selectOne("mt.uploadFile", meeting_num);
 	}
 
 	@Override
 	public void meeting_apply(HashMap<String, Object> hash) {
 		sqlSession.insert("mt.meetin_cnt", hash);
-		
+
 	}
 
 	@Override
@@ -101,7 +97,7 @@ public class MeetingDaoImg implements MeetingDAO {
 
 	@Override
 	public void memeberCancel(String str) {
-		
+
 		sqlSession.delete("mt.member_cancel", str);
 	}
 
@@ -110,24 +106,23 @@ public class MeetingDaoImg implements MeetingDAO {
 		return sqlSession.selectList("mt.meeting_list");
 	}
 
-	//for mypage 멘티
+	// for mypage 멘티
 	@Override
 	public List<Integer> forMyPage(String user_id) {
-		
+
 		return sqlSession.selectList("mt.forMyPage", user_id);
 	}
 
-//	for mypage 멘토
+	// for mypage 멘토
 	@Override
 	public List<MeetingDTO> forMyPage2(Integer mentor_num) {
-		
+
 		return sqlSession.selectList("mt.forMyPage2", mentor_num);
 	}
-	
+
 	@Override
 	public int memberCheckList(int hash) {
 		return sqlSession.selectOne("mt.membercheck_List", hash);
 	}
 
-
-}//end class
+}// end class

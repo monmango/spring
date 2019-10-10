@@ -36,7 +36,7 @@ public class Kakaoapi {
 	            StringBuilder sb = new StringBuilder();
 	            sb.append("grant_type=authorization_code");
 	            sb.append("&client_id=e125bfc102f60cc43e9ffab343755532");
-	            sb.append("&redirect_uri=http://localhost:8090/sms/kakao.do");
+	            sb.append("&redirect_uri=http://192.168.30.87:8090/sms/kakao.do");
 	            sb.append("&code=" + authorize_code);
 	            bw.write(sb.toString());
 	            bw.flush();
@@ -95,7 +95,6 @@ public class Kakaoapi {
 		        while ((line = br.readLine()) != null) {
 		            result += line;
 		        }
-		        System.out.println("response body : " + result);
 		        
 		        JsonParser parser = new JsonParser();
 		        JsonElement element = parser.parse(result);
@@ -136,7 +135,6 @@ public class Kakaoapi {
 		        while ((line = br.readLine()) != null) {
 		            result += line;
 		        }
-		        System.out.println(result);
 		    } catch (IOException e) {
 		        // TODO Auto-generated catch block
 		        e.printStackTrace();

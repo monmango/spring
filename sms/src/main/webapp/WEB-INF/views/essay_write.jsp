@@ -67,27 +67,41 @@
 }
 </style>
 <script type="text/javascript">
-	$(document).ready(function() {
-		floatB();
-		$('#img').hide();
-		//첨부파일 용량체크
-		$('#essay_img').on('change', function() {
-			if (this.files && this.files[0]) {
-				if (this.files[0].size > 10000000) {
-					alert("10MB바이트 이하만 첨부할 수 있습니다.");
-					$('#essay_img').val('');
-					return false;
-				}
-			}
-			imgFileCheck();
-			readURL(this);
-		});
+	$(document).ready(
+			function() {
+				floatB();
+				$('#img').hide();
+				//첨부파일 용량체크
+				$('#essay_img').on('change', function() {
+					if (this.files && this.files[0]) {
+						if (this.files[0].size > 10000000) {
+							alert("10MB바이트 이하만 첨부할 수 있습니다.");
+							$('#essay_img').val('');
+							return false;
+						}
+					}
+					imgFileCheck();
+					readURL(this);
+				});
 
-		$('#pictureUpload').on('click', function() {
-			alert("picture");
-			$('#essay_img').click();
-		});
-	});
+				$('#pictureUpload').on('click', function() {
+					alert("picture");
+					$('#essay_img').click();
+				});
+
+				$('form').on(
+						'submit',
+						function() {
+							$('[name=essay_content]').val(
+									$('[name=essay_content]').val().replace(/\n/gi,
+											'<br/>'));
+							$('[name=essay_summary]').val(
+									$('[name=essay_summary]').val().replace(/\n/gi,
+											'<br/>'));
+							
+						});
+
+			});
 
 	//업로드시 이미지 보기
 	function readURL(input) {
@@ -203,9 +217,17 @@
 
 						<div class="media">
 							<div class="media-left">
-								<img class="media-object"
-									src="/sms/temp/${mentorDTO.mentor_image}" alt=""
-									style="height: 120px">
+								<c:choose>
+									<c:when test="${not empty mentorDTO.mentor_image }">
+										<a href="mentor_view.do?num=${mentorDTO.mentor_num}" style="text-decoration: none;">
+                             				 <img class="media-object" src="/sms/temp/${mentorDTO.mentor_image}" alt="" style="height: 120px">
+                           			   </a>
+									</c:when>
+									<c:otherwise>
+										<img class="media-object" src="./img/userpicture.png" alt=""
+											style="height: 120px">
+									</c:otherwise>
+								</c:choose>
 							</div>
 							<div class="media-body">
 								<div class="media-heading">

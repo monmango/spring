@@ -41,32 +41,10 @@
 /* paging */
 
 .pagelist {
-	text-align: right;
-	margin-right: 20%;
-    padding: 20px 0 5px; 
-    line-height: 160%; 
-    font-size: 16px; 
-    font-size: 1.6rem; 
-    text-align: center; 
-    cursor: default; 
+   margin-left:76%;
 }
-.pagelist a { 
-    display: inline-block; 
-    margin: 0 1px 0; 
-    padding: 0 7px; 
-    vertical-align: top; 
-}
-.pagelist .prev,
-.pagelist .next { 
-    color: #aaa; 
-    cursor: default; 
-}
-.pagelist .selected {
-    padding: 4px 9px 4px; 
-    border-radius: 100%; 
-    background-color:#07a;  
-    cursor: default; 
-    color: #fff; 
+.pagelist .pagination .pagecolor:hover {
+   background-color: #F5A9F2;
 }
 
 -->
@@ -99,8 +77,9 @@
 						</div>
 						<div class="post-body">
 							<div class="post-meta" style="text-align:right;">
-								<span class="date" style="text-align: right;">${date }</span>
+								Date: <span class="date" style="text-align: right; margin-right: 12px">${date }</span>
 							</div>
+							<hr/>
 							<h3 class="post-title"
 								style="padding-left: 10px; padding-right: 10px">
 								<a href="${path }" style="text-decoration: none; font-family: 'Noto Sans KR', sans-serif;">${dto.essay_subject }</a>
@@ -113,14 +92,6 @@
 					</div>
 				</div>
 			</c:forEach>
-			<!-- /post -->
-
-			<div class="clearfix visible-md visible-lg"></div>
-			<c:choose>
-				<c:when test="${CheckMentor==1}">
-					<button id="w_btn" onclick="location.href='essay_write.do'" class="primary-button center-block">글쓰기</button>
-				</c:when>
-			</c:choose>
 		</div>
 		<!-- /row -->
 	</div>
@@ -128,34 +99,54 @@
 </div>
 <!-- /section -->
 <!-- 페이지 번호 -->
-<div class="pagelist">
-	<!-- 이전 출력 시작 -->
-	<c:if test="${pv.startPage > 1 }">
-		<a class="prev" href="essay_list.do?currentPage=${pv.startPage-pv.blockPage }">이전</a>
-	</c:if>
-	<!-- 이전 출력 끝 -->
-	<!-- 페이지 출력 시작 -->
-	<c:forEach var="i" begin="${pv.startPage }" end="${pv.endPage }">
+   <div class="pagelist">
+            <!-- 이전 출력 시작 -->
+            <c:if test="${pv.startPage > 1 }">
+               <ul class="pagination">
+                  <li><a class="pagecolor"
+                     href="essay_list.do?currentPage=${pv.startPage-pv.blockPage }">이전</a></li>
+               </ul>
+            </c:if>
+            <!-- 이전 출력 끝 -->
+            <!-- 페이지 출력 시작 -->
+            <c:forEach var="i" begin="${pv.startPage }" end="${pv.endPage }">
 
-		<span> <c:url var="currPage" value="essay_list.do">
-				<c:param name="currentPage" value="${i }" />
-			</c:url> <c:choose>
-				<c:when test="${i == pv.currentPage }">
-					<a href="${currPage }" class="pagecolor"> <c:out value="${i }" />
-					</a>
-				</c:when>
-				<c:otherwise>
-					<a href="${currPage }"> <c:out value="${i }" />
-					</a>
-				</c:otherwise>
-			</c:choose>
-		</span>
-	</c:forEach>
-	<!-- 페이지 출력 끝 -->
-	<!-- 다음 출력 시작 -->
-	<c:if test="${pv.totalPage > pv.endPage }">
-		<a class="next" href="essay_list.do?currentPage=${pv.startPage+pv.blockPage }">다음</a>
-	</c:if>
-	<!-- 다음 출력 끝 -->
-</div>
+               <span> <c:url var="currPage" value="essay_list.do">
+                     <c:param name="currentPage" value="${i }" />
+                  </c:url> <c:choose>
+                     <c:when test="${i == pv.currentPage }">
+                        <ul class="pagination">
+                           <li><a href="${currPage }" class="pagecolor"> <c:out
+                                    value="${i }" />
+                           </a></li>
+                        </ul>
+                     </c:when>
+                     <c:otherwise>
+                     <ul class="pagination">
+                        <li><a href="${currPage }" class="pagecolor"> <c:out value="${i }" />
+                        </a></li>
+                        </ul>
+                     </c:otherwise>
+                  </c:choose>
+               </span>
+            </c:forEach>
+            <!-- 페이지 출력 끝 -->
+            <!-- 다음 출력 시작 -->
+            <c:if test="${pv.totalPage > pv.endPage }">
+               <ul class="pagination">
+                  <li><a class="pagecolor"
+                     href="essay_list.do?currentPage=${pv.startPage+pv.blockPage }">다음</a></li>
+               </ul>
+            </c:if>
+            <!-- 다음 출력 끝 -->
+         </div>
+         <!-- /페이지 번호 -->
+
+         <div class="clearfix visible-md visible-lg"></div>
+         <c:choose>
+            <c:when test="${CheckMentor==1}">
+               <button id="w_btn" onclick="location.href='essay_write.do'"
+                  class="primary-button center-block">글쓰기</button>
+            </c:when>
+         </c:choose>
 <!-- /페이지 번호 -->

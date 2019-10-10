@@ -17,9 +17,9 @@
 			<div class="row">
 				<div class="aside-widget">
 					<div class="tags-widget">
-						<h2 class="block-title"> 멘토링 유형 </h2>
+						<h2 class="block-title">멘토링 유형</h2>
 						<ul>
-						    <li><a href="mentor_list.do">전체보기</a></li>
+							<li><a href="mentor_list.do">전체보기</a></li>
 							<li><a href="mentor_list.do?field_num=1">직무</a></li>
 							<li><a href="mentor_list.do?field_num=2">진로</a></li>
 							<li><a href="mentor_list.do?field_num=3">스펙</a></li>
@@ -52,12 +52,21 @@
 				<!-- post -->
 				<c:forEach items="${mentorList}" var="mlist">
 					<div class="col-md-4">
-						<a href="mentor_view.do?num=${mlist.mentor_num}" style="text-decoration:none;">
+						<a href="mentor_view.do?num=${mlist.mentor_num}"
+							style="text-decoration: none;">
 							<div class="card">
 								<span class="card-field">멘토 한마디</span>
 								<div id="title">${mlist.mentor_sub}</div>
-								<img src="/sms/temp/${mlist.mentor_image}" alt=""
-									style="width: 120px; height: 120px;" />
+								<c:choose>
+									<c:when test="${not empty mlist.mentor_image }">
+										<img src="/sms/temp/${mlist.mentor_image}" alt=""
+											style="width: 120px; height: 120px;" />
+									</c:when>
+									<c:otherwise>
+										<img src="./img/userpicture.png" alt=""
+											style="width: 120px; height: 120px;" />
+									</c:otherwise>
+								</c:choose>
 								<div class="card-info">
 									<span class="card-name">${mlist.mentor_name}</span> <small>멘토</small>
 								</div>
@@ -75,4 +84,3 @@
 	</div>
 	<!-- /section -->
 </body>
-

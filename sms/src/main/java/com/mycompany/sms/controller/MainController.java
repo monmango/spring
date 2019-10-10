@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mycompany.sms.dto.BestFollow;
+import com.mycompany.sms.dto.MeetingDTO;
 import com.mycompany.sms.dto.MentorDTO;
 import com.mycompany.sms.dto.MentorFollowDTO;
 import com.mycompany.sms.dto.UserDTO;
@@ -58,6 +60,12 @@ public class MainController {
 	@RequestMapping(value = "/home.do", method = RequestMethod.GET)
 	public ModelAndView homeGetProcess(HttpSession session, ModelAndView mav, HttpServletRequest req, String user_id) {
 		user_id = (String) session.getAttribute("user_id");
+
+		if (req.getParameter("loginSuccess") != null) {
+			int apiLoginSuccess = Integer.parseInt(req.getParameter("loginSuccess"));
+			mav.addObject("loginSuccess", apiLoginSuccess);
+		}
+
 		if (user_id != null) {
 			int mCheck = wservice.getMentorCheckMethod(user_id);
 			mav.addObject("mCheck", mCheck);
@@ -97,7 +105,22 @@ public class MainController {
 				mav.addObject("user", meetingservice.login_user(user_id));
 			}
 		}
-		mav.addObject("mm", meetingservice.meeting_listProcess());
+		List<MeetingDTO> membercheck = new ArrayList<MeetingDTO>();
+		
+		membercheck = meetingservice.meeting_listProcess();
+
+		for (int i = 0; i < membercheck.size(); i++) {
+			// 모집 가득참 확인
+			int max = (membercheck.get(i).getMeeting_recruitment()
+					- meetingservice.memberCheckList(membercheck.get(i).getMeeting_num()));
+			// max = 0 가득참 양수일땐 모집중
+			if (max == 0) {
+				membercheck.get(i).setMemberCheck(0);
+			} else
+				membercheck.get(i).setMemberCheck(1);
+		}
+		mav.addObject("meetingList", membercheck);
+		mav.addObject("mm", membercheck);
 		mav.addObject("mentorInfo", mList);
 		// 최근 개설모임----------------------------------------------
 		// 에세이------------------------------------------------------
@@ -108,7 +131,7 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/home.do", method = RequestMethod.POST)
-	public ModelAndView indexProcess(UserDTO dto, ModelAndView mav, HttpSession session) {
+	public ModelAndView indexProcess(UserDTO dto, ModelAndView mav, HttpSession session, HttpServletRequest req) {
 		if (service.userCheckMethod(dto) != 0) {
 			session.setAttribute("user_id", service.userInfoMethod(dto.getUser_id()).getUser_id());
 			mav.addObject("userDTO", service.userInfoMethod(dto.getUser_id()));
@@ -116,6 +139,7 @@ public class MainController {
 			session.setAttribute("user_id", dto.getUser_id());
 
 			String user_id = dto.getUser_id();
+			mav.addObject("loginSuccess", 1);
 			int mCheck = wservice.getMentorCheckMethod(user_id);
 			mav.addObject("mCheck", mCheck);
 			mav.addObject("userDTO", service.userInfoMethod((String) session.getAttribute("user_id")));
@@ -152,7 +176,6 @@ public class MainController {
 					mav.addObject("user", meetingservice.login_user(user_id));
 				}
 			}
-			System.out.println(meetingservice.meeting_listProcess().get(0).getMeeting_recruitment());
 			mav.addObject("mm", meetingservice.meeting_listProcess());
 
 			mav.addObject("mentorInfo", mList);
@@ -189,12 +212,11 @@ public class MainController {
 	@RequestMapping("/quitSMS.do")
 	public ModelAndView quitSMSProcess(HttpSession session, ModelAndView mav) {
 		String user_id = (String) session.getAttribute("user_id");
-		System.out.println(user_id);
 		service.userQuitSMSProcess(user_id);
 		service.userQuitSMSProcess2(user_id);
 		session.removeAttribute("user_id");
 		session.invalidate();
-		mav.setViewName("home");
+		mav.setViewName("redirect:/home.do");
 		return mav;
 	}
 
@@ -332,7 +354,7 @@ public class MainController {
 			mav.addObject("meetingInfoList", meetingservice.forMyPage(user_id));
 			mav.addObject("mymentorInfo", mmList);
 			mav.addObject("userDTO", service.userInfoMethod(user_id));
-			mav.addObject("mCheck",mCheck);
+			mav.addObject("mCheck", mCheck);
 			mav.setViewName("myPageMentor");
 
 		} else {
@@ -342,7 +364,7 @@ public class MainController {
 			mav.addObject("eassayInfoList", eservice.myPageEssay(mentor_num));
 			mav.addObject("mymentorInfo", mmList);
 			mav.addObject("userDTO", service.userInfoMethod(user_id));
-			mav.addObject("mCheck",mCheck);
+			mav.addObject("mCheck", mCheck);
 			mav.setViewName("myPageMentor");
 		}
 		return mav;

@@ -57,7 +57,7 @@ public class MentorController {
 		}
 
 		if (mfdto.getField_num() != 0) {
-			if(mservice.mentorMemberCheck(mfdto.getField_num()) != 0) {
+			if (mservice.mentorMemberCheck(mfdto.getField_num()) != 0) {
 				List<MentorFieldDTO> mflist = mservice.fieldcheckProcess(mfdto.getField_num());
 				mav.addObject("mentorList", mservice.listProcess(mflist));
 			}
@@ -82,7 +82,7 @@ public class MentorController {
 			mav.addObject("mCheck", mCheck);
 			mav.addObject("mentorView", mservice.viewProcess(num));
 			mav.addObject("fieldDTO", mservice.fieldviewProcess(num));
-			mav.addObject("cnt", (mservice.followerCnt(num)-1));
+			mav.addObject("cnt", (mservice.followerCnt(num) - 1));
 			// 멘토 팔로우 여부 검색
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("user_id", session.getAttribute("user_id"));
@@ -93,7 +93,7 @@ public class MentorController {
 
 			mav.setViewName("mentor_view");
 		} else {
-			mav.setViewName("log");
+			mav.setViewName("redirect:/userLogin.do");
 		}
 		return mav;
 	}// end viewMethod()
@@ -121,8 +121,8 @@ public class MentorController {
 
 		int check_num2 = mservice.followcheckProcess(map);
 		int num = Integer.parseInt(mentor_num);
-		int cnt2 = mservice.followerCnt(num)-1;
-		/*System.out.println("팔로워수 :" + cnt2);*/
+		int cnt2 = mservice.followerCnt(num) - 1;
+		/* System.out.println("팔로워수 :" + cnt2); */
 		// ajax로 check_num값 넘기기 위해 JsonObject에 값 저장
 		JsonObject obj = new JsonObject();
 		obj.addProperty("check_num", check_num2);
@@ -184,6 +184,7 @@ public class MentorController {
 		qdto = mservice.qsviewProcess(qdto.getQuestion_num());
 		mav.addObject("questionView", qdto);
 		mav.addObject("answerList", mservice.aslistProcess(qdto.getQuestion_num()));
+
 		mav.addObject("mentorDTO", mservice.viewProcess(qdto.getMentor_num()));
 		mav.setViewName("question_view");
 		return mav;

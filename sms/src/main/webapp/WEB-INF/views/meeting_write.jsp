@@ -3,14 +3,21 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#pictureUpload').on('click', function() {
-			alert("picture");
-			$('#meeting_file').click();
-		});	
+		
 		$('#pictureUpload').on('click', function() {
 			alert("picture");
 			$('#meeting_file').click();
 		});
+		
+		$('form').on(
+				'submit',
+				function() {
+					$('[name=meeting_comment]').val(
+							$('[name=meeting_comment]').val().replace(/\n/gi,
+									'<br/>'));
+				});
+
+		
 		$('#meeting_price').keypress(function (event) { 
 			if (event.which && (event.which <= 47 || event.which >= 58) && event.which != 8) { event.preventDefault(); } 
 			});

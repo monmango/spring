@@ -82,11 +82,20 @@
 	<div class="body">
 		<!-- 멘토 정보 섹션 -->
 		<div class="mentor-box">
-			<div class="mentor-image-circle">
-				<img width="200" height="200"
-					src="/sms/temp/${mentorView.mentor_image}">
-
-			</div>
+			<c:choose>
+				<c:when test="${not empty mentorView.mentor_image}">
+					<div class="mentor-image-circle">
+						<img width="200" height="200"
+							src="/sms/temp/${mentorView.mentor_image}">
+					</div>
+				</c:when>
+				<c:otherwise>
+					<div class="mentor-image-circle">
+						<img id="header_profile_pic" src="./img/userpicture.png"
+							style="width: 200px; height:200px">
+					</div>
+				</c:otherwise>
+			</c:choose>
 			<div class="mentor-info">
 				<div id="name">
 					<span class="mentor-name">${mentorView.mentor_name} <small>멘토</small></span>
@@ -115,15 +124,16 @@
 					</c:choose>>
 								<c:choose>
 									<c:when test="${check_num==0}">
-					<i class="fa fa-circle-o" aria-hidden="true"></i> 팔로우
+										<i class="fa fa-circle-o" aria-hidden="true"></i> 팔로우
 					</c:when>
 									<c:otherwise>
-					<i class="fa fa-check-circle-o" aria-hidden="true"></i> 팔로우 취소
+										<i class="fa fa-check-circle-o" aria-hidden="true"></i> 팔로우 취소
 					</c:otherwise>
 								</c:choose>
 							</button>
 							<button id="question_btn" type="button" class="btn btn-danger"<%-- onclick="location.href='question_write.do?mentor_num=${mentorView.mentor_num}'" --%>>
-								<i class="fa fa-question-circle-o" aria-hidden="true"></i>질문하기</button>
+								<i class="fa fa-question-circle-o" aria-hidden="true"></i>질문하기
+							</button>
 						</div>
 					</c:when>
 				</c:choose>
@@ -149,8 +159,8 @@
 			<!-- Modal content -->
 			<div class="modal-content">
 				<h3>멘토에게 질문하기</h3>
-				<p style="color: red; font-size: 12px;"> 한 번 작성하신 질문은 수정, 취소가
-					어려우니 신중하게 작성해주시기 바랍니다.. </p>
+				<p style="color: red; font-size: 12px;">한 번 작성하신 질문은 수정, 취소가
+					어려우니 신중하게 작성해주시기 바랍니다..</p>
 				<form name="question_form" action="question_pro.do" method="POST">
 					<div class="row">
 						<%-- <div class="col-md-7">

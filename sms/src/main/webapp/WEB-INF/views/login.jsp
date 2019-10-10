@@ -130,7 +130,7 @@ span {
 								value="네이버 아이디로 로그인" class="btn btn-success" /> </a></li>
 						<li id="kakao_id_login" style="text-align: center"><a
 							href="https://kauth.kakao.com/oauth/authorize?client_id=e125bfc102f60cc43e9ffab343755532&redirect_uri
-							=http://localhost:8090/sms/kakao.do&response_type=code"><input
+							=http://192.168.30.87:8090/sms/kakao.do&response_type=code"><input
 								type="button" id="login" value="카카오 아이디로 로그인"
 								class="btn btn-warning" /> </a></li>
 						<li id="google_id_login" style="text-align: center"><a

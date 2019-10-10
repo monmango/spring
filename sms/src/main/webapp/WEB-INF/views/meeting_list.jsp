@@ -112,6 +112,10 @@ hr {
 	line-height: 30px;
 	background-color:
 }
+
+.pageList .pagination a:hover {
+	background-color: #F5A9F2;
+}
 </style>
 
 <script type="text/javascript">
@@ -157,10 +161,20 @@ hr {
 										style="text-decoration: none;">
 										<div class="mento" id="${mee.mentor_num}">
 											<div id="me_1">
-												<img class="img-responsive"
-													style="width: 45px; height: 45px; border-radius: 50%;"
-													src="/sms/temp/${mee.mentor_image}">
+												<c:choose>
+													<c:when test="${not empty mee.mentor_image }">
+														<img class="img-responsive"
+															style="width: 45px; height: 45px; border-radius: 50%;"
+															src="/sms/temp/${mee.mentor_image}">
+													</c:when>
+													<c:otherwise>
+													<img class="img-responsive"
+															style="width: 45px; height: 45px; border-radius: 50%;"
+															src="./img/userpicture.png">
+													</c:otherwise>
+												</c:choose>
 											</div>
+
 											<div id="me_2" style="margin-left: 10px; width: 160px;">
 												<span class="mento_name"
 													style="font-size: small; width: 90px;">${mee.mentor_name}</span>
@@ -169,27 +183,27 @@ hr {
 													style="display: block; font-size: small; border: 0;">${mee.mentor_co}
 													${mee.mentor_dept}</span>
 											</div>
-												<c:choose>
-													<c:when test="${men.memberCheck==0}">
-													<div class="text_num text-center" style="background-color:#ef3730;color:white;border:none">
-														<span
-															style="margin-left: 5px; margin-right: 5px;">
+											<c:choose>
+												<c:when test="${men.memberCheck==0}">
+													<div class="text_num text-center"
+														style="background-color: #ef3730; color: white; border: none">
+														<span style="margin-left: 5px; margin-right: 5px;">
 															<i class="fa fa-users" aria-hidden="true"></i> 마감 되었습니다
 														</span>
 													</div>
 												</c:when>
-													<c:otherwise>
-											<div class="text_num text-center">
+												<c:otherwise>
+													<div class="text_num text-center">
 														<span style="margin-left: 5px; margin-right: 5px;">
 															<i class="fa fa-users" aria-hidden="true"></i> 모집인원
-															:${men.meeting_recruitment }명 
-												</span>
-											</div>
-													</c:otherwise>
-												</c:choose>
-												 <input type="hidden" class="num-1"
-													value="${men.meeting_recruitment}" /> <input type="hidden"
-													class="num-2" value="${men.memberCheck}" />
+															:${men.meeting_recruitment }명
+														</span>
+													</div>
+												</c:otherwise>
+											</c:choose>
+											<input type="hidden" class="num-1"
+												value="${men.meeting_recruitment}" /> <input type="hidden"
+												class="num-2" value="${men.memberCheck}" />
 										</div>
 									</a>
 								</form>
@@ -203,13 +217,13 @@ hr {
 	</div>
 </div>
 <br />
-<a class="write" href="write.do"><input type="button" class="btn"
-	value="모임글 쓰기"></a>
 <div class="pageList">
 	<!-- 이전 출력 시작 -->
 	<c:if test="${pv.startPage > 1}">
-		<a href="list.do?currentPage=${pv.startPage-pv.blockPage}"
-			style="text-decoration: none;">이전페이지</a>
+		<ul class="pagination">
+			<li><a href="list.do?currentPage=${pv.startPage-pv.blockPage}"
+				class="pagecolor" style="text-decoration: none;">이전페이지</a></li>
+		</ul>
 	</c:if>
 	<!-- 이전페이지 끝 -->
 	<!-- 페이지 출력 시작 -->
@@ -236,8 +250,13 @@ hr {
 
 	<!-- 다음 출력 시작 -->
 	<c:if test="${pv.totalPage>pv.endPage}">
-		<a href="list.do?currentPage=${pv.startPage+pv.blockPage}"
-			style="text-decoration: none;">다음페이지</a>
+		<ul class="pagination">
+			<li><a href="list.do?currentPage=${pv.startPage+pv.blockPage}"
+				class="pagecolor" style="text-decoration: none;">다음페이지</a></li>
+		</ul>
 	</c:if>
 </div>
+<a class="write" href="write.do"><input type="button" class="btn"
+	value="모임글 쓰기"></a>
+
 

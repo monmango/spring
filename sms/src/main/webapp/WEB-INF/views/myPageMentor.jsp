@@ -231,34 +231,83 @@
 				</c:choose>
 			</div>
 			<!-- left -->
-
-			<div id="right">
-				<div id="followwrap">
-					<h2 class="title">
-						<i class="fa fa-users" aria-hidden="true"></i> ${userDTO.user_name }의
-						팔로워
-					</h2>
-					<hr />
-					<div id="follow"
-						style="overflow: auto; background-color: #eef3ff; border-radius: 20px">
-						<ul>
-							<c:forEach items="${mymentorInfo}" var="mlist">
-								<li
-									style="height: 30px; line-height: 50px; vertical-align: middle;"><a
-									href="mentor_view.do?num=${mlist.mentor_num}"
-									style="text-decoration: none;"></a> <img
-									src="/sms/temp/${mlist.mentor_image }" class="fimg"
-									style="margin-left: 5%; border-radius: 50%" />
-									${mlist.mentor_name}&nbsp; <small>멘토</small></li>
-								<hr />
-							</c:forEach>
-						</ul>
+			<c:choose>
+				<c:when test="${mCheck==1 }">
+					<div id="right">
+						<div id="followwrap">
+							<h2 class="title">
+								<i class="fa fa-users" aria-hidden="true"></i>
+								${userDTO.user_name }의 팔로잉
+							</h2>
+							<hr />
+							<div id="follow"
+								style="overflow: auto; background-color: #eef3ff; border-radius: 20px">
+								<ul>
+									<c:forEach items="${mymentorInfo}" var="mlist" begin="1">
+										<li
+											style="height: 30px; line-height: 50px; vertical-align: middle;"><a
+											href="mentor_view.do?num=${mlist.mentor_num}"
+											style="text-decoration: none;"></a> <c:choose>
+												<c:when test="${not empty mlist.mentor_image }">
+													<img src="/sms/temp/${mlist.mentor_image }" class="fimg"
+														style="margin-left: 5%; border-radius: 50%" />
+													<a href="mentor_view.do?num=${mlist.mentor_num}"
+														style="text-decoration: none; margin-left:5px; font-size: large; width: 300px;">
+														${mlist.mentor_name}</a>
+												</c:when>
+												<c:otherwise>
+													<img src="./img/userpicture.png" class="fimg"
+														style="margin-left: 5%; border-radius: 50%" />
+													<a href="mentor_view.do?num=${mlist.mentor_num}"
+														style="text-decoration: none; margin-left:5px; font-size: large; width: 300px;">
+														${mlist.mentor_name}</a>
+												</c:otherwise>
+											</c:choose>&nbsp; <small>멘토</small></li>
+										<hr />
+									</c:forEach>
+								</ul>
+							</div>
+							<!-- follow -->
+						</div>
+						<!-- followwrap -->
 					</div>
-					<!-- follow -->
-				</div>
-				<!-- followwrap -->
-			</div>
-			<!-- right -->
+					<!-- right -->
+				</c:when>
+				<c:otherwise>
+					<div id="right">
+						<div id="followwrap">
+							<h2 class="title">
+								<i class="fa fa-users" aria-hidden="true"></i>
+								${userDTO.user_name }의 팔로잉
+							</h2>
+							<hr />
+							<div id="follow"
+								style="overflow: auto; background-color: #eef3ff; border-radius: 20px">
+								<ul>
+									<c:forEach items="${mymentorInfo}" var="mlist" begin="0">
+										<li
+											style="height: 30px; line-height: 50px; vertical-align: middle;"><a
+											href="mentor_view.do?num=${mlist.mentor_num}"
+											style="text-decoration: none;"></a> <c:choose>
+												<c:when test="${not empty mlist.mentor_image }">
+													<img src="/sms/temp/${mlist.mentor_image }" class="fimg"
+														style="margin-left: 5%; border-radius: 50%" />
+												</c:when>
+												<c:otherwise>
+													<img src="./img/userpicture.png" class="fimg"
+														style="margin-left: 5%; border-radius: 50%" />
+												</c:otherwise>
+											</c:choose> ${mlist.mentor_name}&nbsp; <small>멘토</small></li>
+										<hr />
+									</c:forEach>
+								</ul>
+							</div>
+							<!-- follow -->
+						</div>
+						<!-- followwrap -->
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<!-- all -->
 	</div>

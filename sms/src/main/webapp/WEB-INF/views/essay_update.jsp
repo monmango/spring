@@ -206,9 +206,18 @@
 
 						<div class="media">
 							<div class="media-left">
-								<img class="media-object"
-									src="/sms/temp/${mentorDTO.mentor_image}" alt=""
-									style="height: 120px">
+								<c:choose>
+									<c:when test="${not empty mentorDTO.mentor_image }">
+										<a href="mentor_view.do?num=${mentorDTO.mentor_num}" style="text-decoration: none;">
+                             				 <img class="media-object" src="/sms/temp/${mentorDTO.mentor_image}" alt="" style="height: 120px">
+                           			   </a>
+									</c:when>
+									<c:otherwise>
+									<img class="media-object"
+											src="./img/userpicture.png" alt=""
+											style="height: 120px">
+									</c:otherwise>
+								</c:choose>
 							</div>
 							<div class="media-body">
 								<div class="media-heading">

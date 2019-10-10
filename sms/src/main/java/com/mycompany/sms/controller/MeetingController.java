@@ -54,7 +54,6 @@ public class MeetingController {
 	public void setService(MeetingService service) {
 		this.service = service;
 	}
-	
 
 	@RequestMapping(value = "/detail.do", method = RequestMethod.GET)
 	public ModelAndView main(ModelAndView mav, HttpSession session, MeetingDTO dto, int meeting_num) {
@@ -100,8 +99,6 @@ public class MeetingController {
 	@RequestMapping("/list.do")
 	public ModelAndView mettinglist(ModelAndView mav, HttpSession session, PageDTO pv) {
 		String user_id = null;
-		String date = null;
-		System.out.println("list.do");
 		List<MeetingDTO> membercheck = new ArrayList<MeetingDTO>();
 		int totalRecord = service.countProcess();
 		if (session.getAttribute("user_id") != null) {
@@ -114,7 +111,8 @@ public class MeetingController {
 			if (service.login_user(user_id) > 0) {
 				mav.addObject("user", service.login_user(user_id));
 			}
-		};
+		}
+		;
 
 		if (totalRecord >= 1) {
 			if (pv.getCurrentPage() == 0) {
@@ -123,26 +121,25 @@ public class MeetingController {
 				currentPage = pv.getCurrentPage();
 			}
 			pdto = new PageDTO(currentPage, totalRecord);
-			System.out.println("pv 보낼때 ");
 			mav.addObject("pv", pdto);
-			}
-		System.out.println("totalRecord 후");
+		}
 		membercheck = service.mainmeetingList(pdto);
-		
-		for(int i=0; i<membercheck.size(); i++) {
-			//모집 가득참 확인
-			int max = (membercheck.get(i).getMeeting_recruitment() - service.memberCheckList(membercheck.get(i).getMeeting_num()));
-			//max = 0 가득참 양수일땐 모집중
-			if(max==0) {
+
+		for (int i = 0; i < membercheck.size(); i++) {
+			// 모집 가득참 확인
+			int max = (membercheck.get(i).getMeeting_recruitment()
+					- service.memberCheckList(membercheck.get(i).getMeeting_num()));
+			// max = 0 가득참 양수일땐 모집중
+			if (max == 0) {
 				membercheck.get(i).setMemberCheck(0);
-			}else
+			} else
 				membercheck.get(i).setMemberCheck(1);
 		}
 		mav.addObject("meetingList", membercheck);
 		mav.setViewName("meeting_list");
 		return mav;
 	}
-	
+
 	@RequestMapping(value = "/write.do", method = RequestMethod.GET) // 리스트에서 글쓰기로 넘어감
 	public ModelAndView meetingWriteProcess(ModelAndView mav, HttpSession session) {
 		String date = null;
@@ -163,13 +160,13 @@ public class MeetingController {
 		String date = null;
 		MultipartFile file = dto.getMeeting_file();
 		if (!file.isEmpty()) {
-			UUID random=saveCopyfile(file, request);
+			UUID random = saveCopyfile(file, request);
 			dto.setMeeting_img_name(random + "_" + file.getOriginalFilename());
-		}	
+		}
 		String user_id = (String) session.getAttribute("user_id");
 		int mentor_num = service.getMentorNumMethod(user_id);
 		dto.setMentor_num(mentor_num);
-		date=dto.getMeeting_date().replace("-", ". ").replace("T", " | ");
+		date = dto.getMeeting_date().replace("-", ". ").replace("T", " | ");
 		dto.setMeeting_date(date);
 		service.meetingInsertProcess(dto);
 		return "redirect:/list.do";
@@ -188,7 +185,7 @@ public class MeetingController {
 			mav.addObject("mCheck", mCheck);
 		}
 		MeetingDTO dto = service.meeting_info(meeting_num);
-		date=dto.getMeeting_date().replace(". ","-").replace(" | ","T");
+		date = dto.getMeeting_date().replace(". ", "-").replace(" | ", "T");
 		dto.setMeeting_date(date);
 		mav.addObject("meeting", dto);
 		mav.setViewName("meeting_update");
@@ -198,24 +195,24 @@ public class MeetingController {
 	@RequestMapping(value = "/meeting_update.do", method = RequestMethod.POST)
 	public ModelAndView meetingUpdateLi(ModelAndView mav, MeetingDTO dto, HttpServletRequest request) {
 		String filename = service.fileSelectprocess(dto.getMeeting_num());
-		String date=null;
+		String date = null;
 		String root = request.getSession().getServletContext().getRealPath("/");
 		String saveDirectory = root + "temp" + File.separator;
 		// 수정할 첨부파일
 		MultipartFile file = dto.getMeeting_file();
 		// 수정한 첨부파일이 있으면
-	       if (!file.isEmpty()) {
-	    	// 기존 첨부파일이 있으면....
-	    	if (filename != null) {
-	    		File fe = new File(saveDirectory, filename);
-	    		fe.delete();
-	    	}
-	    	UUID random=saveCopyfile(file, request);
+		if (!file.isEmpty()) {
+			// 기존 첨부파일이 있으면....
+			if (filename != null) {
+				File fe = new File(saveDirectory, filename);
+				fe.delete();
+			}
+			UUID random = saveCopyfile(file, request);
 
 			dto.setMeeting_img_name(random + "_" + file.getOriginalFilename());
 
-	       }       
-		date=dto.getMeeting_date().replace("-", ". ").replace("T", " | ");
+		}
+		date = dto.getMeeting_date().replace("-", ". ").replace("T", " | ");
 		dto.setMeeting_date(date);
 		service.update(dto);
 		mav.addObject("currentPage", currentPage);
@@ -272,7 +269,6 @@ public class MeetingController {
 			e.printStackTrace();
 		}
 		return random;
-	}//end saveCopyFile()////////////////////////////
-
+	}// end saveCopyFile()////////////////////////////
 
 }// end class

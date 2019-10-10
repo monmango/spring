@@ -1,4 +1,5 @@
 package com.mycompany.sms.service;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,15 +14,16 @@ import com.mycompany.sms.dto.MentorDTO;
 import com.mycompany.sms.dto.MentorFieldDTO;
 import com.mycompany.sms.dto.MentorFollowDTO;
 import com.mycompany.sms.dto.QuestionDTO;
+
 @Service
 public class MentorServiceImp implements MentorService {
 	@Autowired
 	private MentorDAO mentodao;
-	
+
 	public MentorServiceImp() {
-		
+
 	}
-	
+
 	public void setMentodao(MentorDAO mentodao) {
 		this.mentodao = mentodao;
 	}
@@ -30,7 +32,7 @@ public class MentorServiceImp implements MentorService {
 	public List<MentorDTO> listProcess() {
 		return mentodao.list();
 	}
-	
+
 	@Override
 	public List<MentorDTO> listProcess(List<MentorFieldDTO> mflist) {
 		return mentodao.list(mflist);
@@ -65,7 +67,6 @@ public class MentorServiceImp implements MentorService {
 	public void followdelProcess(MentorFollowDTO fdto) {
 		mentodao.followdel(fdto);
 	}
-	
 
 	@Override
 	public void qsinsertProcess(QuestionDTO qdto) {
@@ -91,7 +92,7 @@ public class MentorServiceImp implements MentorService {
 	public List<AnswerDTO> aslistProcess(int question_num) {
 		return mentodao.answerlist(question_num);
 	}
-	
+
 	@Override
 	public void asinsertProcess(AnswerDTO adto) {
 		mentodao.answerinsert(adto);
@@ -107,7 +108,6 @@ public class MentorServiceImp implements MentorService {
 		return mentodao.myfollow(user_id);
 	}
 
-	//for my page
 	@Override
 	public MentorDTO checkMentor(String user_id) {
 		return mentodao.checkMentor(user_id);
@@ -123,4 +123,4 @@ public class MentorServiceImp implements MentorService {
 		return mentodao.followercnt(num);
 	}
 
-}//end class
+}// end class

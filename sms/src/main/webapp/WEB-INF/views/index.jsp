@@ -181,7 +181,9 @@ hr {
 			<div class="col-md-8">
 				<div class="row">
 					<div class="section-title">
-						<h2><i class="fa fa-pencil" aria-hidden="true"></i> 최근 에쎄이</h2>
+						<h2>
+							<i class="fa fa-pencil" aria-hidden="true"></i> 최근 에쎄이
+						</h2>
 					</div>
 					<div class="col-md-12"></div>
 
@@ -221,12 +223,14 @@ hr {
 					</div>
 				</div>
 			</div>
-			<div class="col-md-4" style="margin-left: 60px">
+			<div class="col-md-4" style="margin-left: 20px">
 				<br /> <br />
 				<!-- catagories -->
 				<div class="aside-widget">
 					<div class="section-title">
-						<h3><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 베스트 팔로워</h3>
+						<h3>
+							<i class="fa fa-thumbs-o-up" aria-hidden="true"></i> 베스트 팔로워
+						</h3>
 					</div>
 					<div style="width: 300px">
 						<div>
@@ -237,9 +241,11 @@ hr {
 						<hr />
 					</div>
 					<div class="category-widget">
-						<c:forEach items="${mentorInfo}" var="bflist" begin="0" end="2" varStatus="num">
+						<c:forEach items="${mentorInfo}" var="bflist" begin="0" end="2"
+							varStatus="num">
 							<div id="follower">
-								<img src="./img/트로피${num.count }.png" style="width:35px;height:35px;" alt=""> <a
+								<img src="./img/트로피${num.count }.png"
+									style="width: 35px; height: 35px;" alt=""> <a
 									href="mentor_view.do?num=${bflist.mentor_num}"
 									style="text-decoration: none; font-size: x-large; width: 300px;">
 									${bflist.mentor_name}</a> <small>멘토님</small> <span id="follownum"
@@ -255,25 +261,46 @@ hr {
 				<c:if test="${not empty sessionScope.user_id}">
 					<div class="aside-widget">
 						<div class="section-title">
-							<h2> 나의 팔로워</h2>
+							<h2>${userDTO.user_name }의 팔로잉</h2>
 						</div>
 						<div class="category-widget">
 							<c:if test="${not empty sessionScope.user_id}">
 								<p>
-									<c:forEach items="${mymentorInfo}" var="mlist" begin="0"
-										end="2">
-										<div id="follower">
-											<a href="mentor_view.do?num=${mlist.mentor_num}"
-												style="text-decoration: none;">
-												<h3>
-													<span class="card-name">${mlist.mentor_name}</span>&nbsp; <small>멘토</small>
-												</h3>
-												<hr />
-											</a>
-										</div>
-									</c:forEach>
+									<c:choose>
+										<c:when test="${mCheck==1 }">
+											<c:forEach items="${mymentorInfo}" var="mlist" begin="1"
+												end="3">
+												<div id="follower">
+													<a href="mentor_view.do?num=${mlist.mentor_num}"
+														style="text-decoration: none;">
+														<h3>
+															<span class="card-name">${mlist.mentor_name}</span>&nbsp;
+															<small>멘토</small>
+														</h3>
+														<hr />
+													</a>
+												</div>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<c:forEach items="${mymentorInfo}" var="mlist" begin="0"
+												end="3">
+												<div id="follower">
+													<a href="mentor_view.do?num=${mlist.mentor_num}"
+														style="text-decoration: none;">
+														<h3>
+															<span class="card-name">${mlist.mentor_name}</span>&nbsp;
+															<small>멘토</small>
+														</h3>
+														<hr />
+													</a>
+												</div>
+											</c:forEach>
+										</c:otherwise>
+									</c:choose>
 								</p>
 							</c:if>
+							<a style="float: right" href="myPage.do">더 보기..</a>
 						</div>
 						<!-- /catagories -->
 					</div>
@@ -292,7 +319,9 @@ hr {
 			<div class="row">
 				<div class="col-md-12">
 					<div class="section-title text-center">
-						<h2><i class="fa fa-meetup" aria-hidden="true"></i> 최근 개설된 모임</h2>
+						<h2>
+							<i class="fa fa-meetup" aria-hidden="true"></i> 최근 개설된 모임
+						</h2>
 					</div>
 				</div>
 				<div class="meeting_body">
@@ -319,9 +348,18 @@ hr {
 									style="text-decoration: none;">
 									<div class="mento" id="${mee.mentor_num}">
 										<div id="me_1">
-											<img class="img-responsive"
-												style="width: 45px; height: 45px; border-radius: 50%;"
-												src="/sms/temp/${mee.mentor_image}">
+											<c:choose>
+												<c:when test="${not empty mee.mentor_image }">
+													<img class="img-responsive"
+														style="width: 45px; height: 45px; border-radius: 50%;"
+														src="/sms/temp/${mee.mentor_image}">
+												</c:when>
+												<c:otherwise>
+													<img class="img-responsive"
+														style="width: 45px; height: 45px; border-radius: 50%;"
+														src="./img/userpicture.png">
+												</c:otherwise>
+											</c:choose>
 										</div>
 										<div id="me_2" style="margin-left: 10px; width: 160px;">
 											<span class="mento_name"
@@ -331,12 +369,24 @@ hr {
 												style="display: block; font-size: small; border: 0;">${mee.mentor_co},
 												${mee.mentor_dept}</span>
 										</div>
-										<div class="text_num text-center">
-											<span style="margin-left: 5px; margin-right: 5px;"> <i
-												class="fa fa-users" aria-hidden="true"></i>모집인원
-												:${men.meeting_recruitment }명
-											</span>
-										</div>
+										<c:choose>
+											<c:when test="${men.memberCheck==0}">
+												<div class="text_num text-center"
+													style="background-color: #ef3730; color: white; border: none">
+													<span style="margin-left: 5px; margin-right: 5px;">
+														<i class="fa fa-users" aria-hidden="true"></i> 마감 되었습니다
+													</span>
+												</div>
+											</c:when>
+											<c:otherwise>
+												<div class="text_num text-center">
+													<span style="margin-left: 5px; margin-right: 5px;">
+														<i class="fa fa-users" aria-hidden="true"></i> 모집인원
+														:${men.meeting_recruitment }명
+													</span>
+												</div>
+											</c:otherwise>
+										</c:choose>
 									</div>
 								</a>
 				</div>

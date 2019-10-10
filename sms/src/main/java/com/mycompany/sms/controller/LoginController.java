@@ -118,7 +118,8 @@ public class LoginController {
 		return mav;
 	}
 
-	// Naver call back====================================================================
+	// Naver call
+	// back====================================================================
 	@RequestMapping(value = "/callback.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public ModelAndView callback(Model model, @RequestParam String code, @RequestParam String state,
 			HttpSession session, ModelAndView mav) throws IOException, ParseException {
@@ -160,6 +161,7 @@ public class LoginController {
 		session.setAttribute("sessionName", name);
 		model.addAttribute("result", apiResult);
 		mav.addObject("userDTO", service.userInfoMethod(userDTO.getUser_id()));
+		mav.addObject("loginSuccess",1);
 		mav.setViewName("redirect:/home.do");
 		return mav;
 	}
@@ -170,7 +172,6 @@ public class LoginController {
 	public ModelAndView doSessionAssignActionPage(HttpServletRequest request, ModelAndView mav, HttpSession session)
 			throws Exception {
 		String code = request.getParameter("code");
-		System.out.println(code);
 
 		// RestTemplate을 사용하여 Access Token 및 profile을 요청한다.
 		RestTemplate restTemplate = new RestTemplate();
@@ -208,7 +209,7 @@ public class LoginController {
 		session.setAttribute("user_id", result.get("email")); // 세션 생성
 		session.setAttribute("sessionName", result.get("name"));
 		mav.addObject("userDTO", service.userInfoMethod(userDTO.getUser_id()));
-
+		mav.addObject("loginSuccess",1);
 		mav.setViewName("redirect:/home.do");
 		return mav;
 
@@ -219,7 +220,6 @@ public class LoginController {
 	public ModelAndView kakakologin(@RequestParam("code") String code, HttpSession session, ModelAndView mav) {
 		String access_Token = Kakaoapi.getAccessToken(code);
 		HashMap<String, Object> userInfo = Kakaoapi.getUserInfo(access_Token);
-		System.out.println("login Controller : " + userInfo);
 
 		String email = (String) userInfo.get("email");
 		String name = (String) userInfo.get("nickname");
@@ -242,8 +242,9 @@ public class LoginController {
 		session.setAttribute("sessionName", name);
 
 		mav.addObject("userDTO", service.userInfoMethod(userDTO.getUser_id()));
+		mav.addObject("loginSuccess",1);
 		mav.setViewName("redirect:/home.do");
 		return mav;
 	}
 
-}//end LoginController
+}// end LoginController

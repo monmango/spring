@@ -167,6 +167,7 @@ public class EssayController {
 		service.essayInsertProcess(dto);
 		dto = service.essayViewProcess(service.getEssayNum());
 		MentorDTO mdto = service.getMentorInfo(mentor_num);
+		mav.addObject("fieldDTO", mentorservice.fieldviewProcess(mdto.getMentor_num()));
 		mav.addObject("mentorDTO", mdto);
 		mav.addObject("essay_num", service.getEssayNum());
 		mav.addObject("mentor_num", dto.getMentor_num());

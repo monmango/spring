@@ -9,12 +9,27 @@
 			alert("저장 되었습니다.");
 			$('.form-inline').attr('action', 'userUpdate.do').submit();
 		})
-		$('#quit').on('click', function() {
+		
+			$('#quit').on('click',function(){
 			Swal.fire({
+				  title: '모든 회원님 모든 정보가 사라집니다. 정말로 탈퇴 하시겠습니까?',
 				  type: 'warning',
-				  title: '회원 탈퇴 버튼를 누르셨습니다',
-				  footer: '<a href="quitSMS.do">정말로 회원 탈퇴를 하시겠습니까?</a>'
-				});
+				  showCancelButton: true,
+				  confirmButtonColor: '#3085d6',
+				  cancelButtonColor: '#d33',
+				  confirmButtonText: '탈퇴!',
+				}).then((result) => {
+				  if (result.value) {
+				    Swal.fire({
+				    		position: 'center',
+				    		  type: 'success',
+				    		  title: '탈퇴가 성공적으로 되었습니다',
+				    		  showConfirmButton: false,
+				    		  timer: 2000
+				    })
+				  setTimeout(function(){ window.location.href="quitSMS.do"; }, 1500);
+				  }
+				})
 		})
 
 		$('#pictureUpload').on('click', function() {

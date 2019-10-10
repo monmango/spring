@@ -1,6 +1,5 @@
 package com.mycompany.sms.dao;
 
-
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,18 +13,19 @@ import com.mycompany.sms.dto.MentorDTO;
 import com.mycompany.sms.dto.MentorFieldDTO;
 import com.mycompany.sms.dto.MentorFollowDTO;
 import com.mycompany.sms.dto.QuestionDTO;
+
 @Repository
 public class MentorDaoImp implements MentorDAO {
 	private SqlSessionTemplate sqlSession;
-	
+
 	public MentorDaoImp() {
-		
+
 	}
-	
+
 	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-	
+
 	@Override
 	public List<MentorDTO> list() {
 		return sqlSession.selectList("mentor.list");
@@ -35,10 +35,10 @@ public class MentorDaoImp implements MentorDAO {
 	public List<MentorDTO> list(List<MentorFieldDTO> mflist) {
 		return sqlSession.selectList("mentor.list2", mflist);
 	}
-	
+
 	@Override
 	public MentorDTO view(int num) {
-		return sqlSession.selectOne("mentor.view", num);	
+		return sqlSession.selectOne("mentor.view", num);
 	}
 
 	@Override
@@ -65,7 +65,6 @@ public class MentorDaoImp implements MentorDAO {
 	public void followdel(MentorFollowDTO fdto) {
 		sqlSession.delete("mentor.followdel", fdto);
 	}
-	
 
 	@Override
 	public void questioninsert(QuestionDTO qdto) {
@@ -91,7 +90,7 @@ public class MentorDaoImp implements MentorDAO {
 	public List<AnswerDTO> answerlist(int question_num) {
 		return sqlSession.selectList("mentor.aslist", question_num);
 	}
-	
+
 	@Override
 	public void answerinsert(AnswerDTO adto) {
 		sqlSession.insert("mentor.asinsert", adto);
@@ -123,4 +122,4 @@ public class MentorDaoImp implements MentorDAO {
 		return sqlSession.selectOne("mentor.follower", num);
 	}
 
-}//end class
+}// end class
